@@ -31,6 +31,19 @@
 		9698363E2AF17A6400F8F40E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9698363D2AF17A6400F8F40E /* Assets.xcassets */; };
 		969836412AF17A6400F8F40E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9698363F2AF17A6400F8F40E /* LaunchScreen.storyboard */; };
 		96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */; };
+		96AB218B2AF2D317001EEADE /* IconSaliButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB218A2AF2D317001EEADE /* IconSaliButton.swift */; };
+		96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB218D2AF2D9F8001EEADE /* LayerTableViewCell.swift */; };
+		96AB21902AF2DA11001EEADE /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB218F2AF2DA11001EEADE /* UITableViewCell+.swift */; };
+		96AB21922AF2DED6001EEADE /* LayersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21912AF2DED6001EEADE /* LayersTableView.swift */; };
+		96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21932AF2DFCE001EEADE /* LayerTableViewCellView.swift */; };
+		96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21962AF2E6C5001EEADE /* SaliViewDelegate.swift */; };
+		96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21992AF2E743001EEADE /* SaliPresenterInput.swift */; };
+		96AB219C2AF2E7A0001EEADE /* SaliPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB219B2AF2E7A0001EEADE /* SaliPresenter.swift */; };
+		96AB219E2AF2E7B0001EEADE /* SaliViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB219D2AF2E7B0001EEADE /* SaliViewInput.swift */; };
+		96AB21A12AF2E80A001EEADE /* SaliAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21A02AF2E80A001EEADE /* SaliAssembly.swift */; };
+		96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21A32AF2E885001EEADE /* LayerCellViewModel.swift */; };
+		96AB21A62AF2F1B9001EEADE /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21A52AF2F1B9001EEADE /* DeleteButton.swift */; };
+		96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21A72AF2F5DA001EEADE /* MuteButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +73,19 @@
 		969836402AF17A6400F8F40E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		969836422AF17A6400F8F40E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
+		96AB218A2AF2D317001EEADE /* IconSaliButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSaliButton.swift; sourceTree = "<group>"; };
+		96AB218D2AF2D9F8001EEADE /* LayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewCell.swift; sourceTree = "<group>"; };
+		96AB218F2AF2DA11001EEADE /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		96AB21912AF2DED6001EEADE /* LayersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersTableView.swift; sourceTree = "<group>"; };
+		96AB21932AF2DFCE001EEADE /* LayerTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewCellView.swift; sourceTree = "<group>"; };
+		96AB21962AF2E6C5001EEADE /* SaliViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliViewDelegate.swift; sourceTree = "<group>"; };
+		96AB21992AF2E743001EEADE /* SaliPresenterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliPresenterInput.swift; sourceTree = "<group>"; };
+		96AB219B2AF2E7A0001EEADE /* SaliPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliPresenter.swift; sourceTree = "<group>"; };
+		96AB219D2AF2E7B0001EEADE /* SaliViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliViewInput.swift; sourceTree = "<group>"; };
+		96AB21A02AF2E80A001EEADE /* SaliAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliAssembly.swift; sourceTree = "<group>"; };
+		96AB21A32AF2E885001EEADE /* LayerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerCellViewModel.swift; sourceTree = "<group>"; };
+		96AB21A52AF2F1B9001EEADE /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		96AB21A72AF2F5DA001EEADE /* MuteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +102,11 @@
 		968477742AF18B7700EBAA67 /* SaliScreen */ = {
 			isa = PBXGroup;
 			children = (
-				969836382AF17A6300F8F40E /* SaliViewController.swift */,
-				968477752AF18B8A00EBAA67 /* SaliView.swift */,
+				96AB21A22AF2E86F001EEADE /* ViewModel */,
+				96AB219F2AF2E7F7001EEADE /* ViewController */,
+				96AB21982AF2E735001EEADE /* Presenter */,
+				96AB21952AF2E6AE001EEADE /* View */,
+				96AB21A02AF2E80A001EEADE /* SaliAssembly.swift */,
 			);
 			path = SaliScreen;
 			sourceTree = "<group>";
@@ -106,6 +135,7 @@
 		9684777B2AF18DC200EBAA67 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				96AB218C2AF2D9E6001EEADE /* TableView */,
 				968477952AF1A7F500EBAA67 /* SoundControl */,
 				968477862AF19FC400EBAA67 /* Buttons */,
 				968477852AF19B9E00EBAA67 /* SampleSelect */,
@@ -121,6 +151,7 @@
 				9614AEB22AF1D59F0007D081 /* KeyPath+.swift */,
 				968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */,
 				9614AEB02AF1CA730007D081 /* clamp.swift */,
+				96AB218F2AF2DA11001EEADE /* UITableViewCell+.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -142,6 +173,9 @@
 				9684778B2AF1A1B100EBAA67 /* MicrophoneButton.swift */,
 				9684778D2AF1A1C200EBAA67 /* RecordButton.swift */,
 				9684778F2AF1A1CF00EBAA67 /* PlayStopButton.swift */,
+				96AB218A2AF2D317001EEADE /* IconSaliButton.swift */,
+				96AB21A52AF2F1B9001EEADE /* DeleteButton.swift */,
+				96AB21A72AF2F5DA001EEADE /* MuteButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -191,6 +225,51 @@
 				968477742AF18B7700EBAA67 /* SaliScreen */,
 			);
 			path = Sali;
+			sourceTree = "<group>";
+		};
+		96AB218C2AF2D9E6001EEADE /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				96AB218D2AF2D9F8001EEADE /* LayerTableViewCell.swift */,
+				96AB21932AF2DFCE001EEADE /* LayerTableViewCellView.swift */,
+				96AB21912AF2DED6001EEADE /* LayersTableView.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		96AB21952AF2E6AE001EEADE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				968477752AF18B8A00EBAA67 /* SaliView.swift */,
+				96AB21962AF2E6C5001EEADE /* SaliViewDelegate.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		96AB21982AF2E735001EEADE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				96AB21992AF2E743001EEADE /* SaliPresenterInput.swift */,
+				96AB219B2AF2E7A0001EEADE /* SaliPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		96AB219F2AF2E7F7001EEADE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				969836382AF17A6300F8F40E /* SaliViewController.swift */,
+				96AB219D2AF2E7B0001EEADE /* SaliViewInput.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		96AB21A22AF2E86F001EEADE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				96AB21A32AF2E885001EEADE /* LayerCellViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,25 +344,38 @@
 			files = (
 				968477922AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */,
+				96AB218B2AF2D317001EEADE /* IconSaliButton.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
+				96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */,
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
 				968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */,
 				969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */,
 				968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */,
+				96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */,
 				969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */,
 				9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */,
 				968477842AF196CE00EBAA67 /* SampleSelectView.swift in Sources */,
 				9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */,
+				96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */,
+				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,
 				9684777F2AF18DFF00EBAA67 /* UIColor+.swift in Sources */,
+				96AB219C2AF2E7A0001EEADE /* SaliPresenter.swift in Sources */,
 				968477882AF1A01400EBAA67 /* SaliButton.swift in Sources */,
 				9614AEB12AF1CA730007D081 /* clamp.swift in Sources */,
+				96AB21A12AF2E80A001EEADE /* SaliAssembly.swift in Sources */,
+				96AB21A62AF2F1B9001EEADE /* DeleteButton.swift in Sources */,
+				96AB219E2AF2E7B0001EEADE /* SaliViewInput.swift in Sources */,
+				96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
 				968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
+				96AB21922AF2DED6001EEADE /* LayersTableView.swift in Sources */,
+				96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */,
+				96AB21902AF2DA11001EEADE /* UITableViewCell+.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

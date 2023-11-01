@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlayStopButton: SaliButton<CAShapeLayer, CGPath?> {
+final class PlayStopButton: IconSaliButton<CAShapeLayer, CGPath?> {
     
     // MARK: Visual Components
     private lazy var playStopIconLayer: CAShapeLayer = {

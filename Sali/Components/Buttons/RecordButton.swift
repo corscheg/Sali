@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecordButton: SaliButton<CAShapeLayer, CGColor?> {
+final class RecordButton: IconSaliButton<CAShapeLayer, CGColor?> {
     
     // MARK: Visual Components
     private lazy var recordIconLayer: CAShapeLayer = {

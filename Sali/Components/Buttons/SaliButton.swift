@@ -11,7 +11,6 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
     
     // MARK: Public Properties
     var animationDescriptor: AnimationDescriptor<LayerType, AnimatedProperty>?
-    let constants = Constants()
     
     // MARK: Private Properties
     private(set) var isActive = false
@@ -98,17 +97,10 @@ extension SaliButton {
         layer.cornerRadius = 4.0
         layer.cornerCurve = .continuous
         backgroundColor = .buttons
+        clipsToBounds = true
     }
     
     private func setupAnimations() {
         addTarget(self, action: #selector(handleTap), for: .touchUpInside)
-    }
-}
-
-
-// MARK: - Constants
-extension SaliButton {
-    struct Constants {
-        let iconWidthRatio: CGFloat = 0.34
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MicrophoneButton: SaliButton<CALayer, Double> {
+final class MicrophoneButton: IconSaliButton<CALayer, Double> {
     
     // MARK: Visual Components
     private lazy var microphoneIconLayer: CAShapeLayer = {

@@ -106,6 +106,14 @@ final class SoundControl: UIControl {
         self.output = output
         setNeedsLayout()
     }
+    
+    func showAccessories() {
+        animateAccessoriesAlpha(to: 1.0)
+    }
+    
+    func hideAccessories() {
+        animateAccessoriesAlpha(to: 0.0)
+    }
 }
 
 // MARK: - Output
@@ -180,6 +188,15 @@ extension SoundControl {
         
         output.volume = volume
         output.tempo = tempo
+    }
+    
+    private func animateAccessoriesAlpha(to alphaValue: CGFloat) {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+            self.volumeScaleView.alpha = alphaValue
+            self.tempoScaleView.alpha = alphaValue
+            self.volumeMarkerView.alpha = alphaValue
+            self.tempoMarkerView.alpha = alphaValue
+        }
     }
 }
 

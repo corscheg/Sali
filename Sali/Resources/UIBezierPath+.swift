@@ -149,17 +149,103 @@ extension UIBezierPath {
         path.addLine(to: CGPoint(x: 2.4, y: 4.8))
         path.close()
         
+        normalize(path: path, width: width)
+        
+        return path
+    }
+    
+    static func makeChevronDown(size: CGSize) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint(x: 0.0, y: 0.0))
+        path.addLine(to: CGPoint(x: size.width / 2, y: size.height))
+        path.addLine(to: CGPoint(x: size.width, y: 0.0))
+        
+        let filledPath = path.cgPath.copy(
+            strokingWithWidth: 2.0,
+            lineCap: .round,
+            lineJoin: .bevel,
+            miterLimit: 1.0
+        )
+        
+        return UIBezierPath(cgPath: filledPath)
+    }
+    
+    static func makeXMark(size: CGSize) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint(x: 0.0, y: 0.0))
+        path.addLine(to: CGPoint(x: size.width, y: size.height))
+        path.move(to: CGPoint(x: 0.0, y: size.height))
+        path.addLine(to: CGPoint(x: size.width, y: 0.0))
+        
+        let filledPath = path.cgPath.copy(
+            strokingWithWidth: 2.0,
+            lineCap: .round,
+            lineJoin: .bevel,
+            miterLimit: 1.0
+        )
+        
+        return UIBezierPath(cgPath: filledPath)
+    }
+    
+    #warning("FIX ICON PATH")
+    static func makeSpeakerIcon(height: CGFloat) -> UIBezierPath {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 5.2, y: 12.4))
+        path.addLine(to: CGPoint(x: 1.3, y: 12.4))
+        path.addCurve(to: CGPoint(x: 0.4, y: 12), controlPoint1: CGPoint(x: 0.9, y: 12.4), controlPoint2: CGPoint(x: 0.6, y: 12.2))
+        path.addCurve(to: CGPoint(x: 4.5, y: 0.0), controlPoint1: CGPoint(x: 0.1, y: 11.7), controlPoint2: CGPoint(x: 0, y: 11.4))
+        path.addLine(to: CGPoint(x: 4.5, y: 5.9))
+        path.addCurve(to: CGPoint(x: 0.0, y: 0.0), controlPoint1: CGPoint(x: 4.5, y: 0.0), controlPoint2: CGPoint(x: 0.0, y: 0.0))
+        path.addCurve(to: CGPoint(x: 1.3, y: 4.6), controlPoint1: CGPoint(x: 0.6, y: 4.8), controlPoint2: CGPoint(x: 0.9, y: 4.6))
+        path.addLine(to: CGPoint(x: 5.2, y: 4.6))
+        path.addLine(to: CGPoint(x: 9.4, y: 0.4))
+        path.addCurve(to: CGPoint(x: 10.8, y: 0.1), controlPoint1: CGPoint(x: 9.8, y: 0), controlPoint2: CGPoint(x: 10.3, y: -0.1))
+        path.addCurve(to: CGPoint(x: 11.6, y: 1.3), controlPoint1: CGPoint(x: 11.4, y: 0.3), controlPoint2: CGPoint(x: 11.6, y: 0.7))
+        path.addLine(to: CGPoint(x: 11.6, y: 15.7))
+        path.addCurve(to: CGPoint(x: 10.8, y: 16.9), controlPoint1: CGPoint(x: 11.6, y: 16.3), controlPoint2: CGPoint(x: 11.4, y: 16.7))
+        path.addCurve(to: CGPoint(x: 9.4, y: 16.6), controlPoint1: CGPoint(x: 10.3, y: 17.1), controlPoint2: CGPoint(x: 9.8, y: 17))
+        path.addLine(to: CGPoint(x: 5.2, y: 12.4))
+        path.close()
+        
+        normalize(path: path, height: height)
+        
+        return path
+    }
+    
+    static func makeMuteLine(size: CGSize) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint(x: 0.0, y: size.height))
+        path.addLine(to: CGPoint(x: size.width, y: 0.0))
+        
+        return path
+    }
+    
+    private static func normalize(path: UIBezierPath, width: CGFloat) {
         let pathWidth = path.bounds.width
         let scale = width / pathWidth
         
         path.apply(.init(scaleX: scale, y: scale))
         
+        translateToZeroOrigin(path: path)
+    }
+    
+    private static func normalize(path: UIBezierPath, height: CGFloat) {
+        let pathHeight = path.bounds.height
+        let scale = height / pathHeight
+        
+        path.apply(.init(scaleX: scale, y: scale))
+        
+        translateToZeroOrigin(path: path)
+    }
+    
+    private static func translateToZeroOrigin(path: UIBezierPath) {
         let pathBox = path.cgPath.boundingBox
         let translateX = -pathBox.minX
         let translateY = -pathBox.minY
         
         path.apply(.init(translationX: translateX, y: translateY))
-        
-        return path
     }
 }

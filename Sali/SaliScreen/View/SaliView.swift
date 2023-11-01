@@ -9,8 +9,29 @@ import UIKit
 
 final class SaliView: UIView {
     
+    private typealias DataSource = UITableViewDiffableDataSource<Section, LayerCellViewModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LayerCellViewModel>
+    
+    // MARK: Public Properties
+    weak var delegate: SaliViewDelegate?
+    
     // MARK: Private Properties
     private let constants = Constants()
+    private lazy var dataSource: DataSource = {
+        let dataSource = DataSource(tableView: layersTableView) { tableView, indexPath, viewModel in
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: LayerTableViewCell.reuseIdentifier,
+                for: indexPath
+            ) as! LayerTableViewCell
+            
+            cell.transform = .init(scaleX: 1.0, y: -1.0)
+            cell.setup(with: viewModel)
+            
+            return cell
+        }
+        
+        return dataSource
+    }()
     
     // MARK: Visual Components
     private lazy var guitarSelectView: SampleSelectView = {
@@ -35,10 +56,26 @@ final class SaliView: UIView {
     
     private lazy var analyzerView = AnalyzerView()
     
-    private lazy var layersButton = LayersButton()
     private lazy var microphoneButton = MicrophoneButton()
     private lazy var recordButton = RecordButton()
     private lazy var playPauseButton = PlayStopButton()
+    private lazy var layersButton: LayersButton = {
+        let button = LayersButton()
+        button.addTarget(self, action: #selector(layersButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    private lazy var layersTableView: LayersTableView = {
+        let tableView = LayersTableView(delegate: self)
+        tableView.alpha = 0.0
+        tableView.transform = .init(scaleX: 1.0, y: -1.0)
+        tableView.rowHeight = constants.layersTableViewCellHeight
+        tableView.register(LayerTableViewCell.self, forCellReuseIdentifier: LayerTableViewCell.reuseIdentifier)
+        tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: safeAreaInsets.top, right: 0.0)
+        
+        return tableView
+    }()
     
     // MARK: Initializers
     override init(frame: CGRect) {
@@ -65,6 +102,51 @@ final class SaliView: UIView {
         layoutButtons()
         layoutAnalyzer()
         layoutSoundControl()
+        layoutTableView()
+    }
+    
+    override func safeAreaInsetsDidChange() {
+        layersTableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: safeAreaInsets.top, right: 0.0)
+    }
+    
+    // MARK: Public Methods
+    func showLayersTable() {
+        soundControl.hideAccessories()
+        
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+            self.layersTableView.alpha = 1.0
+            self.analyzerView.alpha = 0.0
+        }
+    }
+    
+    func hideLayersTable() {
+        soundControl.showAccessories()
+        
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+            self.layersTableView.alpha = 0.0
+            self.analyzerView.alpha = 1.0
+        }
+    }
+    
+    func populateLayersTable(with viewModels: [LayerCellViewModel]) {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModels, toSection: .main)
+        
+        dataSource.apply(snapshot)
+    }
+    
+    // MARK: Actions
+    @objc private func layersButtonTapped() {
+        delegate?.didTapLayersButton()
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SaliView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -89,6 +171,8 @@ extension SaliView {
         addSubview(microphoneButton)
         addSubview(recordButton)
         addSubview(playPauseButton)
+        
+        addSubview(layersTableView)
     }
     
     private func layoutInstrumentsSelection() {
@@ -150,6 +234,8 @@ extension SaliView {
             height: constants.buttonSize
         )
         
+        layersButton.sizeToFit()
+        
         let buttonSize = CGSize(width: constants.buttonSize, height: constants.buttonSize)
         playPauseButton.frame = CGRect(
             origin: CGPoint(x: bounds.maxX - directionalLayoutMargins.trailing - constants.buttonSize, y: buttonsY),
@@ -166,6 +252,18 @@ extension SaliView {
             size: buttonSize
         )
     }
+    
+    private func layoutTableView() {
+        let tableViewFrame = CGRect(
+            x: bounds.minX + directionalLayoutMargins.leading,
+            y: bounds.minY,
+            width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
+            height: layersButton.frame.minY - bounds.minY - constants.layersButtonTableViewSpacing
+        )
+        
+        layersTableView.bounds.size = tableViewFrame.size
+        layersTableView.center = tableViewFrame.center
+    }
 }
 
 // MARK: - Constants
@@ -178,5 +276,14 @@ extension SaliView {
         let buttonSize: CGFloat = 44.0
         let layersButtonWidth: CGFloat = 74.0
         let buttonPadding: CGFloat = 5.0
+        let layersTableViewCellHeight: CGFloat = 51.0
+        let layersButtonTableViewSpacing: CGFloat = 21
+    }
+}
+
+// MARK: - Section
+extension SaliView {
+    private enum Section {
+        case main
     }
 }

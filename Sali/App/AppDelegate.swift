@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
-        let viewController = SaliViewController()
+        let viewController = SaliAssembly().assemble()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         
