@@ -159,10 +159,6 @@ extension SaliView {
     }
     
     private func addSubviews() {
-        addSubview(guitarSelectView)
-        addSubview(drumsSelectView)
-        addSubview(brassSelectView)
-        
         addSubview(soundControl)
         
         addSubview(analyzerView)
@@ -171,6 +167,11 @@ extension SaliView {
         addSubview(microphoneButton)
         addSubview(recordButton)
         addSubview(playPauseButton)
+        
+        
+        addSubview(guitarSelectView)
+        addSubview(drumsSelectView)
+        addSubview(brassSelectView)
         
         addSubview(layersTableView)
     }

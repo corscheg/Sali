@@ -11,6 +11,7 @@
 		9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */; };
 		9614AEB12AF1CA730007D081 /* clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB02AF1CA730007D081 /* clamp.swift */; };
 		9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB22AF1D59F0007D081 /* KeyPath+.swift */; };
+		967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
 		9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684777C2AF18DD500EBAA67 /* SampleControl.swift */; };
@@ -51,6 +52,7 @@
 		9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlMarkerView.swift; sourceTree = "<group>"; };
 		9614AEB02AF1CA730007D081 /* clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clamp.swift; sourceTree = "<group>"; };
 		9614AEB22AF1D59F0007D081 /* KeyPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyPath+.swift"; sourceTree = "<group>"; };
+		967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControlItemView.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		9684777C2AF18DD500EBAA67 /* SampleControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControl.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				9684777C2AF18DD500EBAA67 /* SampleControl.swift */,
 				968477832AF196CE00EBAA67 /* SampleSelectView.swift */,
+				967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */,
 			);
 			path = SampleSelect;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
+				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
 				96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */,
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,

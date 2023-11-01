@@ -27,6 +27,7 @@ final class SampleSelectView: UIView {
     // MARK: Initializers
     init(frame: CGRect, image: UIImage, imageOffset: CGSize, text: String) {
         sampleControl = SampleControl(image: image, imageOffset: imageOffset)
+        sampleControl.set(options: ["sample 1", "sample 2", "sample 3"])
         super.init(frame: frame)
         
         addSubviews()
@@ -71,7 +72,7 @@ final class SampleSelectView: UIView {
 // MARK: - Private Methods
 extension SampleSelectView {
     private func addSubviews() {
-        addSubview(sampleControl)
         addSubview(label)
+        addSubview(sampleControl)
     }
 }
