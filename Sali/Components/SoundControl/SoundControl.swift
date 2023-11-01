@@ -77,13 +77,14 @@ final class SoundControl: UIControl {
         volumeMarkerView.sizeToFit()
         tempoMarkerView.sizeToFit()
         
-        updateMarkersPosition()
+        updateMarkersPosition(animated: false)
     }
     
     // MARK: UIControl
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         updateOutputWith(touchLocation: location)
+        updateMarkersPosition(animated: true)
         
         sendActions(for: .valueChanged)
         
@@ -93,6 +94,7 @@ final class SoundControl: UIControl {
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         updateOutputWith(touchLocation: location)
+        updateMarkersPosition(animated: false)
         
         sendActions(for: .valueChanged)
         
@@ -146,16 +148,27 @@ extension SoundControl {
         addSubview(tempoMarkerView)
     }
     
-    private func updateMarkersPosition() {
+    private func updateMarkersPosition(animated: Bool) {
         let positionOnScaleVolume = volumeScaleView.frame.height * (1.0 - output.volume)
         let volumeMarkerCenterY = positionOnScaleVolume + volumeScaleView.frame.minY
         let volumeMarkerCenterX = volumeScaleView.frame.midX
-        volumeMarkerView.center = CGPoint(x: volumeMarkerCenterX, y: volumeMarkerCenterY)
         
         let positionOnScaleTempo = output.tempo * tempoScaleView.frame.width
         let tempoMarkerCenterX = positionOnScaleTempo + tempoScaleView.frame.minX
         let tempoMarkerCenterY = tempoScaleView.frame.midY
-        tempoMarkerView.center = CGPoint(x: tempoMarkerCenterX, y: tempoMarkerCenterY)
+        
+        let updates = { [weak self] in
+            self?.volumeMarkerView.center = CGPoint(x: volumeMarkerCenterX, y: volumeMarkerCenterY)
+            self?.tempoMarkerView.center = CGPoint(x: tempoMarkerCenterX, y: tempoMarkerCenterY)
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
+                updates()
+            }
+        } else {
+            updates()
+        }
     }
     
     private func updateOutputWith(touchLocation: CGPoint) {
@@ -167,8 +180,6 @@ extension SoundControl {
         
         output.volume = volume
         output.tempo = tempo
-        
-        updateMarkersPosition()
     }
 }
 

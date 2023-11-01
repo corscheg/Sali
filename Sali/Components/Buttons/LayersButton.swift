@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LayersButton: SaliButton {
+final class LayersButton: SaliButton<CALayer, Double> {
     
     
     

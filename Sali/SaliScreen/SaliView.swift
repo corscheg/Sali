@@ -38,7 +38,7 @@ final class SaliView: UIView {
     private lazy var layersButton = LayersButton()
     private lazy var microphoneButton = MicrophoneButton()
     private lazy var recordButton = RecordButton()
-    private lazy var playPauseButton = PlayPauseButton()
+    private lazy var playPauseButton = PlayStopButton()
     
     // MARK: Initializers
     override init(frame: CGRect) {

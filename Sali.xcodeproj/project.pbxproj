@@ -10,6 +10,7 @@
 		9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */; };
 		9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */; };
 		9614AEB12AF1CA730007D081 /* clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB02AF1CA730007D081 /* clamp.swift */; };
+		9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB22AF1D59F0007D081 /* KeyPath+.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
 		9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684777C2AF18DD500EBAA67 /* SampleControl.swift */; };
@@ -20,7 +21,7 @@
 		9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477892AF1A19F00EBAA67 /* LayersButton.swift */; };
 		9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684778B2AF1A1B100EBAA67 /* MicrophoneButton.swift */; };
 		9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684778D2AF1A1C200EBAA67 /* RecordButton.swift */; };
-		968477902AF1A1CF00EBAA67 /* PlayPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684778F2AF1A1CF00EBAA67 /* PlayPauseButton.swift */; };
+		968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684778F2AF1A1CF00EBAA67 /* PlayStopButton.swift */; };
 		968477922AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */; };
 		968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477932AF1A68300EBAA67 /* AnalyzerView.swift */; };
 		968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477962AF1A80800EBAA67 /* SoundControl.swift */; };
@@ -29,12 +30,14 @@
 		969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969836382AF17A6300F8F40E /* SaliViewController.swift */; };
 		9698363E2AF17A6400F8F40E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9698363D2AF17A6400F8F40E /* Assets.xcassets */; };
 		969836412AF17A6400F8F40E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9698363F2AF17A6400F8F40E /* LaunchScreen.storyboard */; };
+		96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoScaleView.swift; sourceTree = "<group>"; };
 		9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlMarkerView.swift; sourceTree = "<group>"; };
 		9614AEB02AF1CA730007D081 /* clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clamp.swift; sourceTree = "<group>"; };
+		9614AEB22AF1D59F0007D081 /* KeyPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyPath+.swift"; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		9684777C2AF18DD500EBAA67 /* SampleControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControl.swift; sourceTree = "<group>"; };
@@ -45,7 +48,7 @@
 		968477892AF1A19F00EBAA67 /* LayersButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersButton.swift; sourceTree = "<group>"; };
 		9684778B2AF1A1B100EBAA67 /* MicrophoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneButton.swift; sourceTree = "<group>"; };
 		9684778D2AF1A1C200EBAA67 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
-		9684778F2AF1A1CF00EBAA67 /* PlayPauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayPauseButton.swift; sourceTree = "<group>"; };
+		9684778F2AF1A1CF00EBAA67 /* PlayStopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayStopButton.swift; sourceTree = "<group>"; };
 		968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDirectionalEdgeInsets+.swift"; sourceTree = "<group>"; };
 		968477932AF1A68300EBAA67 /* AnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerView.swift; sourceTree = "<group>"; };
 		968477962AF1A80800EBAA67 /* SoundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControl.swift; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		9698363D2AF17A6400F8F40E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		969836402AF17A6400F8F40E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		969836422AF17A6400F8F40E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 			children = (
 				9698363D2AF17A6400F8F40E /* Assets.xcassets */,
 				968477782AF18D1600EBAA67 /* UIImage+.swift */,
+				96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */,
 				9684777E2AF18DFF00EBAA67 /* UIColor+.swift */,
 			);
 			path = Resources;
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				968477812AF1958A00EBAA67 /* CGRect+.swift */,
+				9614AEB22AF1D59F0007D081 /* KeyPath+.swift */,
 				968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */,
 				9614AEB02AF1CA730007D081 /* clamp.swift */,
 			);
@@ -135,7 +141,7 @@
 				968477892AF1A19F00EBAA67 /* LayersButton.swift */,
 				9684778B2AF1A1B100EBAA67 /* MicrophoneButton.swift */,
 				9684778D2AF1A1C200EBAA67 /* RecordButton.swift */,
-				9684778F2AF1A1CF00EBAA67 /* PlayPauseButton.swift */,
+				9684778F2AF1A1CF00EBAA67 /* PlayStopButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -261,8 +267,10 @@
 				968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
+				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
+				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
 				968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */,
 				969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */,
 				968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */,
@@ -274,7 +282,7 @@
 				968477882AF1A01400EBAA67 /* SaliButton.swift in Sources */,
 				9614AEB12AF1CA730007D081 /* clamp.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
-				968477902AF1A1CF00EBAA67 /* PlayPauseButton.swift in Sources */,
+				968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
 			);

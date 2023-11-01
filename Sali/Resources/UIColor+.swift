@@ -15,4 +15,5 @@ extension UIColor {
     static let accent: UIColor = UIColor(red: 0.659, green: 0.859, blue: 0.063, alpha: 1)
     static let closeButton: UIColor = UIColor(red: 0.894, green: 0.894, blue: 0.894, alpha: 1)
     static let field: UIColor = UIColor(red: 0.353, green: 0.314, blue: 0.886, alpha: 1)
+    static let record: UIColor = UIColor(red: 1.0, green: 0.031, blue: 0.286, alpha: 1)
 }
