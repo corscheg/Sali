@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */; };
+		9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */; };
+		9614AEB12AF1CA730007D081 /* clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB02AF1CA730007D081 /* clamp.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
 		9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684777C2AF18DD500EBAA67 /* SampleControl.swift */; };
@@ -29,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoScaleView.swift; sourceTree = "<group>"; };
+		9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlMarkerView.swift; sourceTree = "<group>"; };
+		9614AEB02AF1CA730007D081 /* clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clamp.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		9684777C2AF18DD500EBAA67 /* SampleControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControl.swift; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 			children = (
 				968477812AF1958A00EBAA67 /* CGRect+.swift */,
 				968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */,
+				9614AEB02AF1CA730007D081 /* clamp.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -138,6 +145,7 @@
 			children = (
 				968477982AF1AB8800EBAA67 /* ScaleViews */,
 				968477962AF1A80800EBAA67 /* SoundControl.swift */,
+				9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */,
 			);
 			path = SoundControl;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				968477992AF1AB9800EBAA67 /* VolumeScaleView.swift */,
+				9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */,
 			);
 			path = ScaleViews;
 			sourceTree = "<group>";
@@ -263,7 +272,10 @@
 				9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */,
 				9684777F2AF18DFF00EBAA67 /* UIColor+.swift in Sources */,
 				968477882AF1A01400EBAA67 /* SaliButton.swift in Sources */,
+				9614AEB12AF1CA730007D081 /* clamp.swift in Sources */,
+				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
 				968477902AF1A1CF00EBAA67 /* PlayPauseButton.swift in Sources */,
+				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

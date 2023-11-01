@@ -9,6 +9,9 @@ import UIKit
 
 final class SoundControl: UIControl {
     
+    // MARK: Public Properties
+    private(set) var output: Output = .zero
+    
     // MARK: Private Properties
     private let constants = Constants()
     
@@ -24,6 +27,16 @@ final class SoundControl: UIControl {
     }()
     
     private lazy var volumeScaleView = VolumeScaleView(units: 5, subunits: 5)
+    private lazy var tempoScaleView = TempoScaleView(units: 40)
+    
+    private lazy var volumeMarkerView: SoundControlMarkerView = {
+        let view = SoundControlMarkerView(text: "volume")
+        view.transform = .init(rotationAngle: 3.0 * .pi / 2.0)
+        
+        return view
+    }()
+    
+    private lazy var tempoMarkerView = SoundControlMarkerView(text: "tempo")
     
     // MARK: Initializers
     override init(frame: CGRect) {
@@ -53,6 +66,72 @@ final class SoundControl: UIControl {
             width: constants.volumeScaleWidth,
             height: bounds.height - constants.volumeScaleBottom
         )
+        
+        tempoScaleView.frame = CGRect(
+            x: bounds.minX + constants.tempoScaleLeading,
+            y: bounds.maxY - constants.tempoScaleHeight,
+            width: bounds.width - constants.tempoScaleLeading,
+            height: constants.tempoScaleHeight
+        )
+        
+        volumeMarkerView.sizeToFit()
+        tempoMarkerView.sizeToFit()
+        
+        updateMarkersPosition()
+    }
+    
+    // MARK: UIControl
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
+        updateOutputWith(touchLocation: location)
+        
+        sendActions(for: .valueChanged)
+        
+        return true
+    }
+    
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
+        updateOutputWith(touchLocation: location)
+        
+        sendActions(for: .valueChanged)
+        
+        return true
+    }
+    
+    // MARK: Public Methods
+    func set(output: Output) {
+        self.output = output
+        setNeedsLayout()
+    }
+}
+
+// MARK: - Output
+extension SoundControl {
+    struct Output {
+        
+        var volume: Double {
+            get {
+                _volume
+            } set {
+                _volume = clamp(value: newValue, min: 0.0, max: 1.0)
+            }
+        }
+        
+        var tempo: Double {
+            get {
+                _tempo
+            } set {
+                _tempo = clamp(value: newValue, min: 0.0, max: 1.0)
+            }
+        }
+        
+        private var _volume: Double
+        private var _tempo: Double
+        
+        static var zero: Output {
+            .init(_volume: 0.0, _tempo: 0.0)
+        }
     }
 }
 
@@ -61,6 +140,35 @@ extension SoundControl {
     private func addSubviews() {
         layer.addSublayer(gradientLayer)
         addSubview(volumeScaleView)
+        addSubview(tempoScaleView)
+        
+        addSubview(volumeMarkerView)
+        addSubview(tempoMarkerView)
+    }
+    
+    private func updateMarkersPosition() {
+        let positionOnScaleVolume = volumeScaleView.frame.height * (1.0 - output.volume)
+        let volumeMarkerCenterY = positionOnScaleVolume + volumeScaleView.frame.minY
+        let volumeMarkerCenterX = volumeScaleView.frame.midX
+        volumeMarkerView.center = CGPoint(x: volumeMarkerCenterX, y: volumeMarkerCenterY)
+        
+        let positionOnScaleTempo = output.tempo * tempoScaleView.frame.width
+        let tempoMarkerCenterX = positionOnScaleTempo + tempoScaleView.frame.minX
+        let tempoMarkerCenterY = tempoScaleView.frame.midY
+        tempoMarkerView.center = CGPoint(x: tempoMarkerCenterX, y: tempoMarkerCenterY)
+    }
+    
+    private func updateOutputWith(touchLocation: CGPoint) {
+        let yRelativeToScale = touchLocation.y - volumeScaleView.frame.minY
+        let volume = 1.0 - (yRelativeToScale / volumeScaleView.frame.height)
+        
+        let xRelativeToScale = touchLocation.x - tempoScaleView.frame.minX
+        let tempo = xRelativeToScale / tempoScaleView.frame.width
+        
+        output.volume = volume
+        output.tempo = tempo
+        
+        updateMarkersPosition()
     }
 }
 
@@ -69,5 +177,7 @@ extension SoundControl {
     private struct Constants {
         let volumeScaleBottom: CGFloat = 26.0
         let volumeScaleWidth: CGFloat = 16.0
+        let tempoScaleLeading: CGFloat = 35.0
+        let tempoScaleHeight: CGFloat = 14.0
     }
 }
