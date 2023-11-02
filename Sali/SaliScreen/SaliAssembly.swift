@@ -9,7 +9,8 @@ import UIKit
 
 struct SaliAssembly {
     func assemble() -> UIViewController {
-        let presenter = SaliPresenter()
+        let sampleLoader = SampleLoader()
+        let presenter = SaliPresenter(sampleLoader: sampleLoader)
         let viewController = SaliViewController(presenter: presenter)
         presenter.view = viewController
         

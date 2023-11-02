@@ -9,4 +9,11 @@ import Foundation
 
 struct SampleViewModel {
     let name: String
+    let identifier: String
+    
+    // MARK: Initializer
+    init(sample: SampleModel) {
+        name = sample.name
+        identifier = sample.identifier
+    }
 }

@@ -13,18 +13,20 @@ final class SaliPresenter {
     weak var view: SaliViewInput?
     
     // MARK: Private Properties
+    private let sampleLoader: SampleLoaderProtocol
     private var layersTableVisible = false
+    
+    // MARK: Initializers
+    init(sampleLoader: SampleLoaderProtocol) {
+        self.sampleLoader = sampleLoader
+    }
 }
 
 // MARK: - SaliPresenterInput
 extension SaliPresenter: SaliPresenterInput {
     func viewDidLoad() {
-        let viewModel = SampleBankViewModel(
-            guitarSamples: [SampleViewModel(name: "Guitar 1"), SampleViewModel(name: "Guitar 2"), SampleViewModel(name: "Guitar 3"), SampleViewModel(name: "Guitar 4")],
-            drumSamples: [SampleViewModel(name: "Drum 1"), SampleViewModel(name: "Drum 2"), SampleViewModel(name: "Drum 3")],
-            brassSamples: [SampleViewModel(name: "Brass 1"), SampleViewModel(name: "Brass 2")]
-        )
-        
+        let sampleBank = sampleLoader.loadSamples()
+        let viewModel = SampleBankViewModel(bankModel: sampleBank)
         view?.populateSamples(with: viewModel)
     }
     

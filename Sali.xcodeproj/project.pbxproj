@@ -19,6 +19,11 @@
 		96709E202AF429ED0069E79B /* SampleBankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E1F2AF429ED0069E79B /* SampleBankViewModel.swift */; };
 		96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E222AF42D360069E79B /* SampleSelectViewDelegate.swift */; };
 		96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E252AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift */; };
+		96709E2E2AF434920069E79B /* SampleLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E2D2AF434920069E79B /* SampleLoaderProtocol.swift */; };
+		96709E312AF434B20069E79B /* SampleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E302AF434B20069E79B /* SampleLoader.swift */; };
+		96709E462AF44BB90069E79B /* SampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E452AF44BB90069E79B /* SampleModel.swift */; };
+		96709E482AF44BDF0069E79B /* SampleBankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E472AF44BDF0069E79B /* SampleBankModel.swift */; };
+		96709E4A2AF450230069E79B /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = 96709E492AF450230069E79B /* Samples */; };
 		967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
@@ -68,6 +73,11 @@
 		96709E1F2AF429ED0069E79B /* SampleBankViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBankViewModel.swift; sourceTree = "<group>"; };
 		96709E222AF42D360069E79B /* SampleSelectViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSelectViewDelegate.swift; sourceTree = "<group>"; };
 		96709E252AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesSelectionPanelViewDelegate.swift; sourceTree = "<group>"; };
+		96709E2D2AF434920069E79B /* SampleLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleLoaderProtocol.swift; sourceTree = "<group>"; };
+		96709E302AF434B20069E79B /* SampleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleLoader.swift; sourceTree = "<group>"; };
+		96709E452AF44BB90069E79B /* SampleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModel.swift; sourceTree = "<group>"; };
+		96709E472AF44BDF0069E79B /* SampleBankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBankModel.swift; sourceTree = "<group>"; };
+		96709E492AF450230069E79B /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControlItemView.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -153,6 +163,32 @@
 			path = SamplesSelectionPanelView;
 			sourceTree = "<group>";
 		};
+		96709E2B2AF4347D0069E79B /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				96709E2C2AF434820069E79B /* SampleLoader */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		96709E2C2AF434820069E79B /* SampleLoader */ = {
+			isa = PBXGroup;
+			children = (
+				96709E2D2AF434920069E79B /* SampleLoaderProtocol.swift */,
+				96709E302AF434B20069E79B /* SampleLoader.swift */,
+			);
+			path = SampleLoader;
+			sourceTree = "<group>";
+		};
+		96709E442AF44BAE0069E79B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				96709E452AF44BB90069E79B /* SampleModel.swift */,
+				96709E472AF44BDF0069E79B /* SampleBankModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		968477742AF18B7700EBAA67 /* SaliScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +204,7 @@
 		968477772AF18D0700EBAA67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96709E492AF450230069E79B /* Samples */,
 				9698363D2AF17A6400F8F40E /* Assets.xcassets */,
 				968477782AF18D1600EBAA67 /* UIImage+.swift */,
 				96AB21882AF2B5A1001EEADE /* UIBezierPath+.swift */,
@@ -274,6 +311,8 @@
 		969836332AF17A6300F8F40E /* Sali */ = {
 			isa = PBXGroup;
 			children = (
+				96709E442AF44BAE0069E79B /* Models */,
+				96709E2B2AF4347D0069E79B /* Audio */,
 				968477802AF1958100EBAA67 /* Helpers */,
 				9684777B2AF18DC200EBAA67 /* Components */,
 				9684777A2AF18DB500EBAA67 /* App */,
@@ -389,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96709E4A2AF450230069E79B /* Samples in Resources */,
 				969836412AF17A6400F8F40E /* LaunchScreen.storyboard in Resources */,
 				9698363E2AF17A6400F8F40E /* Assets.xcassets in Resources */,
 			);
@@ -407,7 +447,9 @@
 				96709E192AF423BF0069E79B /* ButtonsPanelView.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
 				96709E142AF413BC0069E79B /* MutableCollection+.swift in Sources */,
+				96709E312AF434B20069E79B /* SampleLoader.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
+				96709E2E2AF434920069E79B /* SampleLoaderProtocol.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
@@ -427,8 +469,10 @@
 				96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */,
 				9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */,
 				96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */,
+				96709E462AF44BB90069E79B /* SampleModel.swift in Sources */,
 				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,
 				9684777F2AF18DFF00EBAA67 /* UIColor+.swift in Sources */,
+				96709E482AF44BDF0069E79B /* SampleBankModel.swift in Sources */,
 				96AB219C2AF2E7A0001EEADE /* SaliPresenter.swift in Sources */,
 				968477882AF1A01400EBAA67 /* SaliButton.swift in Sources */,
 				9614AEB12AF1CA730007D081 /* clamp.swift in Sources */,
