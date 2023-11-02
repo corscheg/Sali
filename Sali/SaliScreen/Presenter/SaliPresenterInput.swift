@@ -10,5 +10,6 @@ import Foundation
 protocol SaliPresenterInput {
     func viewDidLoad()
     func didSelect(viewModel: SampleViewModel)
+    func didTapPlayButton()
     func didTapLayersButton()
 }

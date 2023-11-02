@@ -17,3 +17,14 @@ struct SampleViewModel {
         identifier = sample.identifier
     }
 }
+
+// MARK: - Hashable
+extension SampleViewModel: Hashable {
+    static func ==(lhs: SampleViewModel, rhs: SampleViewModel) -> Bool {
+        lhs.identifier == rhs.identifier
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+}

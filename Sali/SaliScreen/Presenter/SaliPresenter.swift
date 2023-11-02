@@ -14,11 +14,15 @@ final class SaliPresenter {
     
     // MARK: Private Properties
     private let sampleLoader: SampleLoaderProtocol
+    private let mixer: Mixer
     private var layersTableVisible = false
+    private var isAllPlaying = false
+    private var samples: [SampleViewModel: SampleModel] = [:]
     
     // MARK: Initializers
-    init(sampleLoader: SampleLoaderProtocol) {
+    init(sampleLoader: SampleLoaderProtocol, mixer: Mixer) {
         self.sampleLoader = sampleLoader
+        self.mixer = mixer
     }
 }
 
@@ -26,12 +30,28 @@ final class SaliPresenter {
 extension SaliPresenter: SaliPresenterInput {
     func viewDidLoad() {
         let sampleBank = sampleLoader.loadSamples()
-        let viewModel = SampleBankViewModel(bankModel: sampleBank)
-        view?.populateSamples(with: viewModel)
+        fillSamplesAndPopulateView(withBank: sampleBank)
     }
     
     func didSelect(viewModel: SampleViewModel) {
-        print(viewModel)
+        guard let sample = samples[viewModel] else { return }
+        
+        do {
+            try mixer.add(sample: sample, forKey: sample.identifier)
+        } catch {
+            #warning("HANDLE ERROR!")
+            print(error)
+        }
+    }
+    
+    func didTapPlayButton() {
+        isAllPlaying.toggle()
+        
+        if isAllPlaying {
+            playAll()
+        } else {
+            stopAll()
+        }
     }
     
     func didTapLayersButton() {
@@ -50,5 +70,49 @@ extension SaliPresenter {
         } else {
             view?.hideLayersTable()
         }
+    }
+    
+    private func fillSamplesAndPopulateView(withBank bank: SampleBankModel) {
+        var guitarSampleViewModels: [SampleViewModel] = []
+        for guitarSample in bank.guitarSamples {
+            let viewModel = SampleViewModel(sample: guitarSample)
+            samples[viewModel] = guitarSample
+            guitarSampleViewModels.append(viewModel)
+        }
+        
+        var drumsSampleViewModels: [SampleViewModel] = []
+        for drumSample in bank.drumSamples {
+            let viewModel = SampleViewModel(sample: drumSample)
+            samples[viewModel] = drumSample
+            drumsSampleViewModels.append(viewModel)
+        }
+        
+        var brassSampleViewModels: [SampleViewModel] = []
+        for brassSample in bank.brassSamples {
+            let viewModel = SampleViewModel(sample: brassSample)
+            samples[viewModel] = brassSample
+            brassSampleViewModels.append(viewModel)
+        }
+        
+        let viewModel = SampleBankViewModel(
+            guitarSamples: guitarSampleViewModels,
+            drumSamples: drumsSampleViewModels,
+            brassSamples: brassSampleViewModels
+        )
+        
+        view?.populateSamples(with: viewModel)
+    }
+    
+    private func playAll() {
+        do {
+            try mixer.play()
+        } catch {
+            #warning("HANDLE ERROR!")
+            print(error)
+        }
+    }
+    
+    private func stopAll() {
+        mixer.stop()
     }
 }

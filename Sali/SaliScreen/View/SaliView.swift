@@ -138,6 +138,10 @@ extension SaliView: ButtonsPanelViewDelegate {
     func didTapLayersButton() {
         delegate?.didTapLayersButton()
     }
+    
+    func didTapPlayButton() {
+        delegate?.didTapPlayButton()
+    }
 }
 
 // MARK: - UITableViewDelegate

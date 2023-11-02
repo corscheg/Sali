@@ -9,5 +9,6 @@ import Foundation
 
 protocol SaliViewDelegate: AnyObject {
     func didSelect(viewModel: SampleViewModel)
+    func didTapPlayButton()
     func didTapLayersButton()
 }

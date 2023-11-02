@@ -24,6 +24,8 @@
 		96709E462AF44BB90069E79B /* SampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E452AF44BB90069E79B /* SampleModel.swift */; };
 		96709E482AF44BDF0069E79B /* SampleBankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E472AF44BDF0069E79B /* SampleBankModel.swift */; };
 		96709E4A2AF450230069E79B /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = 96709E492AF450230069E79B /* Samples */; };
+		96709E4D2AF455C30069E79B /* Mixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E4C2AF455C30069E79B /* Mixer.swift */; };
+		96709E502AF455D60069E79B /* SaliMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E4F2AF455D60069E79B /* SaliMixer.swift */; };
 		967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
@@ -78,6 +80,8 @@
 		96709E452AF44BB90069E79B /* SampleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModel.swift; sourceTree = "<group>"; };
 		96709E472AF44BDF0069E79B /* SampleBankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBankModel.swift; sourceTree = "<group>"; };
 		96709E492AF450230069E79B /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
+		96709E4C2AF455C30069E79B /* Mixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mixer.swift; sourceTree = "<group>"; };
+		96709E4F2AF455D60069E79B /* SaliMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliMixer.swift; sourceTree = "<group>"; };
 		967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControlItemView.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 		96709E2B2AF4347D0069E79B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				96709E4B2AF455B70069E79B /* SaliMixer */,
 				96709E2C2AF434820069E79B /* SampleLoader */,
 			);
 			path = Audio;
@@ -187,6 +192,15 @@
 				96709E472AF44BDF0069E79B /* SampleBankModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		96709E4B2AF455B70069E79B /* SaliMixer */ = {
+			isa = PBXGroup;
+			children = (
+				96709E4C2AF455C30069E79B /* Mixer.swift */,
+				96709E4F2AF455D60069E79B /* SaliMixer.swift */,
+			);
+			path = SaliMixer;
 			sourceTree = "<group>";
 		};
 		968477742AF18B7700EBAA67 /* SaliScreen */ = {
@@ -451,11 +465,13 @@
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				96709E2E2AF434920069E79B /* SampleLoaderProtocol.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
+				96709E502AF455D60069E79B /* SaliMixer.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
 				96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */,
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
+				96709E4D2AF455C30069E79B /* Mixer.swift in Sources */,
 				968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */,
 				96709E1C2AF426080069E79B /* ButtonsPanelViewDelegate.swift in Sources */,
 				96709E1E2AF429D90069E79B /* SampleViewModel.swift in Sources */,

@@ -18,7 +18,13 @@ final class ButtonsPanelView: UIView {
     // MARK: Visual Components
     private lazy var microphoneButton = MicrophoneButton()
     private lazy var recordButton = RecordButton()
-    private lazy var playPauseButton = PlayStopButton()
+    private lazy var playPauseButton: PlayStopButton = {
+        let button = PlayStopButton()
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var layersButton: LayersButton = {
         let button = LayersButton()
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
@@ -79,6 +85,8 @@ final class ButtonsPanelView: UIView {
     @objc private func buttonTapped(_ sender: UIButton) {
         if sender === layersButton {
             delegate?.didTapLayersButton()
+        } else if sender === playPauseButton {
+            delegate?.didTapPlayButton()
         }
     }
 }

@@ -68,6 +68,10 @@ extension SaliViewController: SaliViewDelegate {
         presenter.didSelect(viewModel: viewModel)
     }
     
+    func didTapPlayButton() {
+        presenter.didTapPlayButton()
+    }
+    
     func didTapLayersButton() {
         presenter.didTapLayersButton()
     }
