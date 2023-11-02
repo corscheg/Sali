@@ -10,14 +10,15 @@ import UIKit
 final class SampleControl: UIControl {
     
     // MARK: Public Properties
-    private(set) var selectedIndex: Int?
+    private(set) var selectedViewModel: SampleViewModel?
     
     // MARK: Private Properties
     private let constants = Constants()
     private let image: UIImage
     private let imageOffset: CGSize
-    private var options: [String] = []
+    private var options: [SampleViewModel] = []
     private var currentSelectionYRange: ClosedRange<CGFloat>?
+    private var selectedIndex: Int?
     
     private var heightExpanding: CGFloat = 0.0
     private let heightExpandingKey = "SampleControlHeightExpanding"
@@ -152,6 +153,7 @@ final class SampleControl: UIControl {
         guard let selectionCandidateIndex else { return true }
         
         selectedIndex = selectionCandidateIndex
+        updateSelectedViewModel()
         updateHover()
         
         return true
@@ -166,18 +168,19 @@ final class SampleControl: UIControl {
     }
     
     // MARK: Public Methods
-    func set(options: [String]) {
+    func set(options: [SampleViewModel]) {
         self.options = options
         optionViews.forEach { $0.removeFromSuperview() }
         optionViews.removeAll()
         
-        optionViews = options.map(SampleControlItemView.init(title:))
+        optionViews = options.map(\.name).map(SampleControlItemView.init(title:))
         optionViews.forEach(addSubview(_:))
         setNeedsLayout()
     }
     
     func set(selectedIndex: Int?) {
         self.selectedIndex = selectedIndex
+        updateSelectedViewModel()
     }
 }
 
@@ -264,6 +267,7 @@ extension SampleControl {
         } else {
             if !options.isEmpty {
                 selectedIndex = 0
+                updateSelectedViewModel()
             }
         }
         
@@ -276,6 +280,15 @@ extension SampleControl {
         
         setHover(hidden: true)
         foldBackground()
+    }
+    
+    private func updateSelectedViewModel() {
+        guard let selectedIndex else {
+            selectedViewModel = nil
+            return
+        }
+        
+        selectedViewModel = options[safe: selectedIndex]
     }
     
     private func updateHover() {

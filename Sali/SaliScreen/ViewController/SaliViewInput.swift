@@ -8,6 +8,7 @@
 import Foundation
 
 protocol SaliViewInput: AnyObject {
+    func populateSamples(with viewModel: SampleBankViewModel)
     func showLayersTable()
     func hideLayersTable()
     func populateLayersTable(with viewModels: [LayerCellViewModel])

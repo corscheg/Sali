@@ -18,6 +18,20 @@ final class SaliPresenter {
 
 // MARK: - SaliPresenterInput
 extension SaliPresenter: SaliPresenterInput {
+    func viewDidLoad() {
+        let viewModel = SampleBankViewModel(
+            guitarSamples: [SampleViewModel(name: "Guitar 1"), SampleViewModel(name: "Guitar 2"), SampleViewModel(name: "Guitar 3"), SampleViewModel(name: "Guitar 4")],
+            drumSamples: [SampleViewModel(name: "Drum 1"), SampleViewModel(name: "Drum 2"), SampleViewModel(name: "Drum 3")],
+            brassSamples: [SampleViewModel(name: "Brass 1"), SampleViewModel(name: "Brass 2")]
+        )
+        
+        view?.populateSamples(with: viewModel)
+    }
+    
+    func didSelect(viewModel: SampleViewModel) {
+        print(viewModel)
+    }
+    
     func didTapLayersButton() {
         layersTableVisible.toggle()
         updateLayersTable()

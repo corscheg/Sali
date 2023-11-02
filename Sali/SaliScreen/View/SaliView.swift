@@ -34,7 +34,13 @@ final class SaliView: UIView {
     }()
     
     // MARK: Visual Components
-    private lazy var samplesSelectionPanelView = SamplesSelectionPanelView()
+    private lazy var samplesSelectionPanelView: SamplesSelectionPanelView = {
+        let view = SamplesSelectionPanelView()
+        view.delegate = self
+        
+        return view
+    }()
+    
     private lazy var soundControl = SoundControl()
     private lazy var analyzerView = AnalyzerView()
     private lazy var buttonsPanelView: ButtonsPanelView = {
@@ -88,6 +94,10 @@ final class SaliView: UIView {
     }
     
     // MARK: Public Methods
+    func populateSamples(with viewModel: SampleBankViewModel) {
+        samplesSelectionPanelView.populate(with: viewModel)
+    }
+    
     func showLayersTable() {
         soundControl.hideAccessories()
         
@@ -113,6 +123,13 @@ final class SaliView: UIView {
         snapshot.appendItems(viewModels, toSection: .main)
         
         dataSource.apply(snapshot)
+    }
+}
+
+// MARK: - SamplesSelectionPanelViewDelegate
+extension SaliView: SamplesSelectionPanelViewDelegate {
+    func didSelect(viewModel: SampleViewModel) {
+        delegate?.didSelect(viewModel: viewModel)
     }
 }
 

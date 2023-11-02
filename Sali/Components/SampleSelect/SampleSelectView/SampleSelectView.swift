@@ -9,6 +9,9 @@ import UIKit
 
 final class SampleSelectView: UIView {
     
+    // MARK: Public Properties
+    weak var delegate: SampleSelectViewDelegate?
+    
     // MARK: Private Properties
     let controlLabelSpacing: CGFloat = 8.0
     
@@ -27,8 +30,8 @@ final class SampleSelectView: UIView {
     // MARK: Initializers
     init(frame: CGRect, image: UIImage, imageOffset: CGSize, text: String) {
         sampleControl = SampleControl(image: image, imageOffset: imageOffset)
-        sampleControl.set(options: ["sample 1", "sample 2", "sample 3"])
         super.init(frame: frame)
+        sampleControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
         
         addSubviews()
         label.text = text
@@ -66,6 +69,17 @@ final class SampleSelectView: UIView {
         let height = sampleControlHeight + controlLabelSpacing  + labelHeight
         
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK: Public Methods
+    func populate(with viewModels: [SampleViewModel]) {
+        sampleControl.set(options: viewModels)
+    }
+    
+    // MARK: Actions
+    @objc private func valueChanged() {
+        guard let viewModel = sampleControl.selectedViewModel else { return }
+        delegate?.sampleSelectView(self, didSelect: viewModel)
     }
 }
 

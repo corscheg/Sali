@@ -1,5 +1,5 @@
 //
-//  SaliPresenterInput.swift
+//  SamplesSelectionPanelViewDelegate.swift
 //  Sali
 //
 //  Created by Aleksandr Kazak-Kazakevich on 02.11.2023.
@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol SaliPresenterInput {
-    func viewDidLoad()
+protocol SamplesSelectionPanelViewDelegate: AnyObject {
     func didSelect(viewModel: SampleViewModel)
-    func didTapLayersButton()
 }

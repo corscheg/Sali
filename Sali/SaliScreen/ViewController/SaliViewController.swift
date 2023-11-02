@@ -35,10 +35,20 @@ final class SaliViewController: UIViewController {
     override func loadView() {
         view = saliView
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        presenter.viewDidLoad()
+    }
 }
 
 // MARK: - SaliViewInput
 extension SaliViewController: SaliViewInput {
+    func populateSamples(with viewModel: SampleBankViewModel) {
+        saliView.populateSamples(with: viewModel)
+    }
+    
     func showLayersTable() {
         saliView.showLayersTable()
     }
@@ -54,6 +64,10 @@ extension SaliViewController: SaliViewInput {
 
 // MARK: - SaliViewDelegate
 extension SaliViewController: SaliViewDelegate {
+    func didSelect(viewModel: SampleViewModel) {
+        presenter.didSelect(viewModel: viewModel)
+    }
+    
     func didTapLayersButton() {
         presenter.didTapLayersButton()
     }

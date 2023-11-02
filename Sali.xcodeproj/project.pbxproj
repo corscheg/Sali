@@ -15,6 +15,10 @@
 		96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */; };
 		96709E192AF423BF0069E79B /* ButtonsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E182AF423BF0069E79B /* ButtonsPanelView.swift */; };
 		96709E1C2AF426080069E79B /* ButtonsPanelViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E1B2AF426080069E79B /* ButtonsPanelViewDelegate.swift */; };
+		96709E1E2AF429D90069E79B /* SampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E1D2AF429D90069E79B /* SampleViewModel.swift */; };
+		96709E202AF429ED0069E79B /* SampleBankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E1F2AF429ED0069E79B /* SampleBankViewModel.swift */; };
+		96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E222AF42D360069E79B /* SampleSelectViewDelegate.swift */; };
+		96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E252AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift */; };
 		967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
@@ -60,6 +64,10 @@
 		96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesSelectionPanelView.swift; sourceTree = "<group>"; };
 		96709E182AF423BF0069E79B /* ButtonsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsPanelView.swift; sourceTree = "<group>"; };
 		96709E1B2AF426080069E79B /* ButtonsPanelViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsPanelViewDelegate.swift; sourceTree = "<group>"; };
+		96709E1D2AF429D90069E79B /* SampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewModel.swift; sourceTree = "<group>"; };
+		96709E1F2AF429ED0069E79B /* SampleBankViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBankViewModel.swift; sourceTree = "<group>"; };
+		96709E222AF42D360069E79B /* SampleSelectViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSelectViewDelegate.swift; sourceTree = "<group>"; };
+		96709E252AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesSelectionPanelViewDelegate.swift; sourceTree = "<group>"; };
 		967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControlItemView.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -112,8 +120,8 @@
 		96709E152AF41F270069E79B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				96709E242AF42DBE0069E79B /* SamplesSelectionPanelView */,
 				96709E1A2AF425F40069E79B /* ButtonsPanelView */,
-				96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +133,24 @@
 				96709E1B2AF426080069E79B /* ButtonsPanelViewDelegate.swift */,
 			);
 			path = ButtonsPanelView;
+			sourceTree = "<group>";
+		};
+		96709E212AF42D240069E79B /* SampleSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				968477832AF196CE00EBAA67 /* SampleSelectView.swift */,
+				96709E222AF42D360069E79B /* SampleSelectViewDelegate.swift */,
+			);
+			path = SampleSelectView;
+			sourceTree = "<group>";
+		};
+		96709E242AF42DBE0069E79B /* SamplesSelectionPanelView */ = {
+			isa = PBXGroup;
+			children = (
+				96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */,
+				96709E252AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift */,
+			);
+			path = SamplesSelectionPanelView;
 			sourceTree = "<group>";
 		};
 		968477742AF18B7700EBAA67 /* SaliScreen */ = {
@@ -188,8 +214,8 @@
 		968477852AF19B9E00EBAA67 /* SampleSelect */ = {
 			isa = PBXGroup;
 			children = (
+				96709E212AF42D240069E79B /* SampleSelectView */,
 				9684777C2AF18DD500EBAA67 /* SampleControl.swift */,
-				968477832AF196CE00EBAA67 /* SampleSelectView.swift */,
 				967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */,
 			);
 			path = SampleSelect;
@@ -299,6 +325,8 @@
 			isa = PBXGroup;
 			children = (
 				96AB21A32AF2E885001EEADE /* LayerCellViewModel.swift */,
+				96709E1D2AF429D90069E79B /* SampleViewModel.swift */,
+				96709E1F2AF429ED0069E79B /* SampleBankViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -388,12 +416,15 @@
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
 				968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */,
 				96709E1C2AF426080069E79B /* ButtonsPanelViewDelegate.swift in Sources */,
+				96709E1E2AF429D90069E79B /* SampleViewModel.swift in Sources */,
 				969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */,
 				968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */,
 				96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */,
 				969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */,
+				96709E202AF429ED0069E79B /* SampleBankViewModel.swift in Sources */,
 				9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */,
 				968477842AF196CE00EBAA67 /* SampleSelectView.swift in Sources */,
+				96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */,
 				9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */,
 				96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */,
 				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,
@@ -410,6 +441,7 @@
 				96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
 				96AB21922AF2DED6001EEADE /* LayersTableView.swift in Sources */,
+				96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */,
 				96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */,
 				96AB21902AF2DA11001EEADE /* UITableViewCell+.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
