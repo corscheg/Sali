@@ -13,7 +13,11 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
     var animationDescriptor: AnimationDescriptor<LayerType, AnimatedProperty>?
     
     // MARK: Private Properties
-    private(set) var isActive = false
+    private(set) var isActive = false {
+        didSet {
+            activeStateDidChange()
+        }
+    }
     private let toActiveKey = "SaliButtonToActive"
     private let toInactiveKey = "SaliButtonToInactive"
     private let duration = 0.3
@@ -34,6 +38,9 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: Public Methods
+    func activeStateDidChange() { }
     
     // MARK: Actions
     @objc private func handleTap() {

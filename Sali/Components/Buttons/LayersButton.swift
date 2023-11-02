@@ -7,19 +7,12 @@
 
 import UIKit
 
-final class LayersButton: SaliButton<CALayer, CGColor?> {
+final class LayersButton: SaliButton<CAShapeLayer, CGPath?> {
     
     // MARK: Private Properties
     private let constants = Constants()
     
     // MARK: Visual Components
-    private lazy var backgroundLayer: CALayer = {
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.buttons.cgColor
-        
-        return layer
-    }()
-    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12.0)
@@ -36,7 +29,7 @@ final class LayersButton: SaliButton<CALayer, CGColor?> {
         layer.strokeColor = UIColor.clear.cgColor
         layer.backgroundColor = UIColor.clear.cgColor
         layer.fillColor = UIColor.text.cgColor
-        layer.path = UIBezierPath.makeChevronDown(size: constants.iconSize).cgPath
+        layer.path = UIBezierPath.makeChevronUp(size: constants.iconSize).cgPath
         
         return layer
     }()
@@ -56,8 +49,6 @@ final class LayersButton: SaliButton<CALayer, CGColor?> {
     // MARK: UIView
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        backgroundLayer.frame = bounds
         
         label.sizeToFit()
         label.frame.origin = CGPoint(
@@ -81,22 +72,30 @@ final class LayersButton: SaliButton<CALayer, CGColor?> {
         
         return CGSize(width: width, height: height)
     }
+    
+    // MARK: SaliView
+    override func activeStateDidChange() {
+        super.activeStateDidChange()
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+            self.backgroundColor = self.isActive ? .accent : .buttons
+        }
+    }
 }
 
 // MARK: - Private Methods
 extension LayersButton {
     private func addSubviews() {
-        layer.addSublayer(backgroundLayer)
         addSubview(label)
         layer.addSublayer(chevronLayer)
     }
     
     private func setupBackgroundAnimation() {
         animationDescriptor = .init(
-            layer: backgroundLayer,
-            property: \.backgroundColor,
-            inactiveValue: UIColor.buttons.cgColor,
-            activeValue: UIColor.accent.cgColor
+            layer: chevronLayer,
+            property: \.path,
+            inactiveValue: UIBezierPath.makeChevronUp(size: constants.iconSize).cgPath,
+            activeValue: UIBezierPath.makeChevronDown(size: constants.iconSize).cgPath
         )
     }
 }

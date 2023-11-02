@@ -171,6 +171,14 @@ extension UIBezierPath {
         return UIBezierPath(cgPath: filledPath)
     }
     
+    static func makeChevronUp(size: CGSize) -> UIBezierPath {
+        let path = makeChevronDown(size: size)
+        path.apply(.init(scaleX: 1.0, y: -1.0))
+        path.apply(.init(translationX: 0.0, y: path.cgPath.boundingBoxOfPath.height / 2.0))
+        
+        return path
+    }
+    
     static func makeXMark(size: CGSize) -> UIBezierPath {
         let path = UIBezierPath()
         

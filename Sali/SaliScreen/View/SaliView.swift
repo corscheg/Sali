@@ -34,36 +34,14 @@ final class SaliView: UIView {
     }()
     
     // MARK: Visual Components
-    private lazy var guitarSelectView: SampleSelectView = {
-        let view = SampleSelectView(image: .instrumentGuitar, imageOffset: CGSize(width: 0, height: 10), text: "guitar")
-        
-        return view
-    }()
-    
-    private lazy var drumsSelectView: SampleSelectView = {
-        let view = SampleSelectView(image: .instrumentDrums, text: "drums")
-        
-        return view
-    }()
-    
-    private lazy var brassSelectView: SampleSelectView = {
-        let view = SampleSelectView(image: .instrumentBrass, imageOffset: CGSize(width: -1, height: 1), text: "brass")
-        
-        return view
-    }()
-    
+    private lazy var samplesSelectionPanelView = SamplesSelectionPanelView()
     private lazy var soundControl = SoundControl()
-    
     private lazy var analyzerView = AnalyzerView()
-    
-    private lazy var microphoneButton = MicrophoneButton()
-    private lazy var recordButton = RecordButton()
-    private lazy var playPauseButton = PlayStopButton()
-    private lazy var layersButton: LayersButton = {
-        let button = LayersButton()
-        button.addTarget(self, action: #selector(layersButtonTapped), for: .touchUpInside)
+    private lazy var buttonsPanelView: ButtonsPanelView = {
+        let view = ButtonsPanelView()
+        view.delegate = self
         
-        return button
+        return view
     }()
     
     private lazy var layersTableView: LayersTableView = {
@@ -136,9 +114,11 @@ final class SaliView: UIView {
         
         dataSource.apply(snapshot)
     }
-    
-    // MARK: Actions
-    @objc private func layersButtonTapped() {
+}
+
+// MARK: - ButtonsPanelViewDelegate
+extension SaliView: ButtonsPanelViewDelegate {
+    func didTapLayersButton() {
         delegate?.didTapLayersButton()
     }
 }
@@ -160,55 +140,29 @@ extension SaliView {
     
     private func addSubviews() {
         addSubview(soundControl)
-        
         addSubview(analyzerView)
-        
-        addSubview(layersButton)
-        addSubview(microphoneButton)
-        addSubview(recordButton)
-        addSubview(playPauseButton)
-        
-        
-        addSubview(guitarSelectView)
-        addSubview(drumsSelectView)
-        addSubview(brassSelectView)
-        
+        addSubview(buttonsPanelView)
+        addSubview(samplesSelectionPanelView)
         addSubview(layersTableView)
     }
     
     private func layoutInstrumentsSelection() {
-        let instrumentSelectWidth = (bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing) / 5
-        let instrumentSelectPadding = instrumentSelectWidth
-        let instrumentSelectY = bounds.minY + directionalLayoutMargins.top
         
-        #warning("BAD")
-        let instrumentSelectHeight = [guitarSelectView, drumsSelectView, brassSelectView]
-            .map { $0.sizeThatFits(CGSize(width: instrumentSelectWidth, height: .greatestFiniteMagnitude)) }
-            .map(\.height)
-            .max()
-        
-        guard let instrumentSelectHeight else { return }
-        
-        let instrumentSelectSize = CGSize(width: instrumentSelectWidth, height: instrumentSelectHeight)
-        
-        guitarSelectView.frame = CGRect(
-            origin: CGPoint(x: bounds.minX + directionalLayoutMargins.leading, y: instrumentSelectY),
-            size: instrumentSelectSize
+        let size = samplesSelectionPanelView.sizeThatFits(
+            CGSize(
+                width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
+                height: .greatestFiniteMagnitude
+            )
         )
         
-        drumsSelectView.frame = CGRect(
-            origin: CGPoint(x: guitarSelectView.frame.maxX + instrumentSelectPadding, y: instrumentSelectY),
-            size: instrumentSelectSize
-        )
-        
-        brassSelectView.frame = CGRect(
-            origin: CGPoint(x: drumsSelectView.frame.maxX + instrumentSelectPadding, y: instrumentSelectY),
-            size: instrumentSelectSize
+        samplesSelectionPanelView.frame = CGRect(
+            origin: CGPoint(x: bounds.minX + directionalLayoutMargins.leading, y: bounds.minY + directionalLayoutMargins.top),
+            size: size
         )
     }
     
     private func layoutSoundControl() {
-        let y = guitarSelectView.frame.maxY + constants.instrumentsSoundControlSpacing
+        let y = samplesSelectionPanelView.frame.maxY + constants.instrumentsSoundControlSpacing
         soundControl.frame = CGRect(
             x: bounds.minX + directionalLayoutMargins.leading,
             y: y,
@@ -220,37 +174,26 @@ extension SaliView {
     private func layoutAnalyzer() {
         analyzerView.frame = CGRect(
             x: bounds.minX + directionalLayoutMargins.leading,
-            y: layersButton.frame.minY - constants.buttonsAnalyzerSpacing - constants.buttonSize,
+            y: buttonsPanelView.frame.minY - constants.buttonsAnalyzerSpacing - constants.analyzerHeight,
             width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
-            height: constants.buttonSize
+            height: constants.analyzerHeight
         )
     }
     
     private func layoutButtons() {
-        let buttonsY = bounds.maxY - directionalLayoutMargins.bottom - constants.buttonSize
-        layersButton.frame = CGRect(
-            x: bounds.minX + directionalLayoutMargins.leading,
-            y: buttonsY,
-            width: constants.layersButtonWidth,
-            height: constants.buttonSize
+        let size = buttonsPanelView.sizeThatFits(
+            CGSize(
+                width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
+                height: .greatestFiniteMagnitude
+            )
         )
         
-        layersButton.sizeToFit()
-        
-        let buttonSize = CGSize(width: constants.buttonSize, height: constants.buttonSize)
-        playPauseButton.frame = CGRect(
-            origin: CGPoint(x: bounds.maxX - directionalLayoutMargins.trailing - constants.buttonSize, y: buttonsY),
-            size: buttonSize
-        )
-        
-        recordButton.frame = CGRect(
-            origin: CGPoint(x: playPauseButton.frame.minX - constants.buttonPadding - constants.buttonSize, y: buttonsY),
-            size: buttonSize
-        )
-        
-        microphoneButton.frame = CGRect(
-            origin: CGPoint(x: recordButton.frame.minX - constants.buttonPadding - constants.buttonSize, y: buttonsY),
-            size: buttonSize
+        buttonsPanelView.frame = CGRect(
+            origin: CGPoint(
+                x: bounds.minX + directionalLayoutMargins.leading,
+                y: bounds.maxY - directionalLayoutMargins.bottom - size.height
+            ),
+            size: size
         )
     }
     
@@ -259,7 +202,7 @@ extension SaliView {
             x: bounds.minX + directionalLayoutMargins.leading,
             y: bounds.minY,
             width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
-            height: layersButton.frame.minY - bounds.minY - constants.layersButtonTableViewSpacing
+            height: buttonsPanelView.frame.minY - bounds.minY - constants.layersButtonTableViewSpacing
         )
         
         layersTableView.bounds.size = tableViewFrame.size
@@ -274,11 +217,9 @@ extension SaliView {
         let instrumentsSoundControlSpacing: CGFloat = 38.0
         let soundControlAnalyzerSpacing: CGFloat = 13.0
         let buttonsAnalyzerSpacing: CGFloat = 10.0
-        let buttonSize: CGFloat = 44.0
-        let layersButtonWidth: CGFloat = 74.0
-        let buttonPadding: CGFloat = 5.0
         let layersTableViewCellHeight: CGFloat = 51.0
         let layersButtonTableViewSpacing: CGFloat = 21
+        let analyzerHeight: CGFloat = 44.0
     }
 }
 
