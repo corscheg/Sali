@@ -9,14 +9,19 @@ import UIKit
 
 final class SampleControl: UIControl {
     
+    // MARK: Public Properties
+    private(set) var selectedIndex: Int?
+    
     // MARK: Private Properties
     private let constants = Constants()
     private let image: UIImage
     private let imageOffset: CGSize
     private var options: [String] = []
+    private var currentSelectionYRange: ClosedRange<CGFloat>?
     
     private var heightExpanding: CGFloat = 0.0
     private let heightExpandingKey = "SampleControlHeightExpanding"
+    private let hoverOpacityKey = "SampleControlHoverOpacity"
     private let longTapThreshold = 0.8
     private var longTapDetectionInProgress = false
     private var longTapInProgress = false
@@ -26,6 +31,7 @@ final class SampleControl: UIControl {
     private lazy var backgroundLayer: CALayer = {
         let layer = CALayer()
         layer.backgroundColor = UIColor.buttons.cgColor
+        layer.masksToBounds = true
         
         return layer
     }()
@@ -35,6 +41,20 @@ final class SampleControl: UIControl {
         imageView.image = image
         
         return imageView
+    }()
+    
+    private lazy var selectionHoverLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.backgroundColor = UIColor.clear.cgColor
+        let clearColor = UIColor(white: 1.0, alpha: 0.0).cgColor
+        let color = UIColor.buttons.cgColor
+        layer.colors = [clearColor, color, color, clearColor]
+        layer.locations = [0.0, 0.25, 0.75, 1.0]
+        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        layer.opacity = 0.0
+        
+        return layer
     }()
     
     private var optionViews: [SampleControlItemView] = []
@@ -119,21 +139,30 @@ final class SampleControl: UIControl {
     }
     
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        true
+        let location = touch.location(in: self)
+        
+        if let currentSelectionYRange, currentSelectionYRange.contains(location.y) {
+            return true
+        }
+        
+        let selectionCandidateIndex = optionViews.firstIndex { optionView in
+            optionView.frame.minY < location.y && optionView.frame.maxY > location.y
+        }
+        
+        guard let selectionCandidateIndex else { return true }
+        
+        selectedIndex = selectionCandidateIndex
+        updateHover()
+        
+        return true
     }
     
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        longTapDetectionInProgress = false
-        longTapInProgress = false
-        foldingInProgress = true
-        foldBackground()
+        commitGesture(sendActions: true)
     }
     
     override func cancelTracking(with event: UIEvent?) {
-        longTapDetectionInProgress = false
-        longTapInProgress = false
-        foldingInProgress = true
-        foldBackground()
+        commitGesture(sendActions: false)
     }
     
     // MARK: Public Methods
@@ -146,12 +175,16 @@ final class SampleControl: UIControl {
         optionViews.forEach(addSubview(_:))
         setNeedsLayout()
     }
+    
+    func set(selectedIndex: Int?) {
+        self.selectedIndex = selectedIndex
+    }
 }
 
 // MARK: - CAAnimationDelegate
 extension SampleControl: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if !longTapInProgress, flag {
+        if !longTapInProgress, flag, let name = anim.value(forKey: "name") as? String, name == heightExpandingKey {
             layer.masksToBounds = true
             foldingInProgress = false
         }
@@ -168,6 +201,7 @@ extension SampleControl {
     private func addSubviews() {
         layer.addSublayer(backgroundLayer)
         addSubview(imageView)
+        backgroundLayer.addSublayer(selectionHoverLayer)
     }
     
     private func expandBackground() {
@@ -217,10 +251,67 @@ extension SampleControl {
         groupAnimation.animations = [boundsAnimation, positionAnimation, colorAnimation]
         groupAnimation.duration = 0.2
         groupAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        groupAnimation.setValue(heightExpandingKey, forKey: "name")
         backgroundLayer.bounds = finalBounds
         backgroundLayer.position = finalPosition
         backgroundLayer.backgroundColor = color.cgColor
         backgroundLayer.add(groupAnimation, forKey: heightExpandingKey)
+    }
+    
+    private func commitGesture(sendActions: Bool) {
+        if longTapInProgress {
+            foldingInProgress = true
+        } else {
+            if !options.isEmpty {
+                selectedIndex = 0
+            }
+        }
+        
+        longTapDetectionInProgress = false
+        longTapInProgress = false
+        
+        if sendActions {
+            self.sendActions(for: .valueChanged)
+        }
+        
+        setHover(hidden: true)
+        foldBackground()
+    }
+    
+    private func updateHover() {
+        guard let selectedIndex else {
+            setHover(hidden: true)
+            return
+        }
+        
+        guard let selectedOpitonView = optionViews[safe: selectedIndex] else { return }
+        setHover(hidden: false)
+        
+        #warning("MAYBE REPLACE WITH NICE EXPLICIT ANIMATION")
+        selectionHoverLayer.frame = selectedOpitonView.frame
+    }
+    
+    private func setHover(hidden: Bool) {
+        let finalOpacity: Float = hidden ? 0.0 : 1.0
+        
+        if finalOpacity == selectionHoverLayer.opacity { return }
+        
+        let initialOpacity: Float
+        
+        if selectionHoverLayer.animation(forKey: hoverOpacityKey) != nil,
+           let presentationLayer = selectionHoverLayer.presentation() {
+            initialOpacity = presentationLayer.opacity
+        } else {
+            initialOpacity = selectionHoverLayer.opacity
+        }
+        
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+        animation.fromValue = initialOpacity
+        animation.toValue = finalOpacity
+        animation.duration = 0.2
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        selectionHoverLayer.add(animation, forKey: hoverOpacityKey)
+        selectionHoverLayer.opacity = finalOpacity
     }
 }
 

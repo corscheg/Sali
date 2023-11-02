@@ -11,6 +11,7 @@
 		9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */; };
 		9614AEB12AF1CA730007D081 /* clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB02AF1CA730007D081 /* clamp.swift */; };
 		9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB22AF1D59F0007D081 /* KeyPath+.swift */; };
+		96709E142AF413BC0069E79B /* MutableCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E132AF413BC0069E79B /* MutableCollection+.swift */; };
 		967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */; };
 		968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477752AF18B8A00EBAA67 /* SaliView.swift */; };
 		968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477782AF18D1600EBAA67 /* UIImage+.swift */; };
@@ -52,6 +53,7 @@
 		9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlMarkerView.swift; sourceTree = "<group>"; };
 		9614AEB02AF1CA730007D081 /* clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clamp.swift; sourceTree = "<group>"; };
 		9614AEB22AF1D59F0007D081 /* KeyPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyPath+.swift"; sourceTree = "<group>"; };
+		96709E132AF413BC0069E79B /* MutableCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MutableCollection+.swift"; sourceTree = "<group>"; };
 		967950E02AF30AA9004CD5DF /* SampleControlItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleControlItemView.swift; sourceTree = "<group>"; };
 		968477752AF18B8A00EBAA67 /* SaliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliView.swift; sourceTree = "<group>"; };
 		968477782AF18D1600EBAA67 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				968477912AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift */,
 				9614AEB02AF1CA730007D081 /* clamp.swift */,
 				96AB218F2AF2DA11001EEADE /* UITableViewCell+.swift */,
+				96709E132AF413BC0069E79B /* MutableCollection+.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */,
 				96AB218B2AF2D317001EEADE /* IconSaliButton.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
+				96709E142AF413BC0069E79B /* MutableCollection+.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
