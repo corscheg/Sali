@@ -112,16 +112,6 @@ final class SoundControl: UIControl {
         self.output = output
         updateMarkersPosition(animated: true)
     }
-    
-    func showAccessories() {
-        if isEnabled {
-            animateAccessoriesAlpha(to: 1.0)
-        }
-    }
-    
-    func hideAccessories() {
-        animateAccessoriesAlpha(to: 0.0)
-    }
 }
 
 // MARK: - Output

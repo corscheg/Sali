@@ -9,11 +9,13 @@ import Foundation
 
 struct LayerCellViewModel {
     let name: String
+    let isPlaying: Bool
     let isMuted: Bool
     
     // MARK: Initializers
     init(layerModel: LayerModel) {
         name = layerModel.name
+        isPlaying = layerModel.isPlaying
         isMuted = layerModel.isMuted
     }
 }

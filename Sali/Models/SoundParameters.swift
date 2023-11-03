@@ -9,5 +9,5 @@ import Foundation
 
 struct SoundParameters {
     var volume: Double = 0.5
-    var tempo: Double = 1.0
+    var tempo: Double = 0.5
 }

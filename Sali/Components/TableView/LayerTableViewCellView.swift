@@ -29,6 +29,7 @@ final class LayerTableViewCellView: UIView {
     private lazy var playStopButton: PlayStopButton = {
         let button = PlayStopButton()
         button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(playTapped), for: .touchUpInside)
         
         return button
     }()
@@ -99,6 +100,7 @@ final class LayerTableViewCellView: UIView {
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {
         label.text = viewModel.name
+        playStopButton.set(active: viewModel.isPlaying)
         muteButton.set(active: viewModel.isMuted)
     }
     
@@ -106,15 +108,21 @@ final class LayerTableViewCellView: UIView {
         let finalColor: UIColor = selected ? .accent : .buttons
         
         if animated {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut) {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut) {
                 self.backgroundColor = finalColor
             }
         } else {
-            backgroundColor = finalColor
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut) {
+                self.backgroundColor = finalColor
+            }
         }
     }
     
     // MARK: Actions
+    @objc private func playTapped() {
+        delegate?.didTapPlay()
+    }
+    
     @objc private func muteTapped() {
         delegate?.didTapMute()
     }

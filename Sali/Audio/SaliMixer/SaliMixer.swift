@@ -15,6 +15,7 @@ final class SaliMixer {
     private let audioEngine = AVAudioEngine()
     private let mixerNode: AVAudioMixerNode
     private var units: [UUID: PlayingUnit] = [:]
+    private var mode: Mode = .still
     
     // MARK: Initializer
     init() {
@@ -52,7 +53,7 @@ extension SaliMixer: Mixer {
             mutedState: .playing
         )
         
-        if audioEngine.isRunning {
+        if audioEngine.isRunning, case .all = mode {
             populatePlayer(withIdentifier: identifier)
             playerNode.play()
         }
@@ -86,23 +87,31 @@ extension SaliMixer: Mixer {
     }
     
     func play() throws {
-        populatePlayers()
         
-        try audioSession.setCategory(.playback)
-        try audioSession.setActive(true)
-        
-        audioEngine.prepare()
-        try audioEngine.start()
-        units.values.map(\.playerNode).forEach {
-            $0.play()
+        switch mode {
+        case .still:
+            populatePlayers()
+            try startSession()
+            try startEngine()
+            playUnits()
+        case .all:
+            break
+        case .some(playingUnits: let playingIDs):
+            playingIDs.forEach(stopPlayer(withIdentifier:))
+            
+            populatePlayers()
+            playUnits()
         }
+        
+        mode = .all
     }
     
     func stop() throws {
         stopPlayers()
-        audioEngine.stop()
+        stopEngine()
         
-        try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+        try stopSession()
+        mode = .still
     }
     
     func set(muted: Bool, forLayerAt identifier: UUID) {
@@ -115,6 +124,45 @@ extension SaliMixer: Mixer {
             guard case let .muted(storedVolume) = unit.mutedState else { return }
             unit.playerNode.volume = storedVolume
             units[identifier]?.mutedState = .playing
+        }
+    }
+    
+    func playItem(withIdentifier identifier: UUID) throws {
+        switch mode {
+        case .still:
+            populatePlayer(withIdentifier: identifier)
+            try startSession()
+            try startEngine()
+            playUnit(withIdentifier: identifier)
+            mode = .some(playingUnits: [identifier])
+        case .all:
+            stopPlayers()
+            populatePlayer(withIdentifier: identifier)
+            playUnit(withIdentifier: identifier)
+            mode = .some(playingUnits: [identifier])
+        case .some(playingUnits: let playingUnits):
+            populatePlayer(withIdentifier: identifier)
+            playUnit(withIdentifier: identifier)
+            mode = .some(playingUnits: playingUnits.union([identifier]))
+        }
+    }
+    
+    func stopItem(withIdentifier identifier: UUID) throws {
+        switch mode {
+        case .still:
+            break
+        case .all:
+            break
+        case .some(playingUnits: let playingUnits):
+            stopPlayer(withIdentifier: identifier)
+            let newPlayingUnits = playingUnits.subtracting([identifier])
+            if newPlayingUnits.isEmpty {
+                stopEngine()
+                try stopSession()
+                mode = .still
+            } else {
+                mode = .some(playingUnits: newPlayingUnits)
+            }
         }
     }
 }
@@ -135,16 +183,27 @@ extension SaliMixer {
     }
 }
 
+// MARK: - Mode
+extension SaliMixer {
+    private enum Mode {
+        case still
+        case all
+        case some(playingUnits: Set<UUID>)
+    }
+}
+
 // MARK: - Private Methods
 extension SaliMixer {
     private func populatePlayers() {
         units.keys.forEach(populatePlayer(withIdentifier:))
     }
     
+    private func playUnits() {
+        units.keys.forEach(playUnit(withIdentifier:))
+    }
+    
     private func stopPlayers() {
-        units.values.map(\.playerNode).forEach { node in
-            node.stop()
-        }
+        units.keys.forEach(stopPlayer(withIdentifier:))
     }
     
     private func populatePlayer(withIdentifier identifier: UUID) {
@@ -153,7 +212,36 @@ extension SaliMixer {
         unit.playerNode.scheduleBuffer(unit.buffer, at: nil, options: .loops)
     }
     
+    private func playUnit(withIdentifier identifier: UUID) {
+        guard let unit = units[identifier] else { return }
+        
+        unit.playerNode.play()
+    }
+    
+    private func stopPlayer(withIdentifier identifier: UUID) {
+        guard let unit = units[identifier] else { return }
+        unit.playerNode.stop()
+    }
+    
     private func getRateFrom(tempo: Double) -> Float {
         Float(tempo * 1.5 + 0.5)                            // convert 0.0...1.0 range into 0.5...2.0
+    }
+    
+    private func startSession() throws {
+        try audioSession.setCategory(.playback)
+        try audioSession.setActive(true)
+    }
+    
+    private func startEngine() throws {
+        audioEngine.prepare()
+        try audioEngine.start()
+    }
+    
+    private func stopSession() throws {
+        try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+    }
+    
+    private func stopEngine() {
+        audioEngine.stop()
     }
 }

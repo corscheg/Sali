@@ -61,6 +61,10 @@ final class LayerTableViewCell: UITableViewCell {
 
 // MARK: - LayerTableViewCellViewDelegate
 extension LayerTableViewCell: LayerTableViewCellViewDelegate {
+    func didTapPlay() {
+        delegate?.layerCellDidTapPlay(self)
+    }
+    
     func didTapMute() {
         delegate?.layerCellDidTapMute(self)
     }

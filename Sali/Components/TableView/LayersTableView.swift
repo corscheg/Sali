@@ -36,5 +36,8 @@ extension LayersTableView {
         contentInsetAdjustmentBehavior = .never
         separatorStyle = .none
         alwaysBounceVertical = false
+        
+        backgroundView = UIView()
+        backgroundView?.backgroundColor = .black.withAlphaComponent(0.6)
     }
 }

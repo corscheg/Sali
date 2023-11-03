@@ -76,6 +76,10 @@ extension SaliViewController: SaliViewInput {
     func selectLayer(atIndex index: Int?) {
         saliView.selectLayer(atIndex: index)
     }
+    
+    func setPlayButtonStop() {
+        saliView.setPlayButtonStop()
+    }
 }
 
 // MARK: - SaliViewDelegate
@@ -98,6 +102,10 @@ extension SaliViewController: SaliViewDelegate {
     
     func didSelectLayer(atIndex index: Int) {
         presenter.didSelectLayer(atIndex: index)
+    }
+    
+    func didSelectPlay(atIndex index: Int) {
+        presenter.didSelectPlay(atIndex: index)
     }
     
     func didSelectMute(atIndex index: Int) {

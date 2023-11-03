@@ -10,4 +10,5 @@ import Foundation
 protocol LayerTableViewCellViewDelegate: AnyObject {
     func didTapMute()
     func didTapDelete()
+    func didTapPlay()
 }

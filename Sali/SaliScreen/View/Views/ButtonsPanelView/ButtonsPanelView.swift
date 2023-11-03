@@ -81,6 +81,11 @@ final class ButtonsPanelView: UIView {
         CGSize(width: size.width, height: constants.buttonSize)
     }
     
+    // MARK: Public Methods
+    func setPlayButtonStop() {
+        playPauseButton.set(active: false)
+    }
+    
     // MARK: Actions
     @objc private func buttonTapped(_ sender: UIButton) {
         if sender === layersButton {

@@ -40,7 +40,7 @@ extension SaliPresenter: SaliPresenterInput {
         guard let sample = samples[identifier] else { return }
         
         let uuid = UUID()
-        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString, isMuted: false)
+        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString, isPlaying: false, isMuted: false)
         
         do {
             try mixer.addLayer(withSample: sample, andIdentifier: uuid)
@@ -80,6 +80,29 @@ extension SaliPresenter: SaliPresenterInput {
         setSelectedIndex(to: index, updateLayersView: false)
     }
     
+    func didSelectPlay(atIndex index: Int) {
+        layers[index].isPlaying.toggle()
+        
+        if layers[index].isPlaying {
+            do {
+                try mixer.playItem(withIdentifier: layers[index].identifier)
+                view?.setPlayButtonStop()
+                isAllPlaying = false
+                updateLayersTableRows()
+            } catch {
+                #warning("HANDLE ERROR")
+            }
+        } else {
+            do {
+                try mixer.stopItem(withIdentifier: layers[index].identifier)
+                updateLayersTableRows()
+            } catch {
+                #warning("HANDLE ERROR")
+                print(error)
+            }
+        }
+    }
+    
     func didSelectMute(atIndex index: Int) {
         toggleMute(at: index)
     }
@@ -100,9 +123,9 @@ extension SaliPresenter {
         }
     }
     
-    private func updateLayersTableRows() {
+    private func updateLayersTableRows(reload: Bool = true) {
         let viewModels = layers.enumerated().map { createLayerViewModel(withModel: $1, index: $0) }
-        view?.populateLayersTable(with: viewModels, reload: true)
+        view?.populateLayersTable(with: viewModels, reload: reload)
     }
     
     private func fillSamplesAndPopulateView(withBank bank: SampleBankModel) {
@@ -139,6 +162,10 @@ extension SaliPresenter {
     private func playAll() {
         do {
             try mixer.play()
+            for i in layers.indices {
+                layers[i].isPlaying = false
+            }
+            updateLayersTableRows(reload: false)
         } catch {
             #warning("HANDLE ERROR!")
             print(error)

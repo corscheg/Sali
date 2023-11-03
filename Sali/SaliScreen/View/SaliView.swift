@@ -9,27 +9,35 @@ import UIKit
 
 final class SaliView: UIView {
     
-    private typealias DataSource = UITableViewDiffableDataSource<Section, LayerCellViewModel>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LayerCellViewModel>
+    private typealias DataSource = UITableViewDiffableDataSource<Section, String>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
     
     // MARK: Public Properties
     weak var delegate: SaliViewDelegate?
     
     // MARK: Private Properties
     private let constants = Constants()
+    #warning("FIX FIX FIX FIX FIX FIX FIX FIX FIX")
+    private var layerViewModels: [LayerCellViewModel] = []
     private lazy var dataSource: DataSource = {
-        let dataSource = DataSource(tableView: layersTableView) { tableView, indexPath, viewModel in
+        let dataSource = DataSource(tableView: layersTableView) { [weak self] tableView, indexPath, _ in
+            
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: LayerTableViewCell.reuseIdentifier,
                 for: indexPath
             ) as! LayerTableViewCell
             
+            guard let self else { return cell }
+            
             cell.delegate = self
             cell.transform = .init(scaleX: 1.0, y: -1.0)
-            cell.setup(with: viewModel)
+            
+            cell.setup(with: layerViewModels[indexPath.row])
             
             return cell
         }
+        
+        dataSource.defaultRowAnimation = .left
         
         return dataSource
     }()
@@ -106,8 +114,6 @@ final class SaliView: UIView {
     }
     
     func showLayersTable() {
-        soundControl.hideAccessories()
-        
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
             self.layersTableView.alpha = 1.0
             self.analyzerView.alpha = 0.0
@@ -115,8 +121,6 @@ final class SaliView: UIView {
     }
     
     func hideLayersTable() {
-        soundControl.showAccessories()
-        
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut) {
             self.layersTableView.alpha = 0.0
             self.analyzerView.alpha = 1.0
@@ -124,17 +128,19 @@ final class SaliView: UIView {
     }
     
     func populateLayersTable(with viewModels: [LayerCellViewModel], reload: Bool) {
+        
+        self.layerViewModels = viewModels
         if reload {
             var snapshot = Snapshot()
             
             snapshot.appendSections([.main])
-            snapshot.appendItems(viewModels, toSection: .main)
+            snapshot.appendItems(viewModels.map(\.name), toSection: .main)
             
             dataSource.apply(snapshot)
         } else {
             var snapshot = dataSource.snapshot()
-            snapshot.reconfigureItems(viewModels)
-            dataSource.apply(snapshot, animatingDifferences: false)
+            snapshot.reconfigureItems(viewModels.map(\.name))
+            dataSource.apply(snapshot, animatingDifferences: true)
         }
     }
     
@@ -161,6 +167,10 @@ final class SaliView: UIView {
         }
         
         layersTableView.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
+    }
+    
+    func setPlayButtonStop() {
+        buttonsPanelView.setPlayButtonStop()
     }
     
     // MARK: Actions
@@ -190,6 +200,11 @@ extension SaliView: ButtonsPanelViewDelegate {
 
 // MARK: - LayerTableViewCellDelegate
 extension SaliView: LayerTableViewCellDelegate {
+    func layerCellDidTapPlay(_ layerCell: LayerTableViewCell) {
+        guard let indexPath = layersTableView.indexPath(for: layerCell) else { return }
+        delegate?.didSelectPlay(atIndex: indexPath.row)
+    }
+    
     func layerCellDidTapMute(_ layerCell: LayerTableViewCell) {
         guard let indexPath = layersTableView.indexPath(for: layerCell) else { return }
         delegate?.didSelectMute(atIndex: indexPath.row)

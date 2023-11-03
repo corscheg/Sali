@@ -14,4 +14,6 @@ protocol Mixer {
     func play() throws
     func stop() throws
     func set(muted: Bool, forLayerAt identifier: UUID)
+    func playItem(withIdentifier identifier: UUID) throws
+    func stopItem(withIdentifier identifier: UUID) throws
 }
