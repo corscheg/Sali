@@ -17,7 +17,9 @@ final class SaliPresenter {
     private let mixer: Mixer
     private var layersTableVisible = false
     private var isAllPlaying = false
-    private var samples: [SampleViewModel: SampleModel] = [:]
+    private var samples: [SampleIdentifier: SampleModel] = [:]
+    private var layers: [LayerModel] = []
+    private var selectedLayerIndex: Int?
     
     // MARK: Initializers
     init(sampleLoader: SampleLoaderProtocol, mixer: Mixer) {
@@ -31,17 +33,31 @@ extension SaliPresenter: SaliPresenterInput {
     func viewDidLoad() {
         let sampleBank = sampleLoader.loadSamples()
         fillSamplesAndPopulateView(withBank: sampleBank)
+        view?.disableParametersControl()
     }
     
-    func didSelect(viewModel: SampleViewModel) {
-        guard let sample = samples[viewModel] else { return }
+    func didSelectSample(withIdentifier identifier: SampleIdentifier) {
+        guard let sample = samples[identifier] else { return }
+        
+        let uuid = UUID()
+        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString)
         
         do {
-            try mixer.add(sample: sample, forKey: sample.identifier)
+            try mixer.addLayer(withSample: sample, andIdentifier: uuid)
+            layers.append(layerModel)
+            selectedLayerIndex = layers.endIndex - 1
+            mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
+            updateParametersControl()
         } catch {
             #warning("HANDLE ERROR!")
             print(error)
         }
+    }
+    
+    func didChange(soundParameters: SoundParameters) {
+        guard let selectedLayerIndex else { return }
+        layers[safe: selectedLayerIndex]?.parameters = soundParameters
+        mixer.adjust(parameters: soundParameters, forLayerAt: layers[selectedLayerIndex].identifier)
     }
     
     func didTapPlayButton() {
@@ -64,7 +80,7 @@ extension SaliPresenter: SaliPresenterInput {
 extension SaliPresenter {
     private func updateLayersTable() {
         if layersTableVisible {
-            let viewModels = (1...5).map(String.init(_:)).map(LayerCellViewModel.init(name:))
+            let viewModels = layers.enumerated().map { createLayerViewModel(withModel: $1, index: $0) }
             view?.populateLayersTable(with: viewModels)
             view?.showLayersTable()
         } else {
@@ -76,21 +92,21 @@ extension SaliPresenter {
         var guitarSampleViewModels: [SampleViewModel] = []
         for guitarSample in bank.guitarSamples {
             let viewModel = SampleViewModel(sample: guitarSample)
-            samples[viewModel] = guitarSample
+            samples[guitarSample.identifier] = guitarSample
             guitarSampleViewModels.append(viewModel)
         }
         
         var drumsSampleViewModels: [SampleViewModel] = []
         for drumSample in bank.drumSamples {
             let viewModel = SampleViewModel(sample: drumSample)
-            samples[viewModel] = drumSample
+            samples[drumSample.identifier] = drumSample
             drumsSampleViewModels.append(viewModel)
         }
         
         var brassSampleViewModels: [SampleViewModel] = []
         for brassSample in bank.brassSamples {
             let viewModel = SampleViewModel(sample: brassSample)
-            samples[viewModel] = brassSample
+            samples[brassSample.identifier] = brassSample
             brassSampleViewModels.append(viewModel)
         }
         
@@ -113,6 +129,56 @@ extension SaliPresenter {
     }
     
     private func stopAll() {
-        mixer.stop()
+        do {
+            try mixer.stop()
+        } catch {
+            #warning("HANDLE ERROR!")
+            print(error)
+        }
+    }
+    
+    private func createLayerViewModel(withModel model: LayerModel, index: Int) -> LayerCellViewModel {
+        LayerCellViewModel(layerModel: model) { [weak self] in
+            self?.removeLayer(at: index)
+            self?.updateLayersTable()
+        }
+    }
+    
+    private func removeLayer(at index: Int) {
+        let removedLayer = layers.remove(at: index)
+        
+        
+        if let selectedLayerIndex {
+            
+            var newIndex = selectedLayerIndex
+            if index < selectedLayerIndex {
+                newIndex -= 1
+                self.selectedLayerIndex = newIndex
+            } else if index == selectedLayerIndex {
+                if (newIndex - 1) >= 0 {
+                    self.selectedLayerIndex = newIndex - 1
+                } else if selectedLayerIndex >= layers.endIndex {
+                    self.selectedLayerIndex = nil
+                }
+            }
+            
+            updateParametersControl()
+        }
+        
+        do {
+            try mixer.removeLayer(withIdentifier: removedLayer.identifier)
+        } catch {
+            #warning("HANDLE ERROR!")
+            print(error)
+        }
+    }
+    
+    private func updateParametersControl() {
+        if let selectedLayerIndex {
+            view?.enableParametersControl()
+            view?.set(soundParameters: layers[selectedLayerIndex].parameters)
+        } else {
+            view?.disableParametersControl()
+        }
     }
 }

@@ -49,6 +49,10 @@ extension SaliViewController: SaliViewInput {
         saliView.populateSamples(with: viewModel)
     }
     
+    func set(soundParameters: SoundParameters) {
+        saliView.set(soundParameters: soundParameters)
+    }
+    
     func showLayersTable() {
         saliView.showLayersTable()
     }
@@ -60,12 +64,24 @@ extension SaliViewController: SaliViewInput {
     func populateLayersTable(with viewModels: [LayerCellViewModel]) {
         saliView.populateLayersTable(with: viewModels)
     }
+    
+    func enableParametersControl() {
+        saliView.enableParametersControl()
+    }
+    
+    func disableParametersControl() {
+        saliView.disableParametersControl()
+    }
 }
 
 // MARK: - SaliViewDelegate
 extension SaliViewController: SaliViewDelegate {
-    func didSelect(viewModel: SampleViewModel) {
-        presenter.didSelect(viewModel: viewModel)
+    func didSelectSample(withIdentifier identifier: SampleIdentifier) {
+        presenter.didSelectSample(withIdentifier: identifier)
+    }
+    
+    func didChange(parameters: SoundParameters) {
+        presenter.didChange(soundParameters: parameters)
     }
     
     func didTapPlayButton() {

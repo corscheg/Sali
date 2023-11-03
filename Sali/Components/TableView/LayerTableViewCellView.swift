@@ -11,6 +11,7 @@ final class LayerTableViewCellView: UIView {
     
     // MARK: Private Properties
     private let constants = Constants()
+    private var didTapDelete: (() -> ())?
     
     // MARK: Visual Components
     private lazy var label: UILabel = {
@@ -25,7 +26,12 @@ final class LayerTableViewCellView: UIView {
     
     private lazy var playStopButton = PlayStopButton()
     private lazy var muteButton = MuteButton()
-    private lazy var deleteButton = DeleteButton()
+    private lazy var deleteButton: DeleteButton = {
+        let button = DeleteButton()
+        button.addTarget(self, action: #selector(deleteTappped), for: .touchUpInside)
+        
+        return button
+    }()
     
     // MARK: Initializers
     override init(frame: CGRect) {
@@ -78,6 +84,11 @@ final class LayerTableViewCellView: UIView {
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {
         label.text = viewModel.name
+        didTapDelete = viewModel.didTapDelete
+    }
+    
+    @objc private func deleteTappped() {
+        didTapDelete?()
     }
 }
 

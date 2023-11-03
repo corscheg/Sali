@@ -9,7 +9,10 @@ import Foundation
 
 protocol SaliViewInput: AnyObject {
     func populateSamples(with viewModel: SampleBankViewModel)
+    func set(soundParameters: SoundParameters)
     func showLayersTable()
     func hideLayersTable()
+    func disableParametersControl()
+    func enableParametersControl()
     func populateLayersTable(with viewModels: [LayerCellViewModel])
 }

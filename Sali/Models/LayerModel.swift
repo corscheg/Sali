@@ -1,5 +1,5 @@
 //
-//  SampleModel.swift
+//  LayerModel.swift
 //  Sali
 //
 //  Created by Aleksandr Kazak-Kazakevich on 03.11.2023.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SampleModel {
+struct LayerModel {
+    let identifier: UUID
     let name: String
-    let identifier: SampleIdentifier
-    let url: URL
+    var parameters = SoundParameters()
 }

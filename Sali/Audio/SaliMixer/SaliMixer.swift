@@ -14,7 +14,7 @@ final class SaliMixer {
     private let audioSession: AVAudioSession = .sharedInstance()
     private let audioEngine = AVAudioEngine()
     private let mixerNode: AVAudioMixerNode
-    private var units: [String: PlayingUnit] = [:]
+    private var units: [UUID: PlayingUnit] = [:]
     
     // MARK: Initializer
     init() {
@@ -24,13 +24,15 @@ final class SaliMixer {
 
 // MARK: - Mixer
 extension SaliMixer: Mixer {
-    func add(sample: SampleModel, forKey key: String) throws {
+    func addLayer(withSample sample: SampleModel, andIdentifier identifier: UUID) throws {
         let file = try AVAudioFile(forReading: sample.url)
         let format = file.processingFormat
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(file.length))
         
-        #warning("ADD CUSTOM ERROR THROWING")
-        guard let buffer else { return }
+        guard let buffer else {
+            throw MixerError.faledToPopulateBuffer
+        }
+        
         try file.read(into: buffer)
         
         let playerNode = AVAudioPlayerNode()
@@ -42,7 +44,33 @@ extension SaliMixer: Mixer {
         audioEngine.connect(playerNode, to: timeNode, format: format)
         audioEngine.connect(timeNode, to: mixerNode, format: format)
         
-        units[key] = PlayingUnit(sample: sample, playerNode: playerNode, buffer: buffer, timingNode: timeNode)
+        units[identifier] = PlayingUnit(sample: sample, playerNode: playerNode, buffer: buffer, timingNode: timeNode)
+        
+        if audioEngine.isRunning {
+            populatePlayer(withIdentifier: identifier)
+            playerNode.play()
+        }
+    }
+    
+    func removeLayer(withIdentifier identifier: UUID) throws {
+        guard let unit = units.removeValue(forKey: identifier) else {
+            throw MixerError.unitNotFound
+        }
+        
+        unit.playerNode.stop()
+        
+        audioEngine.disconnectNodeOutput(unit.playerNode)
+        audioEngine.disconnectNodeOutput(unit.timingNode)
+        
+        audioEngine.detach(unit.playerNode)
+        audioEngine.detach(unit.timingNode)
+    }
+    
+    func adjust(parameters: SoundParameters, forLayerAt identifier: UUID) {
+        guard let unit = units[identifier] else { return }
+        
+        unit.playerNode.volume = Float(parameters.volume)
+        unit.timingNode.rate = getRateFrom(tempo: parameters.tempo)
     }
     
     func play() throws {
@@ -58,9 +86,11 @@ extension SaliMixer: Mixer {
         }
     }
     
-    func stop() {
+    func stop() throws {
         stopPlayers()
         audioEngine.stop()
+        
+        try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
     }
 }
 
@@ -77,14 +107,22 @@ extension SaliMixer {
 // MARK: - Private Methods
 extension SaliMixer {
     private func populatePlayers() {
-        units.values.forEach { unit in
-            unit.playerNode.scheduleBuffer(unit.buffer, at: nil, options: .loops)
-        }
+        units.keys.forEach(populatePlayer(withIdentifier:))
     }
     
     private func stopPlayers() {
         units.values.map(\.playerNode).forEach { node in
             node.stop()
         }
+    }
+    
+    private func populatePlayer(withIdentifier identifier: UUID) {
+        guard let unit = units[identifier] else { return }
+        
+        unit.playerNode.scheduleBuffer(unit.buffer, at: nil, options: .loops)
+    }
+    
+    private func getRateFrom(tempo: Double) -> Float {
+        Float(tempo * 1.5 + 0.5)                            // convert 0.0...1.0 range into 0.5...2.0
     }
 }

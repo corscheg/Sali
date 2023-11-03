@@ -81,6 +81,12 @@ final class SoundControl: UIControl {
     }
     
     // MARK: UIControl
+    override var isEnabled: Bool {
+        didSet {
+            updateEnabledState()
+        }
+    }
+    
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         updateOutputWith(touchLocation: location)
@@ -104,11 +110,13 @@ final class SoundControl: UIControl {
     // MARK: Public Methods
     func set(output: Output) {
         self.output = output
-        setNeedsLayout()
+        updateMarkersPosition(animated: true)
     }
     
     func showAccessories() {
-        animateAccessoriesAlpha(to: 1.0)
+        if isEnabled {
+            animateAccessoriesAlpha(to: 1.0)
+        }
     }
     
     func hideAccessories() {
@@ -140,7 +148,12 @@ extension SoundControl {
         private var _tempo: Double
         
         static var zero: Output {
-            .init(_volume: 0.0, _tempo: 0.0)
+            .init(volume: 0.0, tempo: 0.0)
+        }
+        
+        init(volume: Double, tempo: Double) {
+            _volume = volume
+            _tempo = tempo
         }
     }
 }
@@ -196,6 +209,20 @@ extension SoundControl {
             self.tempoScaleView.alpha = alphaValue
             self.volumeMarkerView.alpha = alphaValue
             self.tempoMarkerView.alpha = alphaValue
+        }
+    }
+    
+    private func updateEnabledState() {
+        if isEnabled {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut) {
+                self.animateAccessoriesAlpha(to: 1.0)
+                self.alpha = 1.0
+            }
+        } else {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut) {
+                self.animateAccessoriesAlpha(to: 0.0)
+                self.alpha = 0.6
+            }
         }
     }
 }

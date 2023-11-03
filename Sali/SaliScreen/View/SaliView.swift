@@ -41,7 +41,13 @@ final class SaliView: UIView {
         return view
     }()
     
-    private lazy var soundControl = SoundControl()
+    private lazy var soundControl: SoundControl = {
+        let soundControl = SoundControl()
+        soundControl.addTarget(self, action: #selector(soundControlValueDidChange), for: .valueChanged)
+        
+        return soundControl
+    }()
+    
     private lazy var analyzerView = AnalyzerView()
     private lazy var buttonsPanelView: ButtonsPanelView = {
         let view = ButtonsPanelView()
@@ -124,12 +130,31 @@ final class SaliView: UIView {
         
         dataSource.apply(snapshot)
     }
+    
+    func enableParametersControl() {
+        soundControl.isEnabled = true
+    }
+    
+    func disableParametersControl() {
+        soundControl.isEnabled = false
+    }
+    
+    func set(soundParameters: SoundParameters) {
+        let controlOutput = SoundControl.Output(volume: soundParameters.volume, tempo: soundParameters.tempo)
+        soundControl.set(output: controlOutput)
+    }
+    
+    // MARK: Actions
+    @objc private func soundControlValueDidChange() {
+        let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)
+        delegate?.didChange(parameters: parameters)
+    }
 }
 
 // MARK: - SamplesSelectionPanelViewDelegate
 extension SaliView: SamplesSelectionPanelViewDelegate {
     func didSelect(viewModel: SampleViewModel) {
-        delegate?.didSelect(viewModel: viewModel)
+        delegate?.didSelectSample(withIdentifier: viewModel.identifier)
     }
 }
 

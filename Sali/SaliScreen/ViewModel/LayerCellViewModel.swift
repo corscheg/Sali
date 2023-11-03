@@ -9,7 +9,22 @@ import Foundation
 
 struct LayerCellViewModel {
     let name: String
+    let didTapDelete: () -> ()
+    
+    // MARK: Initializers
+    init(layerModel: LayerModel, didTapDelete: @escaping () -> ()) {
+        name = layerModel.name
+        self.didTapDelete = didTapDelete
+    }
 }
 
 // MARK: - Hashable
-extension LayerCellViewModel: Hashable { }
+extension LayerCellViewModel: Hashable { 
+    static func ==(lhs: LayerCellViewModel, rhs: LayerCellViewModel) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}

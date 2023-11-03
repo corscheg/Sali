@@ -8,7 +8,9 @@
 import Foundation
 
 protocol Mixer {
-    func add(sample: SampleModel, forKey key: String) throws
+    func addLayer(withSample sample: SampleModel, andIdentifier identifier: UUID) throws
+    func removeLayer(withIdentifier identifier: UUID) throws
+    func adjust(parameters: SoundParameters, forLayerAt identifier: UUID)
     func play() throws
-    func stop()
+    func stop() throws
 }

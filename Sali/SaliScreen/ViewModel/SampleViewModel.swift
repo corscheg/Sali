@@ -9,7 +9,7 @@ import Foundation
 
 struct SampleViewModel {
     let name: String
-    let identifier: String
+    let identifier: SampleIdentifier
     
     // MARK: Initializer
     init(sample: SampleModel) {

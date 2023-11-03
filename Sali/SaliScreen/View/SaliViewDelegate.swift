@@ -8,7 +8,8 @@
 import Foundation
 
 protocol SaliViewDelegate: AnyObject {
-    func didSelect(viewModel: SampleViewModel)
+    func didSelectSample(withIdentifier identifier: SampleIdentifier)
+    func didChange(parameters: SoundParameters)
     func didTapPlayButton()
     func didTapLayersButton()
 }
