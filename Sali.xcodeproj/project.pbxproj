@@ -15,6 +15,8 @@
 		966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FE2AF5675100EAC808 /* MixerError.swift */; };
 		966C46012AF5683400EAC808 /* LayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46002AF5683400EAC808 /* LayerModel.swift */; };
 		966C46032AF57AFB00EAC808 /* SoundParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46022AF57AFB00EAC808 /* SoundParameters.swift */; };
+		966C46052AF593A400EAC808 /* LayerTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46042AF593A400EAC808 /* LayerTableViewCellDelegate.swift */; };
+		966C46072AF593BA00EAC808 /* LayerTableViewCellViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46062AF593B900EAC808 /* LayerTableViewCellViewDelegate.swift */; };
 		96709E142AF413BC0069E79B /* MutableCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E132AF413BC0069E79B /* MutableCollection+.swift */; };
 		96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */; };
 		96709E192AF423BF0069E79B /* ButtonsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96709E182AF423BF0069E79B /* ButtonsPanelView.swift */; };
@@ -75,6 +77,8 @@
 		966C45FE2AF5675100EAC808 /* MixerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerError.swift; sourceTree = "<group>"; };
 		966C46002AF5683400EAC808 /* LayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerModel.swift; sourceTree = "<group>"; };
 		966C46022AF57AFB00EAC808 /* SoundParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundParameters.swift; sourceTree = "<group>"; };
+		966C46042AF593A400EAC808 /* LayerTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewCellDelegate.swift; sourceTree = "<group>"; };
+		966C46062AF593B900EAC808 /* LayerTableViewCellViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewCellViewDelegate.swift; sourceTree = "<group>"; };
 		96709E132AF413BC0069E79B /* MutableCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MutableCollection+.swift"; sourceTree = "<group>"; };
 		96709E162AF41F3F0069E79B /* SamplesSelectionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesSelectionPanelView.swift; sourceTree = "<group>"; };
 		96709E182AF423BF0069E79B /* ButtonsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsPanelView.swift; sourceTree = "<group>"; };
@@ -354,6 +358,8 @@
 				96AB218D2AF2D9F8001EEADE /* LayerTableViewCell.swift */,
 				96AB21932AF2DFCE001EEADE /* LayerTableViewCellView.swift */,
 				96AB21912AF2DED6001EEADE /* LayersTableView.swift */,
+				966C46042AF593A400EAC808 /* LayerTableViewCellDelegate.swift */,
+				966C46062AF593B900EAC808 /* LayerTableViewCellViewDelegate.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 				96709E502AF455D60069E79B /* SaliMixer.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
+				966C46072AF593BA00EAC808 /* LayerTableViewCellViewDelegate.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
 				96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */,
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
@@ -498,6 +505,7 @@
 				96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */,
 				9684778E2AF1A1C200EBAA67 /* RecordButton.swift in Sources */,
 				96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */,
+				966C46052AF593A400EAC808 /* LayerTableViewCellDelegate.swift in Sources */,
 				96709E462AF44BB90069E79B /* SampleModel.swift in Sources */,
 				966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */,
 				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,

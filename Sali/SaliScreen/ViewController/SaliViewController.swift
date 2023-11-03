@@ -99,4 +99,12 @@ extension SaliViewController: SaliViewDelegate {
     func didSelectLayer(atIndex index: Int) {
         presenter.didSelectLayer(atIndex: index)
     }
+    
+    func didSelectMute(atIndex index: Int) {
+        presenter.didSelectMute(atIndex: index)
+    }
+    
+    func didSelectDelete(atIndex index: Int) {
+        presenter.didSelectDelete(atIndex: index)
+    }
 }

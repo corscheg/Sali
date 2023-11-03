@@ -9,10 +9,11 @@ import UIKit
 
 final class LayerTableViewCellView: UIView {
     
+    // MARK: Public Properties
+    weak var delegate: LayerTableViewCellViewDelegate?
+    
     // MARK: Private Properties
     private let constants = Constants()
-    private var didTapMute: (() -> ())?
-    private var didTapDelete: (() -> ())?
     
     // MARK: Visual Components
     private lazy var label: UILabel = {
@@ -99,8 +100,6 @@ final class LayerTableViewCellView: UIView {
     func setup(with viewModel: LayerCellViewModel) {
         label.text = viewModel.name
         muteButton.set(active: viewModel.isMuted)
-        didTapMute = viewModel.didTapMute
-        didTapDelete = viewModel.didTapDelete
     }
     
     func setSelected(_ selected: Bool, animated: Bool) {
@@ -117,11 +116,11 @@ final class LayerTableViewCellView: UIView {
     
     // MARK: Actions
     @objc private func muteTapped() {
-        didTapMute?()
+        delegate?.didTapMute()
     }
     
     @objc private func deleteTappped() {
-        didTapDelete?()
+        delegate?.didTapDelete()
     }
 }
 

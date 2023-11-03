@@ -24,6 +24,7 @@ final class SaliView: UIView {
                 for: indexPath
             ) as! LayerTableViewCell
             
+            cell.delegate = self
             cell.transform = .init(scaleX: 1.0, y: -1.0)
             cell.setup(with: viewModel)
             
@@ -184,6 +185,19 @@ extension SaliView: ButtonsPanelViewDelegate {
     
     func didTapPlayButton() {
         delegate?.didTapPlayButton()
+    }
+}
+
+// MARK: - LayerTableViewCellDelegate
+extension SaliView: LayerTableViewCellDelegate {
+    func layerCellDidTapMute(_ layerCell: LayerTableViewCell) {
+        guard let indexPath = layersTableView.indexPath(for: layerCell) else { return }
+        delegate?.didSelectMute(atIndex: indexPath.row)
+    }
+    
+    func layerCellDidTapDelete(_ layerCell: LayerTableViewCell) {
+        guard let indexPath = layersTableView.indexPath(for: layerCell) else { return }
+        delegate?.didSelectDelete(atIndex: indexPath.row)
     }
 }
 

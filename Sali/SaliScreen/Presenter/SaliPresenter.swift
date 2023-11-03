@@ -79,6 +79,14 @@ extension SaliPresenter: SaliPresenterInput {
     func didSelectLayer(atIndex index: Int) {
         setSelectedIndex(to: index, updateLayersView: false)
     }
+    
+    func didSelectMute(atIndex index: Int) {
+        toggleMute(at: index)
+    }
+    
+    func didSelectDelete(atIndex index: Int) {
+        removeLayer(at: index)
+    }
 }
 
 // MARK: - Private Methods
@@ -147,11 +155,7 @@ extension SaliPresenter {
     }
     
     private func createLayerViewModel(withModel model: LayerModel, index: Int) -> LayerCellViewModel {
-        LayerCellViewModel(layerModel: model) { [weak self] in
-            self?.toggleMute(at: index)
-        } didTapDelete: { [weak self] in
-            self?.removeLayer(at: index)
-        }
+        LayerCellViewModel(layerModel: model)
     }
     
     private func removeLayer(at index: Int) {

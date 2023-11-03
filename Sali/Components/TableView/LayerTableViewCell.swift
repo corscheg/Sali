@@ -9,11 +9,19 @@ import UIKit
 
 final class LayerTableViewCell: UITableViewCell {
     
+    // MARK: Public Properties
+    weak var delegate: LayerTableViewCellDelegate?
+    
     // MARK: Private Properties
     private let constants = Constants()
     
     // MARK: Visual Components
-    private lazy var cellView = LayerTableViewCellView()
+    private lazy var cellView: LayerTableViewCellView = {
+        let view = LayerTableViewCellView()
+        view.delegate = self
+        
+        return view
+    }()
     
     // MARK: Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -48,6 +56,17 @@ final class LayerTableViewCell: UITableViewCell {
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {
         cellView.setup(with: viewModel)
+    }
+}
+
+// MARK: - LayerTableViewCellViewDelegate
+extension LayerTableViewCell: LayerTableViewCellViewDelegate {
+    func didTapMute() {
+        delegate?.layerCellDidTapMute(self)
+    }
+    
+    func didTapDelete() {
+        delegate?.layerCellDidTapDelete(self)
     }
 }
 

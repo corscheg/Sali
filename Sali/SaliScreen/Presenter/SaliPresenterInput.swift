@@ -14,4 +14,6 @@ protocol SaliPresenterInput {
     func didTapPlayButton()
     func didTapLayersButton()
     func didSelectLayer(atIndex index: Int)
+    func didSelectMute(atIndex index: Int)
+    func didSelectDelete(atIndex index: Int)
 }
