@@ -122,13 +122,19 @@ final class SaliView: UIView {
         }
     }
     
-    func populateLayersTable(with viewModels: [LayerCellViewModel]) {
-        var snapshot = Snapshot()
-        
-        snapshot.appendSections([.main])
-        snapshot.appendItems(viewModels, toSection: .main)
-        
-        dataSource.apply(snapshot)
+    func populateLayersTable(with viewModels: [LayerCellViewModel], reload: Bool) {
+        if reload {
+            var snapshot = Snapshot()
+            
+            snapshot.appendSections([.main])
+            snapshot.appendItems(viewModels, toSection: .main)
+            
+            dataSource.apply(snapshot)
+        } else {
+            var snapshot = dataSource.snapshot()
+            snapshot.reconfigureItems(viewModels)
+            dataSource.apply(snapshot, animatingDifferences: false)
+        }
     }
     
     func enableParametersControl() {
@@ -142,6 +148,18 @@ final class SaliView: UIView {
     func set(soundParameters: SoundParameters) {
         let controlOutput = SoundControl.Output(volume: soundParameters.volume, tempo: soundParameters.tempo)
         soundControl.set(output: controlOutput)
+    }
+    
+    func selectLayer(atIndex index: Int?) {
+        guard let index else {
+            if let selectedIndexPath = layersTableView.indexPathForSelectedRow {
+                layersTableView.deselectRow(at: selectedIndexPath, animated: true)
+            }
+            
+            return
+        }
+        
+        layersTableView.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
     }
     
     // MARK: Actions
@@ -172,7 +190,7 @@ extension SaliView: ButtonsPanelViewDelegate {
 // MARK: - UITableViewDelegate
 extension SaliView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.didSelectLayer(atIndex: indexPath.row)
     }
 }
 

@@ -42,6 +42,12 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
     // MARK: Public Methods
     func activeStateDidChange() { }
     
+    func set(active: Bool) {
+        guard active != isActive else { return }
+        
+        handleTap()
+    }
+    
     // MARK: Actions
     @objc private func handleTap() {
         isActive.toggle()

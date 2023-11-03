@@ -61,8 +61,8 @@ extension SaliViewController: SaliViewInput {
         saliView.hideLayersTable()
     }
     
-    func populateLayersTable(with viewModels: [LayerCellViewModel]) {
-        saliView.populateLayersTable(with: viewModels)
+    func populateLayersTable(with viewModels: [LayerCellViewModel], reload: Bool) {
+        saliView.populateLayersTable(with: viewModels, reload: reload)
     }
     
     func enableParametersControl() {
@@ -71,6 +71,10 @@ extension SaliViewController: SaliViewInput {
     
     func disableParametersControl() {
         saliView.disableParametersControl()
+    }
+    
+    func selectLayer(atIndex index: Int?) {
+        saliView.selectLayer(atIndex: index)
     }
 }
 
@@ -90,5 +94,9 @@ extension SaliViewController: SaliViewDelegate {
     
     func didTapLayersButton() {
         presenter.didTapLayersButton()
+    }
+    
+    func didSelectLayer(atIndex index: Int) {
+        presenter.didSelectLayer(atIndex: index)
     }
 }

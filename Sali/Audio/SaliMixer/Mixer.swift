@@ -13,4 +13,5 @@ protocol Mixer {
     func adjust(parameters: SoundParameters, forLayerAt identifier: UUID)
     func play() throws
     func stop() throws
+    func set(muted: Bool, forLayerAt identifier: UUID)
 }

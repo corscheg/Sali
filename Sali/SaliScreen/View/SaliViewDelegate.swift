@@ -12,4 +12,5 @@ protocol SaliViewDelegate: AnyObject {
     func didChange(parameters: SoundParameters)
     func didTapPlayButton()
     func didTapLayersButton()
+    func didSelectLayer(atIndex index: Int)
 }

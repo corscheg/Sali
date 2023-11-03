@@ -41,7 +41,9 @@ final class LayerTableViewCell: UITableViewCell {
     }
     
     // MARK: UITableViewCell
-    override func setSelected(_ selected: Bool, animated: Bool) { }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        cellView.setSelected(selected, animated: animated)
+    }
     
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {

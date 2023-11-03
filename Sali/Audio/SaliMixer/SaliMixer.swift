@@ -44,7 +44,13 @@ extension SaliMixer: Mixer {
         audioEngine.connect(playerNode, to: timeNode, format: format)
         audioEngine.connect(timeNode, to: mixerNode, format: format)
         
-        units[identifier] = PlayingUnit(sample: sample, playerNode: playerNode, buffer: buffer, timingNode: timeNode)
+        units[identifier] = PlayingUnit(
+            sample: sample,
+            playerNode: playerNode,
+            buffer: buffer,
+            timingNode: timeNode,
+            mutedState: .playing
+        )
         
         if audioEngine.isRunning {
             populatePlayer(withIdentifier: identifier)
@@ -69,7 +75,13 @@ extension SaliMixer: Mixer {
     func adjust(parameters: SoundParameters, forLayerAt identifier: UUID) {
         guard let unit = units[identifier] else { return }
         
-        unit.playerNode.volume = Float(parameters.volume)
+        switch unit.mutedState {
+        case .playing:
+            unit.playerNode.volume = Float(parameters.volume)
+        case .muted:
+            units[identifier]?.mutedState = .muted(storedVolume: Float(parameters.volume))
+        }
+        
         unit.timingNode.rate = getRateFrom(tempo: parameters.tempo)
     }
     
@@ -92,6 +104,19 @@ extension SaliMixer: Mixer {
         
         try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
     }
+    
+    func set(muted: Bool, forLayerAt identifier: UUID) {
+        guard let unit = units[identifier] else { return }
+        
+        if muted {
+            units[identifier]?.mutedState = .muted(storedVolume: unit.playerNode.volume)
+            unit.playerNode.volume = 0.0
+        } else {
+            guard case let .muted(storedVolume) = unit.mutedState else { return }
+            unit.playerNode.volume = storedVolume
+            units[identifier]?.mutedState = .playing
+        }
+    }
 }
 
 // MARK: - PlayingUnit
@@ -101,6 +126,12 @@ extension SaliMixer {
         let playerNode: AVAudioPlayerNode
         let buffer: AVAudioPCMBuffer
         let timingNode: AVAudioUnitTimePitch
+        var mutedState: MutedState
+    }
+    
+    private enum MutedState {
+        case playing
+        case muted(storedVolume: Float)
     }
 }
 

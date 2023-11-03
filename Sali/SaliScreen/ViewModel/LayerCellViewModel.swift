@@ -9,11 +9,15 @@ import Foundation
 
 struct LayerCellViewModel {
     let name: String
+    let isMuted: Bool
+    let didTapMute: () -> ()
     let didTapDelete: () -> ()
     
     // MARK: Initializers
-    init(layerModel: LayerModel, didTapDelete: @escaping () -> ()) {
+    init(layerModel: LayerModel, didTapMute: @escaping () -> (), didTapDelete: @escaping () -> ()) {
         name = layerModel.name
+        isMuted = layerModel.isMuted
+        self.didTapMute = didTapMute
         self.didTapDelete = didTapDelete
     }
 }

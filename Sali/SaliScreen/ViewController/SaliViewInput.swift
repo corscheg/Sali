@@ -14,5 +14,6 @@ protocol SaliViewInput: AnyObject {
     func hideLayersTable()
     func disableParametersControl()
     func enableParametersControl()
-    func populateLayersTable(with viewModels: [LayerCellViewModel])
+    func populateLayersTable(with viewModels: [LayerCellViewModel], reload: Bool)
+    func selectLayer(atIndex index: Int?)
 }

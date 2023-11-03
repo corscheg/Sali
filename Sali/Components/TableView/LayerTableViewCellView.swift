@@ -11,6 +11,7 @@ final class LayerTableViewCellView: UIView {
     
     // MARK: Private Properties
     private let constants = Constants()
+    private var didTapMute: (() -> ())?
     private var didTapDelete: (() -> ())?
     
     // MARK: Visual Components
@@ -24,8 +25,21 @@ final class LayerTableViewCellView: UIView {
         return label
     }()
     
-    private lazy var playStopButton = PlayStopButton()
-    private lazy var muteButton = MuteButton()
+    private lazy var playStopButton: PlayStopButton = {
+        let button = PlayStopButton()
+        button.backgroundColor = .clear
+        
+        return button
+    }()
+    
+    private lazy var muteButton: MuteButton = {
+        let button = MuteButton()
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(muteTapped), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var deleteButton: DeleteButton = {
         let button = DeleteButton()
         button.addTarget(self, action: #selector(deleteTappped), for: .touchUpInside)
@@ -84,7 +98,26 @@ final class LayerTableViewCellView: UIView {
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {
         label.text = viewModel.name
+        muteButton.set(active: viewModel.isMuted)
+        didTapMute = viewModel.didTapMute
         didTapDelete = viewModel.didTapDelete
+    }
+    
+    func setSelected(_ selected: Bool, animated: Bool) {
+        let finalColor: UIColor = selected ? .accent : .buttons
+        
+        if animated {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut) {
+                self.backgroundColor = finalColor
+            }
+        } else {
+            backgroundColor = finalColor
+        }
+    }
+    
+    // MARK: Actions
+    @objc private func muteTapped() {
+        didTapMute?()
     }
     
     @objc private func deleteTappped() {

@@ -40,12 +40,13 @@ extension SaliPresenter: SaliPresenterInput {
         guard let sample = samples[identifier] else { return }
         
         let uuid = UUID()
-        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString)
+        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString, isMuted: false)
         
         do {
             try mixer.addLayer(withSample: sample, andIdentifier: uuid)
             layers.append(layerModel)
-            selectedLayerIndex = layers.endIndex - 1
+            updateLayersTable()
+            setSelectedIndex(to: layers.endIndex - 1)
             mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
             updateParametersControl()
         } catch {
@@ -74,18 +75,26 @@ extension SaliPresenter: SaliPresenterInput {
         layersTableVisible.toggle()
         updateLayersTable()
     }
+    
+    func didSelectLayer(atIndex index: Int) {
+        setSelectedIndex(to: index, updateLayersView: false)
+    }
 }
 
 // MARK: - Private Methods
 extension SaliPresenter {
     private func updateLayersTable() {
+        updateLayersTableRows()
         if layersTableVisible {
-            let viewModels = layers.enumerated().map { createLayerViewModel(withModel: $1, index: $0) }
-            view?.populateLayersTable(with: viewModels)
             view?.showLayersTable()
         } else {
             view?.hideLayersTable()
         }
+    }
+    
+    private func updateLayersTableRows() {
+        let viewModels = layers.enumerated().map { createLayerViewModel(withModel: $1, index: $0) }
+        view?.populateLayersTable(with: viewModels, reload: true)
     }
     
     private func fillSamplesAndPopulateView(withBank bank: SampleBankModel) {
@@ -139,30 +148,30 @@ extension SaliPresenter {
     
     private func createLayerViewModel(withModel model: LayerModel, index: Int) -> LayerCellViewModel {
         LayerCellViewModel(layerModel: model) { [weak self] in
+            self?.toggleMute(at: index)
+        } didTapDelete: { [weak self] in
             self?.removeLayer(at: index)
-            self?.updateLayersTable()
         }
     }
     
     private func removeLayer(at index: Int) {
         let removedLayer = layers.remove(at: index)
         
+        updateLayersTable()
         
         if let selectedLayerIndex {
             
             var newIndex = selectedLayerIndex
             if index < selectedLayerIndex {
                 newIndex -= 1
-                self.selectedLayerIndex = newIndex
+                setSelectedIndex(to: newIndex)
             } else if index == selectedLayerIndex {
                 if (newIndex - 1) >= 0 {
-                    self.selectedLayerIndex = newIndex - 1
+                    setSelectedIndex(to: newIndex - 1)
                 } else if selectedLayerIndex >= layers.endIndex {
-                    self.selectedLayerIndex = nil
+                    setSelectedIndex(to: nil)
                 }
             }
-            
-            updateParametersControl()
         }
         
         do {
@@ -180,5 +189,20 @@ extension SaliPresenter {
         } else {
             view?.disableParametersControl()
         }
+    }
+    
+    private func setSelectedIndex(to value: Int?, updateLayersView: Bool = true) {
+        selectedLayerIndex = value
+        updateParametersControl()
+        
+        if updateLayersView {
+            view?.selectLayer(atIndex: value)
+        }
+    }
+    
+    private func toggleMute(at index: Int) {
+        layers[index].isMuted.toggle()
+        updateLayersTableRows()
+        mixer.set(muted: layers[index].isMuted, forLayerAt: layers[index].identifier)
     }
 }

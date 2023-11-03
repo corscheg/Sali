@@ -10,5 +10,6 @@ import Foundation
 struct LayerModel {
     let identifier: UUID
     let name: String
+    var isMuted: Bool
     var parameters = SoundParameters()
 }
