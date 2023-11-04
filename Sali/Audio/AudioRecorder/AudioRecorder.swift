@@ -15,6 +15,7 @@ final class AudioRecorder: NSObject {
     
     // MARK: Private Properties
     private let audioSession: AVAudioSession = .sharedInstance()
+    private let resonseQueue: DispatchQueue = .main
     private var audioRecorder: AVAudioRecorder?
 }
 
@@ -52,10 +53,12 @@ extension AudioRecorder: AudioRecorderProtocol {
 // MARK: - AVAudioRecorderDelegate
 extension AudioRecorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if flag {
-            delegate?.didFinishRecording(with: recorder.url)
-        } else {
-            delegate?.didEndWithError()
+        resonseQueue.async { [weak self] in
+            if flag {
+                self?.delegate?.didFinishRecording(with: recorder.url)
+            } else {
+                self?.delegate?.didEndWithError()
+            }
         }
     }
 }

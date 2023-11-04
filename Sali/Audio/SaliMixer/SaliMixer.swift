@@ -22,6 +22,7 @@ final class SaliMixer {
     private var units: [UUID: PlayingUnit] = [:]
     private var mode: Mode = .still
     private var recordingFile: AVAudioFile?
+    private let responseQueue: DispatchQueue = .main
     
     // MARK: Initializer
     init(signalProcessor: SignalProcessorProtocol) {
@@ -299,6 +300,13 @@ extension SaliMixer {
     }
     
     private func process(buffer: AVAudioPCMBuffer) {
+        guard let data = buffer.floatChannelData?[0] else { return }
+        let framesCount = buffer.frameLength
         
+        let frequencies = signalProcessor.getFrequencies(data: data, count: UInt(framesCount))
+        
+        responseQueue.async {
+            self.delegate?.didPerformMetering(frequencies)
+        }
     }
 }

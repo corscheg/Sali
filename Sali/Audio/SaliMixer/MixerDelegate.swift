@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MixerDelegate: AnyObject {
-    
+    func didPerformMetering(_ result: [Float])
 }

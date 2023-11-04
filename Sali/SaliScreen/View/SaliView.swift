@@ -197,6 +197,10 @@ final class SaliView: UIView {
         buttonsPanelView.enableMicrophoneButton()
     }
     
+    func updateMetering(_ metering: [Float]) {
+        analyzerView.updateMetering(metering)
+    }
+    
     // MARK: Actions
     @objc private func soundControlValueDidChange() {
         let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)

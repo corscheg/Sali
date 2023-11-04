@@ -128,6 +128,10 @@ extension SaliViewController: SaliViewInput {
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(activityViewController, animated: true)
     }
+    
+    func updateMetering(_ metering: [Float]) {
+        saliView.updateMetering(metering)
+    }
 }
 
 // MARK: - SaliViewDelegate
