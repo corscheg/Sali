@@ -198,6 +198,11 @@ extension SaliPresenter: AudioRecorderDelegate {
     }
 }
 
+// MARK: - MixerDelegate
+extension SaliPresenter: MixerDelegate {
+    
+}
+
 // MARK: - Private Methods
 extension SaliPresenter {
     private func updateLayersTable() {

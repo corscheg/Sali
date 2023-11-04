@@ -10,7 +10,11 @@ import Foundation
 
 final class SaliMixer {
     
+    // MARK: Public Properties
+    weak var delegate: MixerDelegate?
+    
     // MARK: Private Properties
+    private let signalProcessor: SignalProcessorProtocol
     private let audioSession: AVAudioSession = .sharedInstance()
     private let audioEngine = AVAudioEngine()
     private let mixerNode: AVAudioMixerNode
@@ -20,10 +24,13 @@ final class SaliMixer {
     private var recordingFile: AVAudioFile?
     
     // MARK: Initializer
-    init() {
+    init(signalProcessor: SignalProcessorProtocol) {
+        self.signalProcessor = signalProcessor
         self.mixerNode = audioEngine.mainMixerNode
         audioEngine.attach(bypassMixerNode)
         audioEngine.connect(bypassMixerNode, to: mixerNode, format: mixerNode.outputFormat(forBus: 0))
+        
+        installProcessingTap()
     }
 }
 
@@ -283,5 +290,15 @@ extension SaliMixer {
     
     private func stopEngine() {
         audioEngine.stop()
+    }
+    
+    private func installProcessingTap() {
+        bypassMixerNode.installTap(onBus: 0, bufferSize: 1024, format: bypassMixerNode.outputFormat(forBus: 0)) { [weak self] buffer, _ in
+            self?.process(buffer: buffer)
+        }
+    }
+    
+    private func process(buffer: AVAudioPCMBuffer) {
+        
     }
 }

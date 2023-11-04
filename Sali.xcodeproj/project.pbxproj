@@ -19,6 +19,9 @@
 		9660004A2AF6B2EE00B86D4D /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000492AF6B2EE00B86D4D /* AudioRecorder.swift */; };
 		9660004C2AF6B4D900B86D4D /* AudioRecorderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660004B2AF6B4D900B86D4D /* AudioRecorderError.swift */; };
 		9660004E2AF6B55700B86D4D /* AudioRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660004D2AF6B55700B86D4D /* AudioRecorderDelegate.swift */; };
+		966000512AF6D3CC00B86D4D /* SignalProcessorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000502AF6D3CC00B86D4D /* SignalProcessorProtocol.swift */; };
+		966000532AF6D3D900B86D4D /* SignalProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000522AF6D3D900B86D4D /* SignalProcessor.swift */; };
+		966000552AF6D41F00B86D4D /* MixerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000542AF6D41F00B86D4D /* MixerDelegate.swift */; };
 		966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */; };
 		966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FE2AF5675100EAC808 /* MixerError.swift */; };
 		966C46012AF5683400EAC808 /* LayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46002AF5683400EAC808 /* LayerModel.swift */; };
@@ -89,6 +92,9 @@
 		966000492AF6B2EE00B86D4D /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		9660004B2AF6B4D900B86D4D /* AudioRecorderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderError.swift; sourceTree = "<group>"; };
 		9660004D2AF6B55700B86D4D /* AudioRecorderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderDelegate.swift; sourceTree = "<group>"; };
+		966000502AF6D3CC00B86D4D /* SignalProcessorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalProcessorProtocol.swift; sourceTree = "<group>"; };
+		966000522AF6D3D900B86D4D /* SignalProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalProcessor.swift; sourceTree = "<group>"; };
+		966000542AF6D41F00B86D4D /* MixerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerDelegate.swift; sourceTree = "<group>"; };
 		966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleIdentifier.swift; sourceTree = "<group>"; };
 		966C45FE2AF5675100EAC808 /* MixerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerError.swift; sourceTree = "<group>"; };
 		966C46002AF5683400EAC808 /* LayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerModel.swift; sourceTree = "<group>"; };
@@ -188,6 +194,15 @@
 			path = AudioRecorder;
 			sourceTree = "<group>";
 		};
+		9660004F2AF6D3BC00B86D4D /* SignalProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				966000502AF6D3CC00B86D4D /* SignalProcessorProtocol.swift */,
+				966000522AF6D3D900B86D4D /* SignalProcessor.swift */,
+			);
+			path = SignalProcessor;
+			sourceTree = "<group>";
+		};
 		96709E152AF41F270069E79B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +242,7 @@
 		96709E2B2AF4347D0069E79B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9660004F2AF6D3BC00B86D4D /* SignalProcessor */,
 				966000462AF6B2DC00B86D4D /* AudioRecorder */,
 				966000412AF6922A00B86D4D /* URLProvider */,
 				9660003B2AF6897500B86D4D /* PermissionManager */,
@@ -263,6 +279,7 @@
 			children = (
 				96709E4C2AF455C30069E79B /* Mixer.swift */,
 				96709E4F2AF455D60069E79B /* SaliMixer.swift */,
+				966000542AF6D41F00B86D4D /* MixerDelegate.swift */,
 			);
 			path = SaliMixer;
 			sourceTree = "<group>";
@@ -547,6 +564,7 @@
 				96709E1C2AF426080069E79B /* ButtonsPanelViewDelegate.swift in Sources */,
 				96709E1E2AF429D90069E79B /* SampleViewModel.swift in Sources */,
 				969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */,
+				966000532AF6D3D900B86D4D /* SignalProcessor.swift in Sources */,
 				968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */,
 				96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */,
 				969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */,
@@ -559,6 +577,7 @@
 				96AB21A42AF2E885001EEADE /* LayerCellViewModel.swift in Sources */,
 				966C46052AF593A400EAC808 /* LayerTableViewCellDelegate.swift in Sources */,
 				96709E462AF44BB90069E79B /* SampleModel.swift in Sources */,
+				966000512AF6D3CC00B86D4D /* SignalProcessorProtocol.swift in Sources */,
 				966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */,
 				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,
 				9684777F2AF18DFF00EBAA67 /* UIColor+.swift in Sources */,
@@ -576,6 +595,7 @@
 				96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
 				968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */,
+				966000552AF6D41F00B86D4D /* MixerDelegate.swift in Sources */,
 				96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
 				9660004E2AF6B55700B86D4D /* AudioRecorderDelegate.swift in Sources */,
