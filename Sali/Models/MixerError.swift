@@ -10,5 +10,4 @@ import Foundation
 enum MixerError: Error {
     case faledToPopulateBuffer
     case unitNotFound
-    case noRecordingInProgress
 }

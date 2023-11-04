@@ -92,6 +92,14 @@ final class ButtonsPanelView: UIView {
         playPauseButton.set(active: false)
     }
     
+    func disablePlayButton() {
+        playPauseButton.isEnabled = false
+    }
+    
+    func enablePlayButton() {
+        playPauseButton.isEnabled = true
+    }
+    
     // MARK: Actions
     @objc private func buttonTapped(_ sender: UIButton) {
         if sender === layersButton {

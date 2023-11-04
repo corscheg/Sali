@@ -18,4 +18,6 @@ protocol SaliViewInput: AnyObject {
     func selectLayer(atIndex index: Int?)
     func setPlayButtonStop()
     func showPermissionSettingsAlert(withAction action: @escaping () -> ())
+    func disablePlayButton()
+    func enablePlayButton()
 }

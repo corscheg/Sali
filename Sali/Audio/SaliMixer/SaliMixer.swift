@@ -16,8 +16,6 @@ final class SaliMixer {
     private let mixerNode: AVAudioMixerNode
     private var units: [UUID: PlayingUnit] = [:]
     private var mode: Mode = .still
-    private var isRecording = false
-    private var recordingFile: AVAudioFile?
     
     // MARK: Initializer
     init() {
@@ -27,8 +25,8 @@ final class SaliMixer {
 
 // MARK: - Mixer
 extension SaliMixer: Mixer {
-    func addLayer(withSample sample: SampleModel, andIdentifier identifier: UUID) throws {
-        let file = try AVAudioFile(forReading: sample.url)
+    func addLayer(withURL url: URL, loops: Bool, andIdentifier identifier: UUID) throws {
+        let file = try AVAudioFile(forReading: url)
         let format = file.processingFormat
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(file.length))
         
@@ -48,10 +46,10 @@ extension SaliMixer: Mixer {
         audioEngine.connect(timeNode, to: mixerNode, format: format)
         
         units[identifier] = PlayingUnit(
-            sample: sample,
             playerNode: playerNode,
             buffer: buffer,
             timingNode: timeNode,
+            loops: loops,
             mutedState: .playing
         )
         
@@ -94,10 +92,8 @@ extension SaliMixer: Mixer {
         case .still:
             populatePlayers()
             
-            if !isRecording {
-                try startSession()
-                try startEngine()
-            }
+            try startSession()
+            try startEngine()
             playUnits()
         case .all:
             break
@@ -114,10 +110,8 @@ extension SaliMixer: Mixer {
     func stop() throws {
         stopPlayers()
         
-        if !isRecording {
-            stopEngine()
-            try stopSession()
-        }
+        stopEngine()
+        try stopSession()
         mode = .still
     }
     
@@ -139,10 +133,8 @@ extension SaliMixer: Mixer {
         case .still:
             populatePlayer(withIdentifier: identifier)
             
-            if !isRecording {
-                try startSession()
-                try startEngine()
-            }
+            try startSession()
+            try startEngine()
             playUnit(withIdentifier: identifier)
             mode = .some(playingUnits: [identifier])
         case .all:
@@ -168,78 +160,23 @@ extension SaliMixer: Mixer {
             let newPlayingUnits = playingUnits.subtracting([identifier])
             if newPlayingUnits.isEmpty {
                 
-                if !isRecording {
-                    stopEngine()
-                    try stopSession()
-                }
+                stopEngine()
+                try stopSession()
                 mode = .still
             } else {
                 mode = .some(playingUnits: newPlayingUnits)
             }
         }
     }
-    
-    func startRecording(to url: URL) throws {
-        
-        let settings: [String: Any] = [
-            AVFormatIDKey: kAudioFormatLinearPCM,
-            AVLinearPCMBitDepthKey: 32,
-            AVLinearPCMIsFloatKey: true,
-            AVSampleRateKey: Float64(audioEngine.inputNode.outputFormat(forBus: 0).sampleRate),
-            AVNumberOfChannelsKey: 1
-        ]
-        
-        recordingFile = try AVAudioFile(forWriting: url, settings: settings, commonFormat: .pcmFormatFloat32, interleaved: true)
-        
-        audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: audioEngine.inputNode.outputFormat(forBus: 0)) { [weak self] buffer, time in
-            do {
-                try self?.recordingFile?.write(from: buffer)
-            } catch { 
-                print(error)
-            }
-        }
-        
-        switch mode {
-        case .still:
-            try startRecordingSession()
-            try startEngine()
-        case .all, .some:
-            try switchSessionToRecording()
-        }
-        
-        isRecording = true
-    }
-    
-    func finishRecording() throws -> URL {
-        
-        audioEngine.inputNode.removeTap(onBus: 0)
-        guard let recordingFile else {
-            throw MixerError.noRecordingInProgress
-        }
-        
-        switch mode {
-        case .still:
-            stopEngine()
-            try stopSession()
-        case .all, .some:
-            try switchSessionToPlay()
-        }
-        
-        isRecording = false
-        
-        self.recordingFile = nil
-        
-        return recordingFile.url
-    }
 }
 
 // MARK: - PlayingUnit
 extension SaliMixer {
     private struct PlayingUnit {
-        let sample: SampleModel
         let playerNode: AVAudioPlayerNode
         let buffer: AVAudioPCMBuffer
         let timingNode: AVAudioUnitTimePitch
+        let loops: Bool
         var mutedState: MutedState
     }
     
@@ -275,7 +212,7 @@ extension SaliMixer {
     private func populatePlayer(withIdentifier identifier: UUID) {
         guard let unit = units[identifier] else { return }
         
-        unit.playerNode.scheduleBuffer(unit.buffer, at: nil, options: .loops)
+        unit.playerNode.scheduleBuffer(unit.buffer, at: nil, options: unit.loops ? .loops : [])
     }
     
     private func playUnit(withIdentifier identifier: UUID) {
@@ -290,25 +227,13 @@ extension SaliMixer {
     }
     
     private func getRateFrom(tempo: Double) -> Float {
-        Float(tempo * 1.5 + 0.5)                            // convert 0.0...1.0 range into 0.5...2.0
+        let powValue = tempo * 2 - 1
+        return Float(pow(2, powValue))
     }
     
     private func startSession() throws {
         try audioSession.setCategory(.playback)
         try audioSession.setActive(true)
-    }
-    
-    private func startRecordingSession() throws {
-        try audioSession.setCategory(.playAndRecord)
-        try audioSession.setActive(true)
-    }
-    
-    private func switchSessionToRecording() throws {
-        try audioSession.setCategory(.playAndRecord)
-    }
-    
-    private func switchSessionToPlay() throws {
-        try audioSession.setCategory(.playback)
     }
     
     private func startEngine() throws {

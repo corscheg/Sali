@@ -12,5 +12,6 @@ struct LayerModel {
     let name: String
     var isPlaying: Bool
     var isMuted: Bool
+    let isMicrophone: Bool
     var parameters = SoundParameters()
 }

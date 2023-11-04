@@ -100,6 +100,7 @@ final class LayerTableViewCellView: UIView {
     // MARK: Public Methods
     func setup(with viewModel: LayerCellViewModel) {
         label.text = viewModel.name
+        playStopButton.isEnabled = !viewModel.isPlayLocked
         playStopButton.set(active: viewModel.isPlaying)
         muteButton.set(active: viewModel.isMuted)
     }

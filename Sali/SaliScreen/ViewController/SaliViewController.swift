@@ -99,6 +99,14 @@ extension SaliViewController: SaliViewInput {
         present(alertController, animated: true)
         alertController.view.tintColor = .accent
     }
+    
+    func disablePlayButton() {
+        saliView.disablePlayButton()
+    }
+    
+    func enablePlayButton() {
+        saliView.enablePlayButton()
+    }
 }
 
 // MARK: - SaliViewDelegate

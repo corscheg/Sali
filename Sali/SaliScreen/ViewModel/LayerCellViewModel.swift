@@ -10,13 +10,15 @@ import Foundation
 struct LayerCellViewModel {
     let name: String
     let isPlaying: Bool
+    let isPlayLocked: Bool
     let isMuted: Bool
     
     // MARK: Initializers
-    init(layerModel: LayerModel) {
+    init(layerModel: LayerModel, isPlayLocked: Bool = false) {
         name = layerModel.name
         isPlaying = layerModel.isPlaying
         isMuted = layerModel.isMuted
+        self.isPlayLocked = isPlayLocked
     }
 }
 

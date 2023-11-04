@@ -15,6 +15,10 @@
 		966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003F2AF6898B00B86D4D /* PermissionManager.swift */; };
 		966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000422AF6925600B86D4D /* URLProviderProtocol.swift */; };
 		966000452AF6926100B86D4D /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000442AF6926100B86D4D /* URLProvider.swift */; };
+		966000482AF6B2E800B86D4D /* AudioRecorderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000472AF6B2E800B86D4D /* AudioRecorderProtocol.swift */; };
+		9660004A2AF6B2EE00B86D4D /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000492AF6B2EE00B86D4D /* AudioRecorder.swift */; };
+		9660004C2AF6B4D900B86D4D /* AudioRecorderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660004B2AF6B4D900B86D4D /* AudioRecorderError.swift */; };
+		9660004E2AF6B55700B86D4D /* AudioRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660004D2AF6B55700B86D4D /* AudioRecorderDelegate.swift */; };
 		966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */; };
 		966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FE2AF5675100EAC808 /* MixerError.swift */; };
 		966C46012AF5683400EAC808 /* LayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46002AF5683400EAC808 /* LayerModel.swift */; };
@@ -81,6 +85,10 @@
 		9660003F2AF6898B00B86D4D /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		966000422AF6925600B86D4D /* URLProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderProtocol.swift; sourceTree = "<group>"; };
 		966000442AF6926100B86D4D /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
+		966000472AF6B2E800B86D4D /* AudioRecorderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderProtocol.swift; sourceTree = "<group>"; };
+		966000492AF6B2EE00B86D4D /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		9660004B2AF6B4D900B86D4D /* AudioRecorderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderError.swift; sourceTree = "<group>"; };
+		9660004D2AF6B55700B86D4D /* AudioRecorderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderDelegate.swift; sourceTree = "<group>"; };
 		966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleIdentifier.swift; sourceTree = "<group>"; };
 		966C45FE2AF5675100EAC808 /* MixerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerError.swift; sourceTree = "<group>"; };
 		966C46002AF5683400EAC808 /* LayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerModel.swift; sourceTree = "<group>"; };
@@ -169,6 +177,17 @@
 			path = URLProvider;
 			sourceTree = "<group>";
 		};
+		966000462AF6B2DC00B86D4D /* AudioRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				966000472AF6B2E800B86D4D /* AudioRecorderProtocol.swift */,
+				966000492AF6B2EE00B86D4D /* AudioRecorder.swift */,
+				9660004B2AF6B4D900B86D4D /* AudioRecorderError.swift */,
+				9660004D2AF6B55700B86D4D /* AudioRecorderDelegate.swift */,
+			);
+			path = AudioRecorder;
+			sourceTree = "<group>";
+		};
 		96709E152AF41F270069E79B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +227,7 @@
 		96709E2B2AF4347D0069E79B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				966000462AF6B2DC00B86D4D /* AudioRecorder */,
 				966000412AF6922A00B86D4D /* URLProvider */,
 				9660003B2AF6897500B86D4D /* PermissionManager */,
 				96709E4B2AF455B70069E79B /* SaliMixer */,
@@ -511,12 +531,14 @@
 				96709E312AF434B20069E79B /* SampleLoader.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				96709E2E2AF434920069E79B /* SampleLoaderProtocol.swift in Sources */,
+				9660004C2AF6B4D900B86D4D /* AudioRecorderError.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				96709E502AF455D60069E79B /* SaliMixer.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
 				966C46072AF593BA00EAC808 /* LayerTableViewCellViewDelegate.swift in Sources */,
 				9684778C2AF1A1B100EBAA67 /* MicrophoneButton.swift in Sources */,
+				9660004A2AF6B2EE00B86D4D /* AudioRecorder.swift in Sources */,
 				96AB21972AF2E6C5001EEADE /* SaliViewDelegate.swift in Sources */,
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
 				96709E4D2AF455C30069E79B /* Mixer.swift in Sources */,
@@ -549,12 +571,14 @@
 				966C46032AF57AFB00EAC808 /* SoundParameters.swift in Sources */,
 				96AB21A62AF2F1B9001EEADE /* DeleteButton.swift in Sources */,
 				966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */,
+				966000482AF6B2E800B86D4D /* AudioRecorderProtocol.swift in Sources */,
 				96AB219E2AF2E7B0001EEADE /* SaliViewInput.swift in Sources */,
 				96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
 				968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */,
 				96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
+				9660004E2AF6B55700B86D4D /* AudioRecorderDelegate.swift in Sources */,
 				96AB21922AF2DED6001EEADE /* LayersTableView.swift in Sources */,
 				96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */,
 				96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */,

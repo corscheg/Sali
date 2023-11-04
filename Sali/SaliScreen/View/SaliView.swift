@@ -173,6 +173,15 @@ final class SaliView: UIView {
         buttonsPanelView.setPlayButtonStop()
     }
     
+    func disablePlayButton() {
+        buttonsPanelView.disablePlayButton()
+    }
+    
+    func enablePlayButton() {
+        
+        buttonsPanelView.enablePlayButton()
+    }
+    
     // MARK: Actions
     @objc private func soundControlValueDidChange() {
         let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)
