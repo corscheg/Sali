@@ -16,6 +16,7 @@ final class SaliPresenter {
     private let sampleLoader: SampleLoaderProtocol
     private let mixer: Mixer
     private let permissionManager: PermissionManagerProtocol
+    private let urlProvider: URLProviderProtocol
     private var layersTableVisible = false
     private var isAllPlaying = false
     private var isRecordInProgress = false
@@ -24,10 +25,11 @@ final class SaliPresenter {
     private var selectedLayerIndex: Int?
     
     // MARK: Initializers
-    init(sampleLoader: SampleLoaderProtocol, mixer: Mixer, permissionManager: PermissionManagerProtocol) {
+    init(sampleLoader: SampleLoaderProtocol, mixer: Mixer, permissionManager: PermissionManagerProtocol, urlProvider: URLProviderProtocol) {
         self.sampleLoader = sampleLoader
         self.mixer = mixer
         self.permissionManager = permissionManager
+        self.urlProvider = urlProvider
     }
 }
 
@@ -71,13 +73,10 @@ extension SaliPresenter: SaliPresenterInput {
     
     func didTapMicrophoneButton() {
         if isRecordInProgress {
-            isRecordInProgress = false
-            print("Recording stopped!")
+            stopMicRecording()
         } else {
             permissionManager.performWithPermission { [weak self] in
-                // start recording
-                self?.isRecordInProgress = true
-                print("Recording started!")
+                self?.startMicRecording()
             } failure: { [weak self] in
                 self?.view?.showPermissionSettingsAlert { [weak self] in
                     self?.permissionManager.requestPermissionInSettings()
@@ -255,5 +254,30 @@ extension SaliPresenter {
         layers[index].isMuted.toggle()
         updateLayersTableRows()
         mixer.set(muted: layers[index].isMuted, forLayerAt: layers[index].identifier)
+    }
+    
+    private func startMicRecording() {
+        
+        do {
+            let url = try urlProvider.urlForMicrophoneRecording()
+            try mixer.startRecording(to: url)
+            isRecordInProgress = true
+            print("Recording started!")
+        } catch {
+            #warning("HANDLE ERROR")
+            print(error)
+        }
+    }
+    
+    private func stopMicRecording() {
+        
+        do {
+            try mixer.finishRecording()
+            isRecordInProgress = false
+            print("Recording stopped!")
+        } catch {
+            #warning("HANDLE ERROR")
+            print(error)
+        }
     }
 }

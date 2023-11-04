@@ -13,6 +13,8 @@
 		9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB22AF1D59F0007D081 /* KeyPath+.swift */; };
 		9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */; };
 		966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003F2AF6898B00B86D4D /* PermissionManager.swift */; };
+		966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000422AF6925600B86D4D /* URLProviderProtocol.swift */; };
+		966000452AF6926100B86D4D /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000442AF6926100B86D4D /* URLProvider.swift */; };
 		966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */; };
 		966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FE2AF5675100EAC808 /* MixerError.swift */; };
 		966C46012AF5683400EAC808 /* LayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46002AF5683400EAC808 /* LayerModel.swift */; };
@@ -77,6 +79,8 @@
 		9614AEB22AF1D59F0007D081 /* KeyPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyPath+.swift"; sourceTree = "<group>"; };
 		9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManagerProtocol.swift; sourceTree = "<group>"; };
 		9660003F2AF6898B00B86D4D /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		966000422AF6925600B86D4D /* URLProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderProtocol.swift; sourceTree = "<group>"; };
+		966000442AF6926100B86D4D /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleIdentifier.swift; sourceTree = "<group>"; };
 		966C45FE2AF5675100EAC808 /* MixerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerError.swift; sourceTree = "<group>"; };
 		966C46002AF5683400EAC808 /* LayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerModel.swift; sourceTree = "<group>"; };
@@ -159,6 +163,8 @@
 		966000412AF6922A00B86D4D /* URLProvider */ = {
 			isa = PBXGroup;
 			children = (
+				966000422AF6925600B86D4D /* URLProviderProtocol.swift */,
+				966000442AF6926100B86D4D /* URLProvider.swift */,
 			);
 			path = URLProvider;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 			files = (
 				968477922AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */,
+				966000452AF6926100B86D4D /* URLProvider.swift in Sources */,
 				96AB218B2AF2D317001EEADE /* IconSaliButton.swift in Sources */,
 				96709E192AF423BF0069E79B /* ButtonsPanelView.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
@@ -541,6 +548,7 @@
 				966C46012AF5683400EAC808 /* LayerModel.swift in Sources */,
 				966C46032AF57AFB00EAC808 /* SoundParameters.swift in Sources */,
 				96AB21A62AF2F1B9001EEADE /* DeleteButton.swift in Sources */,
+				966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */,
 				96AB219E2AF2E7B0001EEADE /* SaliViewInput.swift in Sources */,
 				96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,

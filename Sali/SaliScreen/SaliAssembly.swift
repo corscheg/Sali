@@ -12,7 +12,8 @@ struct SaliAssembly {
         let sampleLoader = SampleLoader()
         let mixer = SaliMixer()
         let permissionManager = PermissionManager()
-        let presenter = SaliPresenter(sampleLoader: sampleLoader, mixer: mixer, permissionManager: permissionManager)
+        let urlProvider = URLProvider()
+        let presenter = SaliPresenter(sampleLoader: sampleLoader, mixer: mixer, permissionManager: permissionManager, urlProvider: urlProvider)
         let viewController = SaliViewController(presenter: presenter)
         presenter.view = viewController
         
