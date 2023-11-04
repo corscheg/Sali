@@ -59,6 +59,7 @@
 		968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477932AF1A68300EBAA67 /* AnalyzerView.swift */; };
 		968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477962AF1A80800EBAA67 /* SoundControl.swift */; };
 		9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968477992AF1AB9800EBAA67 /* VolumeScaleView.swift */; };
+		9690378C2AF7011600490D12 /* AnalyzerDrawing.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9690378B2AF7011600490D12 /* AnalyzerDrawing.metal */; };
 		969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969836342AF17A6300F8F40E /* AppDelegate.swift */; };
 		969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969836382AF17A6300F8F40E /* SaliViewController.swift */; };
 		9698363E2AF17A6400F8F40E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9698363D2AF17A6400F8F40E /* Assets.xcassets */; };
@@ -132,6 +133,7 @@
 		968477932AF1A68300EBAA67 /* AnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerView.swift; sourceTree = "<group>"; };
 		968477962AF1A80800EBAA67 /* SoundControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControl.swift; sourceTree = "<group>"; };
 		968477992AF1AB9800EBAA67 /* VolumeScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeScaleView.swift; sourceTree = "<group>"; };
+		9690378B2AF7011600490D12 /* AnalyzerDrawing.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = AnalyzerDrawing.metal; sourceTree = "<group>"; };
 		969836312AF17A6300F8F40E /* Sali.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sali.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		969836342AF17A6300F8F40E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		969836382AF17A6300F8F40E /* SaliViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliViewController.swift; sourceTree = "<group>"; };
@@ -325,7 +327,7 @@
 				968477952AF1A7F500EBAA67 /* SoundControl */,
 				968477862AF19FC400EBAA67 /* Buttons */,
 				968477852AF19B9E00EBAA67 /* SampleSelect */,
-				968477932AF1A68300EBAA67 /* AnalyzerView.swift */,
+				9690378A2AF7010400490D12 /* AnalyzerView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -385,6 +387,15 @@
 				9614AEAC2AF1C0290007D081 /* TempoScaleView.swift */,
 			);
 			path = ScaleViews;
+			sourceTree = "<group>";
+		};
+		9690378A2AF7010400490D12 /* AnalyzerView */ = {
+			isa = PBXGroup;
+			children = (
+				968477932AF1A68300EBAA67 /* AnalyzerView.swift */,
+				9690378B2AF7011600490D12 /* AnalyzerDrawing.metal */,
+			);
+			path = AnalyzerView;
 			sourceTree = "<group>";
 		};
 		969836282AF17A6300F8F40E = {
@@ -602,6 +613,7 @@
 				96AB21922AF2DED6001EEADE /* LayersTableView.swift in Sources */,
 				96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */,
 				96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */,
+				9690378C2AF7011600490D12 /* AnalyzerDrawing.metal in Sources */,
 				96AB21902AF2DA11001EEADE /* UITableViewCell+.swift in Sources */,
 				966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
