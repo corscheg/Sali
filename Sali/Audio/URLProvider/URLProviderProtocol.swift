@@ -8,5 +8,5 @@
 import Foundation
 
 protocol URLProviderProtocol {
-    func urlForMicrophoneRecording() throws -> URL
+    func getURLForRecording() throws -> URL
 }

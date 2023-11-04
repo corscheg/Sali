@@ -20,4 +20,9 @@ protocol SaliViewInput: AnyObject {
     func showPermissionSettingsAlert(withAction action: @escaping () -> ())
     func disablePlayButton()
     func enablePlayButton()
+    func disableRecordingButton()
+    func enableRecordingButton()
+    func disableMicrophoneButton()
+    func enableMicrophoneButton()
+    func shareRecording(with url: URL)
 }

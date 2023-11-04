@@ -16,6 +16,7 @@ final class SaliMixer {
     private let mixerNode: AVAudioMixerNode
     private var units: [UUID: PlayingUnit] = [:]
     private var mode: Mode = .still
+    private var recordingFile: AVAudioFile?
     
     // MARK: Initializer
     init() {
@@ -167,6 +168,38 @@ extension SaliMixer: Mixer {
                 mode = .some(playingUnits: newPlayingUnits)
             }
         }
+    }
+    
+    func startRecording(at url: URL) throws {
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatLinearPCM,
+            AVSampleRateKey: mixerNode.outputFormat(forBus: 0).sampleRate,
+            AVNumberOfChannelsKey: mixerNode.outputFormat(forBus: 0).channelCount
+        ]
+        
+        let file = try AVAudioFile(forWriting: url, settings: settings)
+        
+        mixerNode.installTap(onBus: 0, bufferSize: 1024, format: mixerNode.outputFormat(forBus: 0)) { buffer, _ in
+            do {
+                try file.write(from: buffer)
+            } catch {
+                print(error)
+            }
+        }
+        
+        recordingFile = file
+    }
+    
+    func stopRecording() throws -> URL {
+        guard let recordingFile else {
+            throw MixerError.noRecordingInProgress
+        }
+        
+        mixerNode.removeTap(onBus: 0)
+        let url = recordingFile.url
+        
+        self.recordingFile = nil
+        return url
     }
 }
 

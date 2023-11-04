@@ -178,8 +178,23 @@ final class SaliView: UIView {
     }
     
     func enablePlayButton() {
-        
         buttonsPanelView.enablePlayButton()
+    }
+    
+    func disableRecordingButton() {
+        buttonsPanelView.disableRecordingButton()
+    }
+    
+    func enableRecordingButton() {
+        buttonsPanelView.enableRecordingButton()
+    }
+    
+    func disableMicrophoneButton() {
+        buttonsPanelView.disableMicrophoneButton()
+    }
+    
+    func enableMicrophoneButton() {
+        buttonsPanelView.enableMicrophoneButton()
     }
     
     // MARK: Actions
@@ -204,6 +219,10 @@ extension SaliView: ButtonsPanelViewDelegate {
     
     func didTapMicrophoneButton() {
         delegate?.didTapMicrophoneButton()
+    }
+    
+    func didTapRecordingButton() {
+        delegate?.didTapRecordingButton()
     }
     
     func didTapPlayButton() {

@@ -16,7 +16,7 @@ final class URLProvider {
 
 // MARK: - URLProviderProtocol
 extension URLProvider: URLProviderProtocol {
-    func urlForMicrophoneRecording() throws -> URL {
+    func getURLForRecording() throws -> URL {
         try fileManager.createDirectory(at: micRecordingsDirectory, withIntermediateDirectories: true)
         let fileName = "\(UUID().uuidString).wav"
         

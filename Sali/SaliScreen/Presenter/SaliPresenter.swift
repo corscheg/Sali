@@ -22,6 +22,7 @@ final class SaliPresenter {
     private var isAllPlaying = false
     private var isRecordInProgress = false
     private var isPlayingLocked = false
+    private var isRecording = false
     private var samples: [SampleIdentifier: SampleModel] = [:]
     private var layers: [LayerModel] = []
     private var selectedLayerIndex: Int?
@@ -90,6 +91,38 @@ extension SaliPresenter: SaliPresenterInput {
                 self?.view?.showPermissionSettingsAlert { [weak self] in
                     self?.permissionManager.requestPermissionInSettings()
                 }
+            }
+        }
+    }
+    
+    func didTapRecordingButton() {
+        if isRecording {
+            do {
+                try mixer.stop()
+                isAllPlaying = false
+                let url = try mixer.stopRecording()
+                view?.enableMicrophoneButton()
+                unlockAllPlayButtons()
+                isRecording = false
+                view?.shareRecording(with: url)
+            } catch {
+                #warning("HANDLE ERRORS")
+                print(error)
+            }
+        } else {
+            do {
+                let url = try urlProvider.getURLForRecording()
+                try mixer.stop()
+                try mixer.startRecording(at: url)
+                try mixer.play()
+                view?.disableMicrophoneButton()
+                setAllLayersNotPlaying()
+                view?.setPlayButtonStop()
+                lockAllPlayButtons()
+                isRecording = true
+            } catch {
+                #warning("HANDLE ERRORS")
+                print(error)
             }
         }
     }
@@ -290,12 +323,14 @@ extension SaliPresenter {
     private func startMicRecording() {
         
         do {
-            let url = try urlProvider.urlForMicrophoneRecording()
+            let url = try urlProvider.getURLForRecording()
             try mixer.stop()
+            isAllPlaying = false
             setAllLayersNotPlaying()
             view?.setPlayButtonStop()
             try audioRecorder.startRecording(to: url)
             lockAllPlayButtons()
+            view?.disableRecordingButton()
             isRecordInProgress = true
             print("Recording started!")
         } catch {
@@ -309,6 +344,7 @@ extension SaliPresenter {
         do {
             try audioRecorder.stopRecording()
             unlockAllPlayButtons()
+            view?.enableRecordingButton()
             isRecordInProgress = false
             print("Recording stopped!")
         } catch {

@@ -107,6 +107,27 @@ extension SaliViewController: SaliViewInput {
     func enablePlayButton() {
         saliView.enablePlayButton()
     }
+    
+    func disableRecordingButton() {
+        saliView.disableRecordingButton()
+    }
+    
+    func enableRecordingButton() {
+        saliView.enableRecordingButton()
+    }
+    
+    func disableMicrophoneButton() {
+        saliView.disableMicrophoneButton()
+    }
+    
+    func enableMicrophoneButton() {
+        saliView.enableMicrophoneButton()
+    }
+    
+    func shareRecording(with url: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(activityViewController, animated: true)
+    }
 }
 
 // MARK: - SaliViewDelegate
@@ -125,6 +146,10 @@ extension SaliViewController: SaliViewDelegate {
     
     func didTapMicrophoneButton() {
         presenter.didTapMicrophoneButton()
+    }
+    
+    func didTapRecordingButton() {
+        presenter.didTapRecordingButton()
     }
     
     func didTapPlayButton() {

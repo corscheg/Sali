@@ -16,4 +16,6 @@ protocol Mixer {
     func set(muted: Bool, forLayerAt identifier: UUID)
     func playItem(withIdentifier identifier: UUID) throws
     func stopItem(withIdentifier identifier: UUID) throws
+    func startRecording(at url: URL) throws
+    func stopRecording() throws -> URL
 }

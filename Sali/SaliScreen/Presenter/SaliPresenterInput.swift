@@ -13,6 +13,7 @@ protocol SaliPresenterInput {
     func didChange(soundParameters: SoundParameters)
     func didTapLayersButton()
     func didTapMicrophoneButton()
+    func didTapRecordingButton()
     func didTapPlayButton()
     func didSelectLayer(atIndex index: Int)
     func didSelectPlay(atIndex index: Int)

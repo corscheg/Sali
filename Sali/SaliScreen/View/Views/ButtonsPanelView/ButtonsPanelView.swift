@@ -23,7 +23,13 @@ final class ButtonsPanelView: UIView {
         return button
     }()
     
-    private lazy var recordButton = RecordButton()
+    private lazy var recordButton: RecordButton = {
+        let button = RecordButton()
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var playPauseButton: PlayStopButton = {
         let button = PlayStopButton()
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
@@ -100,6 +106,22 @@ final class ButtonsPanelView: UIView {
         playPauseButton.isEnabled = true
     }
     
+    func disableRecordingButton() {
+        recordButton.isEnabled = false
+    }
+    
+    func enableRecordingButton() {
+        recordButton.isEnabled = true
+    }
+    
+    func disableMicrophoneButton() {
+        microphoneButton.isEnabled = false
+    }
+    
+    func enableMicrophoneButton() {
+        microphoneButton.isEnabled = true
+    }
+    
     // MARK: Actions
     @objc private func buttonTapped(_ sender: UIButton) {
         if sender === layersButton {
@@ -108,6 +130,8 @@ final class ButtonsPanelView: UIView {
             delegate?.didTapPlayButton()
         } else if sender === microphoneButton {
             delegate?.didTapMicrophoneButton()
+        } else if sender === recordButton {
+            delegate?.didTapRecordingButton()
         }
     }
 }
