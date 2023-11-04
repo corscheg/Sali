@@ -14,6 +14,7 @@ final class SaliMixer {
     private let audioSession: AVAudioSession = .sharedInstance()
     private let audioEngine = AVAudioEngine()
     private let mixerNode: AVAudioMixerNode
+    private let bypassMixerNode = AVAudioMixerNode()
     private var units: [UUID: PlayingUnit] = [:]
     private var mode: Mode = .still
     private var recordingFile: AVAudioFile?
@@ -21,6 +22,8 @@ final class SaliMixer {
     // MARK: Initializer
     init() {
         self.mixerNode = audioEngine.mainMixerNode
+        audioEngine.attach(bypassMixerNode)
+        audioEngine.connect(bypassMixerNode, to: mixerNode, format: mixerNode.outputFormat(forBus: 0))
     }
 }
 
@@ -44,7 +47,7 @@ extension SaliMixer: Mixer {
         audioEngine.attach(timeNode)
         
         audioEngine.connect(playerNode, to: timeNode, format: format)
-        audioEngine.connect(timeNode, to: mixerNode, format: format)
+        audioEngine.connect(timeNode, to: bypassMixerNode, format: format)
         
         units[identifier] = PlayingUnit(
             playerNode: playerNode,
