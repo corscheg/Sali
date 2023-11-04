@@ -193,6 +193,10 @@ extension SaliView: ButtonsPanelViewDelegate {
         delegate?.didTapLayersButton()
     }
     
+    func didTapMicrophoneButton() {
+        delegate?.didTapMicrophoneButton()
+    }
+    
     func didTapPlayButton() {
         delegate?.didTapPlayButton()
     }

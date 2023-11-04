@@ -11,7 +11,8 @@ struct SaliAssembly {
     func assemble() -> UIViewController {
         let sampleLoader = SampleLoader()
         let mixer = SaliMixer()
-        let presenter = SaliPresenter(sampleLoader: sampleLoader, mixer: mixer)
+        let permissionManager = PermissionManager()
+        let presenter = SaliPresenter(sampleLoader: sampleLoader, mixer: mixer, permissionManager: permissionManager)
         let viewController = SaliViewController(presenter: presenter)
         presenter.view = viewController
         

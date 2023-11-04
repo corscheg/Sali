@@ -15,16 +15,19 @@ final class SaliPresenter {
     // MARK: Private Properties
     private let sampleLoader: SampleLoaderProtocol
     private let mixer: Mixer
+    private let permissionManager: PermissionManagerProtocol
     private var layersTableVisible = false
     private var isAllPlaying = false
+    private var isRecordInProgress = false
     private var samples: [SampleIdentifier: SampleModel] = [:]
     private var layers: [LayerModel] = []
     private var selectedLayerIndex: Int?
     
     // MARK: Initializers
-    init(sampleLoader: SampleLoaderProtocol, mixer: Mixer) {
+    init(sampleLoader: SampleLoaderProtocol, mixer: Mixer, permissionManager: PermissionManagerProtocol) {
         self.sampleLoader = sampleLoader
         self.mixer = mixer
+        self.permissionManager = permissionManager
     }
 }
 
@@ -61,6 +64,28 @@ extension SaliPresenter: SaliPresenterInput {
         mixer.adjust(parameters: soundParameters, forLayerAt: layers[selectedLayerIndex].identifier)
     }
     
+    func didTapLayersButton() {
+        layersTableVisible.toggle()
+        updateLayersTable()
+    }
+    
+    func didTapMicrophoneButton() {
+        if isRecordInProgress {
+            isRecordInProgress = false
+            print("Recording stopped!")
+        } else {
+            permissionManager.performWithPermission { [weak self] in
+                // start recording
+                self?.isRecordInProgress = true
+                print("Recording started!")
+            } failure: { [weak self] in
+                self?.view?.showPermissionSettingsAlert { [weak self] in
+                    self?.permissionManager.requestPermissionInSettings()
+                }
+            }
+        }
+    }
+    
     func didTapPlayButton() {
         isAllPlaying.toggle()
         
@@ -69,11 +94,6 @@ extension SaliPresenter: SaliPresenterInput {
         } else {
             stopAll()
         }
-    }
-    
-    func didTapLayersButton() {
-        layersTableVisible.toggle()
-        updateLayersTable()
     }
     
     func didSelectLayer(atIndex index: Int) {

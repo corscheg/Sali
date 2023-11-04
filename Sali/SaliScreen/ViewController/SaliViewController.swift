@@ -80,6 +80,25 @@ extension SaliViewController: SaliViewInput {
     func setPlayButtonStop() {
         saliView.setPlayButtonStop()
     }
+    
+    func showPermissionSettingsAlert(withAction action: @escaping () -> ()) {
+        let alertController = UIAlertController(
+            title: "Microphone access denied :[",
+            message: "We are not able to start recording, because you denied the microphone access. But you can go to settings and grant it! Warning: The app will be relaunched, and you will lose your layers!",
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let proceedAction = UIAlertAction(title: "Go!", style: .default) { _ in
+            action()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(proceedAction)
+        
+        present(alertController, animated: true)
+        alertController.view.tintColor = .accent
+    }
 }
 
 // MARK: - SaliViewDelegate
@@ -92,12 +111,16 @@ extension SaliViewController: SaliViewDelegate {
         presenter.didChange(soundParameters: parameters)
     }
     
-    func didTapPlayButton() {
-        presenter.didTapPlayButton()
-    }
-    
     func didTapLayersButton() {
         presenter.didTapLayersButton()
+    }
+    
+    func didTapMicrophoneButton() {
+        presenter.didTapMicrophoneButton()
+    }
+    
+    func didTapPlayButton() {
+        presenter.didTapPlayButton()
     }
     
     func didSelectLayer(atIndex index: Int) {

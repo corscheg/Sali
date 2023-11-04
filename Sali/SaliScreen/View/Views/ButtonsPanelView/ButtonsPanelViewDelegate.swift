@@ -9,5 +9,6 @@ import Foundation
 
 protocol ButtonsPanelViewDelegate: AnyObject {
     func didTapLayersButton()
+    func didTapMicrophoneButton()
     func didTapPlayButton()
 }

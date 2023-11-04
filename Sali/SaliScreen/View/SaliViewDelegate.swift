@@ -10,8 +10,9 @@ import Foundation
 protocol SaliViewDelegate: AnyObject {
     func didSelectSample(withIdentifier identifier: SampleIdentifier)
     func didChange(parameters: SoundParameters)
-    func didTapPlayButton()
     func didTapLayersButton()
+    func didTapMicrophoneButton()
+    func didTapPlayButton()
     func didSelectLayer(atIndex index: Int)
     func didSelectPlay(atIndex index: Int)
     func didSelectMute(atIndex index: Int)

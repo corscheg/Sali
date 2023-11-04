@@ -17,4 +17,5 @@ protocol SaliViewInput: AnyObject {
     func populateLayersTable(with viewModels: [LayerCellViewModel], reload: Bool)
     func selectLayer(atIndex index: Int?)
     func setPlayButtonStop()
+    func showPermissionSettingsAlert(withAction action: @escaping () -> ())
 }

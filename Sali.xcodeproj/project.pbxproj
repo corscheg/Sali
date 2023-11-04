@@ -11,6 +11,8 @@
 		9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */; };
 		9614AEB12AF1CA730007D081 /* clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB02AF1CA730007D081 /* clamp.swift */; };
 		9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614AEB22AF1D59F0007D081 /* KeyPath+.swift */; };
+		9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */; };
+		966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003F2AF6898B00B86D4D /* PermissionManager.swift */; };
 		966C45FD2AF564FE00EAC808 /* SampleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */; };
 		966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C45FE2AF5675100EAC808 /* MixerError.swift */; };
 		966C46012AF5683400EAC808 /* LayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C46002AF5683400EAC808 /* LayerModel.swift */; };
@@ -73,6 +75,8 @@
 		9614AEAE2AF1C2D40007D081 /* SoundControlMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlMarkerView.swift; sourceTree = "<group>"; };
 		9614AEB02AF1CA730007D081 /* clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clamp.swift; sourceTree = "<group>"; };
 		9614AEB22AF1D59F0007D081 /* KeyPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyPath+.swift"; sourceTree = "<group>"; };
+		9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManagerProtocol.swift; sourceTree = "<group>"; };
+		9660003F2AF6898B00B86D4D /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		966C45FC2AF564FE00EAC808 /* SampleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleIdentifier.swift; sourceTree = "<group>"; };
 		966C45FE2AF5675100EAC808 /* MixerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerError.swift; sourceTree = "<group>"; };
 		966C46002AF5683400EAC808 /* LayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerModel.swift; sourceTree = "<group>"; };
@@ -143,6 +147,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9660003B2AF6897500B86D4D /* PermissionManager */ = {
+			isa = PBXGroup;
+			children = (
+				9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */,
+				9660003F2AF6898B00B86D4D /* PermissionManager.swift */,
+			);
+			path = PermissionManager;
+			sourceTree = "<group>";
+		};
+		966000412AF6922A00B86D4D /* URLProvider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = URLProvider;
+			sourceTree = "<group>";
+		};
 		96709E152AF41F270069E79B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +202,8 @@
 		96709E2B2AF4347D0069E79B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				966000412AF6922A00B86D4D /* URLProvider */,
+				9660003B2AF6897500B86D4D /* PermissionManager */,
 				96709E4B2AF455B70069E79B /* SaliMixer */,
 				96709E2C2AF434820069E79B /* SampleLoader */,
 			);
@@ -500,6 +522,7 @@
 				96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */,
 				969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */,
 				96709E202AF429ED0069E79B /* SampleBankViewModel.swift in Sources */,
+				9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */,
 				9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */,
 				968477842AF196CE00EBAA67 /* SampleSelectView.swift in Sources */,
 				96709E262AF42DD20069E79B /* SamplesSelectionPanelViewDelegate.swift in Sources */,
@@ -528,6 +551,7 @@
 				96709E232AF42D360069E79B /* SampleSelectViewDelegate.swift in Sources */,
 				96AB219A2AF2E743001EEADE /* SaliPresenterInput.swift in Sources */,
 				96AB21902AF2DA11001EEADE /* UITableViewCell+.swift in Sources */,
+				966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */,
 				9684778A2AF1A19F00EBAA67 /* LayersButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,10 +701,12 @@
 				INFOPLIST_FILE = Sali/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sali;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need the permission to make microphone recordings";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -710,10 +736,12 @@
 				INFOPLIST_FILE = Sali/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sali;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need the permission to make microphone recordings";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
