@@ -11,4 +11,5 @@ extension UIImage {
     static let instrumentGuitar = UIImage(named: "guitar")!
     static let instrumentDrums = UIImage(named: "drums")!
     static let instrumentBrass = UIImage(named: "brass")!
+    static let speakerIcon = UIImage(named: "speaker")!
 }

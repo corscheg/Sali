@@ -99,7 +99,7 @@ extension SignalProcessor {
         vDSP_vsadd(data, stride, &value, &additionResult, stride, length)
         
         var divisionResult: [Float] = .init(repeating: 0.0, count: count)
-        var divisor: Float = 7.0
+        var divisor: Float = 6.0
         vDSP_vsdiv(additionResult, stride, &divisor, &divisionResult, stride, length)
         
         var clippedResult: [Float] = .init(repeating: 0.0, count: count)

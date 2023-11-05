@@ -10,14 +10,6 @@ import UIKit
 final class MuteButton: IconSaliButton<CAShapeLayer, CGFloat> {
     
     // MARK: Visual Components
-    private lazy var speakerIconLayer: CAShapeLayer = {
-        let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.clear.cgColor
-        layer.backgroundColor = UIColor.clear.cgColor
-        layer.fillColor = UIColor.icons.cgColor
-        
-        return layer
-    }()
     
     private lazy var lineIconLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
@@ -37,6 +29,7 @@ final class MuteButton: IconSaliButton<CAShapeLayer, CGFloat> {
         
         addSubviews()
         setupAnimation()
+        setImage(.speakerIcon, for: .normal)
     }
     
     convenience init() {
@@ -56,24 +49,12 @@ final class MuteButton: IconSaliButton<CAShapeLayer, CGFloat> {
         
         lineIconLayer.frame = CGRect(origin: muteLineOrigin, size: muteLineSize)
         lineIconLayer.path = UIBezierPath.makeMuteLine(size: muteLineSize).cgPath
-        
-        let speakerPath: UIBezierPath = .makeSpeakerIcon(height: muteLineSide)
-        let widthOverhead = muteLineSide - speakerPath.bounds.width
-        let speakerXOffset = widthOverhead / 5.0
-        
-        speakerIconLayer.frame = CGRect(
-            origin: CGPoint(x: muteLineOrigin.x + speakerXOffset, y: muteLineOrigin.y),
-            size: speakerPath.bounds.size
-        )
-        
-        speakerIconLayer.path = speakerPath.cgPath
     }
 }
 
 // MARK: - Private Methods
 extension MuteButton {
     private func addSubviews() {
-        layer.addSublayer(speakerIconLayer)
         layer.addSublayer(lineIconLayer)
     }
     
