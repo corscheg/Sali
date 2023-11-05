@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SaliViewDelegate: AnyObject {
-    func didSelectSample(withIdentifier identifier: SampleIdentifier)
+    func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType)
     func didChange(parameters: SoundParameters)
     func didTapLayersButton()
     func didTapMicrophoneButton()

@@ -15,13 +15,15 @@ struct SaliAssembly {
         let permissionManager = PermissionManager()
         let urlProvider = URLProvider()
         let audioRecorder = AudioRecorder()
+        let nameManager = NameManager(userDefaults: .standard)
         
         let presenter = SaliPresenter(
             sampleLoader: sampleLoader,
             mixer: mixer,
             permissionManager: permissionManager,
             urlProvider: urlProvider,
-            audioRecorder: audioRecorder
+            audioRecorder: audioRecorder,
+            nameManager: nameManager
         )
         let viewController = SaliViewController(presenter: presenter)
         presenter.view = viewController

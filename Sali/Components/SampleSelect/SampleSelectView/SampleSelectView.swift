@@ -54,11 +54,14 @@ final class SampleSelectView: UIView {
         super.layoutSubviews()
         
         let controlSize = bounds.width
-        sampleControl.frame = CGRect(x: bounds.minX, y: bounds.minY, width: controlSize, height: controlSize)
         
         label.sizeToFit()
         
-        label.frame.origin = CGPoint(x: bounds.midX - (label.frame.width / 2), y: sampleControl.frame.maxY + controlLabelSpacing)
+        if !sampleControl.isAnimatingScale {
+            sampleControl.frame = CGRect(x: bounds.minX, y: bounds.minY, width: controlSize, height: controlSize)
+            label.frame.origin = CGPoint(x: bounds.midX - (label.frame.width / 2), y: sampleControl.frame.maxY + controlLabelSpacing)
+        }
+        
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

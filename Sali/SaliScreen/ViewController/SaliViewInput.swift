@@ -27,4 +27,6 @@ protocol SaliViewInput: AnyObject {
     func shareRecording(with url: URL)
     func updateMetering(_ metering: [Float])
     func clearAnalyzer()
+    func showAlert(withError error: Error?)
+    func set(title: String)
 }

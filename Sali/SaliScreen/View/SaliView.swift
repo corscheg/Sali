@@ -17,7 +17,6 @@ final class SaliView: UIView {
     
     // MARK: Private Properties
     private let constants = Constants()
-    #warning("FIX FIX FIX FIX FIX FIX FIX FIX FIX")
     private var layerViewModels: [LayerCellViewModel] = []
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(tableView: layersTableView) { [weak self] tableView, indexPath, _ in
@@ -55,6 +54,16 @@ final class SaliView: UIView {
         soundControl.addTarget(self, action: #selector(soundControlValueDidChange), for: .valueChanged)
         
         return soundControl
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        return label
     }()
     
     private lazy var analyzerView = AnalyzerView()
@@ -205,6 +214,12 @@ final class SaliView: UIView {
         analyzerView.clear()
     }
     
+    func set(title: String) {
+        UIView.transition(with: titleLabel, duration: 0.3, options: .transitionCrossDissolve) {
+            self.titleLabel.text = title
+        }
+    }
+    
     // MARK: Actions
     @objc private func soundControlValueDidChange() {
         let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)
@@ -214,8 +229,8 @@ final class SaliView: UIView {
 
 // MARK: - SamplesSelectionPanelViewDelegate
 extension SaliView: SamplesSelectionPanelViewDelegate {
-    func didSelect(viewModel: SampleViewModel) {
-        delegate?.didSelectSample(withIdentifier: viewModel.identifier)
+    func didSelect(viewModel: SampleViewModel, type: LayerType) {
+        delegate?.didSelectSample(withIdentifier: viewModel.identifier, type: type)
     }
 }
 
@@ -273,6 +288,7 @@ extension SaliView {
     
     private func addSubviews() {
         addSubview(soundControl)
+        addSubview(titleLabel)
         addSubview(analyzerView)
         addSubview(buttonsPanelView)
         addSubview(samplesSelectionPanelView)
@@ -301,6 +317,13 @@ extension SaliView {
             y: y,
             width: bounds.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
             height: analyzerView.frame.minY - constants.soundControlAnalyzerSpacing - y
+        )
+        
+        titleLabel.frame = CGRect(
+            x: soundControl.frame.minX,
+            y: soundControl.frame.minY,
+            width: soundControl.frame.width,
+            height: soundControl.frame.height * 0.1
         )
     }
     

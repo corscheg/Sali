@@ -24,13 +24,12 @@ final class TempoScaleView: UIView {
         self.init(frame: .zero, units: units)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: UIView
-    #warning("FIX DRAWING IN RECT")
-    #warning("FIX SPACE BETWEEN DASHES")
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         

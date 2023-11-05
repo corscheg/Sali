@@ -136,12 +136,31 @@ extension SaliViewController: SaliViewInput {
     func clearAnalyzer() {
         saliView.clearAnalyzer()
     }
+    
+    func showAlert(withError error: Error?) {
+        let alertController = UIAlertController(
+            title: "Oops! Something went wrong",
+            message: error?.localizedDescription ?? "Unknown error",
+            preferredStyle: .alert
+        )
+        
+        let action = UIAlertAction(title: "OK :[", style: .default)
+        
+        alertController.addAction(action)
+        
+        present(alertController, animated: true)
+        alertController.view.tintColor = .accent
+    }
+    
+    func set(title: String) {
+        saliView.set(title: title)
+    }
 }
 
 // MARK: - SaliViewDelegate
 extension SaliViewController: SaliViewDelegate {
-    func didSelectSample(withIdentifier identifier: SampleIdentifier) {
-        presenter.didSelectSample(withIdentifier: identifier)
+    func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType) {
+        presenter.didSelectSample(withIdentifier: identifier, type: type)
     }
     
     func didChange(parameters: SoundParameters) {

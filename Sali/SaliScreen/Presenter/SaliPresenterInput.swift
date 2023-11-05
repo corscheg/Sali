@@ -9,7 +9,7 @@ import Foundation
 
 protocol SaliPresenterInput {
     func viewDidLoad()
-    func didSelectSample(withIdentifier identifier: SampleIdentifier)
+    func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType)
     func didChange(soundParameters: SoundParameters)
     func didTapLayersButton()
     func didTapMicrophoneButton()

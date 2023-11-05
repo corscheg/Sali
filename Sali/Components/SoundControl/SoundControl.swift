@@ -87,6 +87,13 @@ final class SoundControl: UIControl {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            volumeMarkerView.setHighlighted(isHighlighted)
+            tempoMarkerView.setHighlighted(isHighlighted)
+        }
+    }
+    
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         updateOutputWith(touchLocation: location)

@@ -11,6 +11,7 @@ final class SampleControl: UIControl {
     
     // MARK: Public Properties
     private(set) var selectedViewModel: SampleViewModel?
+    private(set) var isAnimatingScale = false
     
     // MARK: Private Properties
     private let constants = Constants()
@@ -23,10 +24,11 @@ final class SampleControl: UIControl {
     private var heightExpanding: CGFloat = 0.0
     private let heightExpandingKey = "SampleControlHeightExpanding"
     private let hoverOpacityKey = "SampleControlHoverOpacity"
-    private let longTapThreshold = 0.8
+    private let longTapThreshold = 0.5
     private var longTapDetectionInProgress = false
     private var longTapInProgress = false
     private var foldingInProgress = false
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     // MARK: Visual Components
     private lazy var backgroundLayer: CALayer = {
@@ -128,12 +130,15 @@ final class SampleControl: UIControl {
         }
         
         longTapDetectionInProgress = true
+        runLongTapAnimation(forward: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + longTapThreshold) {
             guard self.longTapDetectionInProgress else { return }
             self.longTapDetectionInProgress = false
             self.longTapInProgress = true
+            self.runLongTapAnimation(forward: false)
             self.expandBackground()
+            self.impactGenerator.impactOccurred(intensity: 1.0)
         }
         
         return true
@@ -150,7 +155,15 @@ final class SampleControl: UIControl {
             optionView.frame.minY < location.y && optionView.frame.maxY > location.y
         }
         
-        guard let selectionCandidateIndex else { return true }
+        guard let selectionCandidateIndex else {
+            if location.y < optionViews[0].frame.minY {
+                selectedIndex = nil
+                updateSelectedViewModel()
+                updateHover()
+            }
+            
+            return true
+        }
         
         selectedIndex = selectionCandidateIndex
         updateSelectedViewModel()
@@ -215,6 +228,7 @@ extension SampleControl {
     
     private func foldBackground() {
         animateBackgroundLayer(to: 0.0, color: .buttons)
+        selectionHoverLayer.frame = CGRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: 0.0)
     }
     
     private func animateBackgroundLayer(to expansionHeight: CGFloat, color: UIColor) {
@@ -268,7 +282,10 @@ extension SampleControl {
             if !options.isEmpty {
                 selectedIndex = 0
                 updateSelectedViewModel()
+                runHintAnimation()
             }
+            
+            runLongTapAnimation(forward: false)
         }
         
         longTapDetectionInProgress = false
@@ -294,14 +311,16 @@ extension SampleControl {
     private func updateHover() {
         guard let selectedIndex else {
             setHover(hidden: true)
+            currentSelectionYRange = nil
             return
         }
         
         guard let selectedOpitonView = optionViews[safe: selectedIndex] else { return }
         setHover(hidden: false)
+        impactGenerator.impactOccurred(intensity: 0.6)
         
-        #warning("MAYBE REPLACE WITH NICE EXPLICIT ANIMATION")
         selectionHoverLayer.frame = selectedOpitonView.frame
+        currentSelectionYRange = selectionHoverLayer.frame.minY...selectionHoverLayer.frame.maxY
     }
     
     private func setHover(hidden: Bool) {
@@ -325,6 +344,35 @@ extension SampleControl {
         animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         selectionHoverLayer.add(animation, forKey: hoverOpacityKey)
         selectionHoverLayer.opacity = finalOpacity
+    }
+    
+    private func runHintAnimation() {
+        let keyTimes: [NSNumber] = [0.0, 0.25, 0.5, 0.75, 1.0]
+        let duration = 1.0
+        let colorAnimation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.backgroundColor))
+        let buttonsColor = UIColor.buttons.cgColor
+        let accentColor = UIColor.accent.cgColor
+        colorAnimation.values = [buttonsColor, accentColor, buttonsColor, accentColor, buttonsColor]
+        colorAnimation.keyTimes = keyTimes
+        colorAnimation.duration = duration
+        backgroundLayer.add(colorAnimation, forKey: nil)
+    }
+    
+    private func runLongTapAnimation(forward: Bool) {
+        isAnimatingScale = true
+        if forward {
+            UIView.animate(withDuration: longTapThreshold, delay: 0.0, options: .curveEaseOut) {
+                self.transform = .init(scaleX: 0.8, y: 0.8)
+            } completion: { _ in
+                self.isAnimatingScale = false
+            }
+        } else {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn) {
+                self.transform = .identity
+            } completion: { _ in
+                self.isAnimatingScale = false
+            }
+        }
     }
 }
 

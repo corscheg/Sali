@@ -21,21 +21,6 @@ final class SignalProcessor {
 
 // MARK: - SignalProcessorProtocol
 extension SignalProcessor: SignalProcessorProtocol {
-    func getLevel(from data: UnsafeMutablePointer<Float>, count: UInt) -> Float {
-        let stride = vDSP_Stride(1)
-        var result: Float = 0
-        let length = vDSP_Length(count)
-        
-        vDSP_rmsqv(data, stride, &result, length)
-        
-        let negativeDB = 10.0 * log10(result)
-        let positiveDB = 160.0 + negativeDB
-        let adjustedDB = positiveDB - 120.0
-        
-        let normalizedDB = clamp(value: adjustedDB / 40.0, min: 0.0, max: 1.0)
-        
-        return normalizedDB
-    }
     
     func getFrequencies(data: UnsafeMutablePointer<Float>, count: UInt) -> [Float] {
         let fftResult = calculateFourierTransform(of: data, count: count)

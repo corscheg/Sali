@@ -32,7 +32,6 @@ final class VolumeScaleView: UIView {
     }
     
     // MARK: UIView
-    #warning("FIX DRAWING IN RECT")
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         

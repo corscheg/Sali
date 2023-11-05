@@ -46,7 +46,7 @@ extension AudioRecorder: AudioRecorderProtocol {
         audioRecorder.stop()
         self.audioRecorder = nil
         
-        try audioSession.setActive(false)
+        try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
     }
 }
 

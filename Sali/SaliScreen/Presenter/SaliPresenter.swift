@@ -5,6 +5,7 @@
 //  Created by Aleksandr Kazak-Kazakevich on 02.11.2023.
 //
 
+import OSLog
 import Foundation
 
 final class SaliPresenter {
@@ -18,6 +19,8 @@ final class SaliPresenter {
     private let permissionManager: PermissionManagerProtocol
     private let urlProvider: URLProviderProtocol
     private let audioRecorder: AudioRecorderProtocol
+    private let nameManager: NameManagerProtocol
+    
     private var layersTableVisible = false
     private var isAllPlaying = false
     private var isRecordInProgress = false
@@ -33,13 +36,15 @@ final class SaliPresenter {
         mixer: Mixer,
         permissionManager: PermissionManagerProtocol,
         urlProvider: URLProviderProtocol,
-        audioRecorder: AudioRecorderProtocol
+        audioRecorder: AudioRecorderProtocol,
+        nameManager: NameManagerProtocol
     ) {
         self.sampleLoader = sampleLoader
         self.mixer = mixer
         self.permissionManager = permissionManager
         self.urlProvider = urlProvider
         self.audioRecorder = audioRecorder
+        self.nameManager = nameManager
     }
 }
 
@@ -51,22 +56,20 @@ extension SaliPresenter: SaliPresenterInput {
         view?.disableParametersControl()
     }
     
-    func didSelectSample(withIdentifier identifier: SampleIdentifier) {
+    func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType) {
         guard let sample = samples[identifier] else { return }
         
         let uuid = UUID()
-        let layerModel = LayerModel(identifier: uuid, name: uuid.uuidString, isPlaying: false, isMuted: false, isMicrophone: false)
+        let name = nameManager.getName(forType: type)
+        let layerModel = LayerModel(identifier: uuid, name: name, isPlaying: false, isMuted: false, isMicrophone: false)
         
-        do {
+        tryToPerformWithAlert {
             try mixer.addLayer(withURL: sample.url, loops: true, andIdentifier: uuid)
             layers.append(layerModel)
             updateLayersTable()
             setSelectedIndex(to: layers.endIndex - 1)
             mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
             updateParametersControl()
-        } catch {
-            #warning("HANDLE ERROR!")
-            print(error)
         }
     }
     
@@ -97,7 +100,7 @@ extension SaliPresenter: SaliPresenterInput {
     
     func didTapRecordingButton() {
         if isRecording {
-            do {
+            tryToPerformWithAlert {
                 try mixer.stop()
                 isAllPlaying = false
                 let url = try mixer.stopRecording()
@@ -105,14 +108,12 @@ extension SaliPresenter: SaliPresenterInput {
                 unlockAllPlayButtons()
                 isRecording = false
                 view?.shareRecording(with: url)
-            } catch {
-                #warning("HANDLE ERRORS")
-                print(error)
             }
         } else {
-            do {
-                let url = try urlProvider.getURLForRecording()
+            tryToPerformWithAlert {
                 try mixer.stop()
+                let filename = nameManager.getNameForRecording()
+                let url = urlProvider.getURLForRecord(withFilename: filename)
                 try mixer.startRecording(at: url)
                 try mixer.play()
                 view?.disableMicrophoneButton()
@@ -120,9 +121,6 @@ extension SaliPresenter: SaliPresenterInput {
                 view?.setPlayButtonStop()
                 lockAllPlayButtons()
                 isRecording = true
-            } catch {
-                #warning("HANDLE ERRORS")
-                print(error)
             }
         }
     }
@@ -145,22 +143,16 @@ extension SaliPresenter: SaliPresenterInput {
         layers[index].isPlaying.toggle()
         
         if layers[index].isPlaying {
-            do {
+            tryToPerformWithAlert {
                 try mixer.playItem(withIdentifier: layers[index].identifier)
                 view?.setPlayButtonStop()
                 isAllPlaying = false
                 updateLayersTableRows()
-            } catch {
-                #warning("HANDLE ERROR")
-                print(error)
             }
         } else {
-            do {
+            tryToPerformWithAlert {
                 try mixer.stopItem(withIdentifier: layers[index].identifier)
                 updateLayersTableRows()
-            } catch {
-                #warning("HANDLE ERROR")
-                print(error)
             }
         }
     }
@@ -178,23 +170,28 @@ extension SaliPresenter: SaliPresenterInput {
 extension SaliPresenter: AudioRecorderDelegate {
     func didFinishRecording(with url: URL) {
         let uuid = UUID()
-        var layerModel = LayerModel(identifier: uuid, name: uuid.uuidString, isPlaying: false, isMuted: false, isMicrophone: true)
+        let name = nameManager.getName(forType: .microphone)
+        var layerModel = LayerModel(identifier: uuid, name: name, isPlaying: false, isMuted: false, isMicrophone: true)
         layerModel.parameters.volume = 1.0
-        do {
+        
+        tryToPerformWithAlert {
             try mixer.addLayer(withURL: url, loops: false, andIdentifier: uuid)
             layers.append(layerModel)
             updateLayersTable()
             setSelectedIndex(to: layers.endIndex - 1)
             mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
             updateParametersControl()
-        } catch {
-            #warning("HANDLE ERROR!")
-            print(error)
+            unlockAllPlayButtons()
+            view?.enableRecordingButton()
+            isRecordInProgress = false
         }
     }
     
     func didEndWithError() {
-        #warning("HANDLE ERROR!")
+        view?.showAlert(withError: nil)
+        unlockAllPlayButtons()
+        view?.enableRecordingButton()
+        isRecordInProgress = false
     }
 }
 
@@ -257,21 +254,15 @@ extension SaliPresenter {
     }
     
     private func playAll() {
-        do {
+        tryToPerformWithAlert {
             try mixer.play()
             setAllLayersNotPlaying()
-        } catch {
-            #warning("HANDLE ERROR!")
-            print(error)
         }
     }
     
     private func stopAll() {
-        do {
+        tryToPerformWithAlert {
             try mixer.stop()
-        } catch {
-            #warning("HANDLE ERROR!")
-            print(error)
         }
     }
     
@@ -299,11 +290,8 @@ extension SaliPresenter {
             }
         }
         
-        do {
+        tryToPerformWithAlert {
             try mixer.removeLayer(withIdentifier: removedLayer.identifier)
-        } catch {
-            #warning("HANDLE ERROR!")
-            print(error)
         }
     }
     
@@ -320,6 +308,12 @@ extension SaliPresenter {
         selectedLayerIndex = value
         updateParametersControl()
         
+        if let selectedLayerIndex {
+            view?.set(title: layers[selectedLayerIndex].name)
+        } else {
+            view?.set(title: "")
+        }
+        
         if updateLayersView {
             view?.selectLayer(atIndex: value)
         }
@@ -332,9 +326,8 @@ extension SaliPresenter {
     }
     
     private func startMicRecording() {
-        
-        do {
-            let url = try urlProvider.getURLForRecording()
+        tryToPerformWithAlert {
+            let url = try urlProvider.getURLForMicrophoneRecording()
             try mixer.stop()
             isAllPlaying = false
             setAllLayersNotPlaying()
@@ -343,24 +336,12 @@ extension SaliPresenter {
             lockAllPlayButtons()
             view?.disableRecordingButton()
             isRecordInProgress = true
-            print("Recording started!")
-        } catch {
-            #warning("HANDLE ERROR")
-            print(error)
         }
     }
     
     private func stopMicRecording() {
-        
-        do {
+        tryToPerformWithAlert {
             try audioRecorder.stopRecording()
-            unlockAllPlayButtons()
-            view?.enableRecordingButton()
-            isRecordInProgress = false
-            print("Recording stopped!")
-        } catch {
-            #warning("HANDLE ERROR")
-            print(error)
         }
     }
     
@@ -381,5 +362,17 @@ extension SaliPresenter {
         isPlayingLocked = false
         updateLayersTableRows(reload: false)
         view?.enablePlayButton()
+    }
+    
+    private func showAlert(withError error: Error?) {
+        view?.showAlert(withError: error)
+    }
+    
+    private func tryToPerformWithAlert(block: () throws -> ()) {
+        do {
+            try block()
+        } catch {
+            showAlert(withError: error)
+        }
     }
 }

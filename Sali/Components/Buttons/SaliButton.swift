@@ -20,7 +20,8 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
     }
     private let toActiveKey = "SaliButtonToActive"
     private let toInactiveKey = "SaliButtonToInactive"
-    private let duration = 0.3
+    private let duration = 0.15
+    private let timingFunction = CAMediaTimingFunction(name: .easeOut)
     
     // MARK: Initializers
     override init(frame: CGRect) {
@@ -53,44 +54,28 @@ class SaliButton<LayerType: CALayer, AnimatedProperty>: UIButton {
         isActive.toggle()
         guard var animationDescriptor else { return }
         
-        #warning("REFACTOR")
-        if isActive {
-            let fromValue: AnimatedProperty
-            
-            if animationDescriptor.layer.animation(forKey: toInactiveKey) != nil,
-               let presentationLayer = animationDescriptor.layer.presentation() {
-                fromValue = presentationLayer[keyPath: animationDescriptor.property]
-            } else {
-                fromValue = animationDescriptor.inactiveValue
-            }
-            
-            let animation = CABasicAnimation(keyPath: animationDescriptor.property.stringValue)
-            animation.fromValue = fromValue
-            animation.toValue = animationDescriptor.activeValue
-            animation.duration = duration
-            
-            animationDescriptor.layer[keyPath: animationDescriptor.property] = animationDescriptor.activeValue
-            animationDescriptor.layer.removeAnimation(forKey: toInactiveKey)
-            animationDescriptor.layer.add(animation, forKey: toActiveKey)
+        let fromValue: AnimatedProperty
+        let reverseAnimationKey = isActive ? toInactiveKey : toActiveKey
+        let actualKey = isActive ? toActiveKey : toInactiveKey
+        let reverseValue = isActive ? animationDescriptor.inactiveValue : animationDescriptor.activeValue
+        let targetValue = isActive ? animationDescriptor.activeValue : animationDescriptor.inactiveValue
+        
+        if animationDescriptor.layer.animation(forKey: reverseAnimationKey) != nil,
+           let presentationLayer = animationDescriptor.layer.presentation() {
+            fromValue = presentationLayer[keyPath: animationDescriptor.property]
         } else {
-            let fromValue: AnimatedProperty
-            
-            if animationDescriptor.layer.animation(forKey: toActiveKey) != nil,
-               let presentationLayer = animationDescriptor.layer.presentation() {
-                fromValue = presentationLayer[keyPath: animationDescriptor.property]
-            } else {
-                fromValue = animationDescriptor.activeValue
-            }
-            
-            let animation = CABasicAnimation(keyPath: animationDescriptor.property.stringValue)
-            animation.fromValue = fromValue
-            animation.toValue = animationDescriptor.inactiveValue
-            animation.duration = duration
-            
-            animationDescriptor.layer[keyPath: animationDescriptor.property] = animationDescriptor.inactiveValue
-            animationDescriptor.layer.removeAnimation(forKey: toActiveKey)
-            animationDescriptor.layer.add(animation, forKey: toInactiveKey)
+            fromValue = reverseValue
         }
+        
+        let animation = CABasicAnimation(keyPath: animationDescriptor.property.stringValue)
+        animation.fromValue = fromValue
+        animation.toValue = targetValue
+        animation.duration = duration
+        animation.timingFunction = timingFunction
+        
+        animationDescriptor.layer[keyPath: animationDescriptor.property] = targetValue
+        animationDescriptor.layer.removeAnimation(forKey: reverseAnimationKey)
+        animationDescriptor.layer.add(animation, forKey: actualKey)
     }
 }
 

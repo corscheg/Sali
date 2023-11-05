@@ -57,6 +57,15 @@ final class SoundControlMarkerView: UIView {
             height: labelSize.height + constants.labelTop + constants.labelBottom
         )
     }
+    
+    // MARK: Public Methods
+    func setHighlighted(_ highlighted: Bool) {
+        let finalColor: UIColor = highlighted ? .buttons : .accent
+        
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut) {
+            self.backgroundColor = finalColor
+        }
+    }
 }
 
 // MARK: - Private Methods
@@ -65,6 +74,7 @@ extension SoundControlMarkerView {
         backgroundColor = .accent
         layer.cornerRadius = 4.0
         layer.cornerCurve = .continuous
+        isUserInteractionEnabled = false
     }
     
     private func addSubviews() {

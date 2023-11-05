@@ -105,7 +105,6 @@ extension AnalyzerView: MTKViewDelegate {
         
         let threadsPerGroup = MTLSize(width: width, height: height, depth: 1)
         let threadGroupsPerGrid = MTLSize(width: Int(view.drawableSize.width) / width, height: Int(view.drawableSize.height) / height, depth: 1)
-//        commandEncoder.dispatchThreads(threadsPerGrid, threadsPerThreadgroup: threadsPerGroup)
         commandEncoder.dispatchThreadgroups(threadGroupsPerGrid, threadsPerThreadgroup: threadsPerGroup)
         
         commandEncoder.endEncoding()

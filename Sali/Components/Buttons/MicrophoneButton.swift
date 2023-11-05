@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MicrophoneButton: IconSaliButton<CALayer, Double> {
+final class MicrophoneButton: IconSaliButton<CAShapeLayer, CGColor?> {
     
     // MARK: Visual Components
     private lazy var microphoneIconLayer: CAShapeLayer = {
@@ -24,6 +24,7 @@ final class MicrophoneButton: IconSaliButton<CALayer, Double> {
         super.init(frame: frame)
         
         addSubviews()
+        setupAnimation()
     }
     
     convenience init() {
@@ -52,5 +53,14 @@ final class MicrophoneButton: IconSaliButton<CALayer, Double> {
 extension MicrophoneButton {
     private func addSubviews() {
         layer.addSublayer(microphoneIconLayer)
+    }
+    
+    private func setupAnimation() {
+        animationDescriptor = .init(
+            layer: microphoneIconLayer,
+            property: \.fillColor,
+            inactiveValue: UIColor.icons.cgColor,
+            activeValue: UIColor.record.cgColor
+        )
     }
 }

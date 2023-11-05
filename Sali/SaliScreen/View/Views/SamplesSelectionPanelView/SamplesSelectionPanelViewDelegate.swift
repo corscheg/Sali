@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SamplesSelectionPanelViewDelegate: AnyObject {
-    func didSelect(viewModel: SampleViewModel)
+    func didSelect(viewModel: SampleViewModel, type: LayerType)
 }

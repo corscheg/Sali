@@ -100,7 +100,18 @@ final class SamplesSelectionPanelView: UIView {
 // MARK: - SampleSelectViewDelegate
 extension SamplesSelectionPanelView: SampleSelectViewDelegate {
     func sampleSelectView(_ sampleSelectView: SampleSelectView, didSelect viewModel: SampleViewModel) {
-        delegate?.didSelect(viewModel: viewModel)
+        
+        let type: LayerType = if sampleSelectView === guitarSelectView {
+            .guitar
+        } else if sampleSelectView === drumsSelectView {
+            .drums
+        } else if sampleSelectView === brassSelectView {
+            .brass
+        } else {
+            .guitar
+        }
+        
+        delegate?.didSelect(viewModel: viewModel, type: type)
     }
 }
 
