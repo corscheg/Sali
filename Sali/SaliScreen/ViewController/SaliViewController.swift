@@ -132,6 +132,10 @@ extension SaliViewController: SaliViewInput {
     func updateMetering(_ metering: [Float]) {
         saliView.updateMetering(metering)
     }
+    
+    func clearAnalyzer() {
+        saliView.clearAnalyzer()
+    }
 }
 
 // MARK: - SaliViewDelegate

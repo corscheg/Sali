@@ -203,6 +203,10 @@ extension SaliPresenter: MixerDelegate {
     func didPerformMetering(_ result: [Float]) {
         view?.updateMetering(result)
     }
+    
+    func didEndPlaying() {
+        view?.clearAnalyzer()
+    }
 }
 
 // MARK: - Private Methods

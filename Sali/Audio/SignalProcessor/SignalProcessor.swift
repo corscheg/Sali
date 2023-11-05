@@ -10,7 +10,7 @@ import Foundation
 
 final class SignalProcessor {
     
-    private let transformCount = 1024
+    private let transformCount = 128
     private let setup: vDSP_DFT_Setup?
     
     init() {
@@ -92,14 +92,14 @@ extension SignalProcessor {
     
     private func normalize(data: UnsafePointer<Float>, count: Int) -> [Float] {
         var additionResult: [Float] = .init(repeating: 0.0, count: count)
-        var value: Float = 5.0
+        var value: Float = 4.0
         let stride = vDSP_Stride(1)
         let length = vDSP_Length(count)
         
         vDSP_vsadd(data, stride, &value, &additionResult, stride, length)
         
         var divisionResult: [Float] = .init(repeating: 0.0, count: count)
-        var divisor: Float = 9.0
+        var divisor: Float = 7.0
         vDSP_vsdiv(additionResult, stride, &divisor, &divisionResult, stride, length)
         
         var clippedResult: [Float] = .init(repeating: 0.0, count: count)

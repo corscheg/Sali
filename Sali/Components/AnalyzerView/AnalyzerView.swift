@@ -67,6 +67,11 @@ final class AnalyzerView: UIView {
         memcpy(meteringBuffer?.contents(), metering, MemoryLayout<Float>.size * metering.count)
         meteringCount = metering.count
     }
+    
+    func clear() {
+        meteringCount = nil
+        meteringBuffer = nil
+    }
 }
 
 // MARK: - MTKViewDelegate
@@ -106,9 +111,6 @@ extension AnalyzerView: MTKViewDelegate {
         commandEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()
-        
-        meteringBuffer = nil
-        meteringCount = nil
     }
 }
 

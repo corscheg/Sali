@@ -201,6 +201,10 @@ final class SaliView: UIView {
         analyzerView.updateMetering(metering)
     }
     
+    func clearAnalyzer() {
+        analyzerView.clear()
+    }
+    
     // MARK: Actions
     @objc private func soundControlValueDidChange() {
         let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)

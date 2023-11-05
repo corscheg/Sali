@@ -291,10 +291,11 @@ extension SaliMixer {
     
     private func stopEngine() {
         audioEngine.stop()
+        delegate?.didEndPlaying()
     }
     
     private func installProcessingTap() {
-        bypassMixerNode.installTap(onBus: 0, bufferSize: 1024, format: bypassMixerNode.outputFormat(forBus: 0)) { [weak self] buffer, _ in
+        bypassMixerNode.installTap(onBus: 0, bufferSize: 256, format: bypassMixerNode.outputFormat(forBus: 0)) { [weak self] buffer, _ in
             self?.process(buffer: buffer)
         }
     }
