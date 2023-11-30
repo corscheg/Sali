@@ -23,9 +23,11 @@ final class SaliMixer {
     private var mode: Mode = .still
     private var recordingFile: AVAudioFile?
     private let responseQueue: DispatchQueue = .main
+    private let processingBufferLength: Int
     
     // MARK: Initializer
-    init(signalProcessor: SignalProcessorProtocol) {
+    init(signalProcessor: SignalProcessorProtocol, processingBufferLength: Int) {
+        self.processingBufferLength = processingBufferLength
         self.signalProcessor = signalProcessor
         self.mixerNode = audioEngine.mainMixerNode
         audioEngine.attach(bypassMixerNode)

@@ -124,6 +124,10 @@ extension SaliViewController: SaliViewInput {
         saliView.enableMicrophoneButton()
     }
     
+    func setMicrophoneButtonInactive() {
+        saliView.setMicrophoneButtonInactive()
+    }
+    
     func shareRecording(with url: URL) {
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(activityViewController, animated: true)

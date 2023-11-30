@@ -122,6 +122,10 @@ final class ButtonsPanelView: UIView {
         microphoneButton.isEnabled = true
     }
     
+    func setMicrophoneButtonInactive() {
+        microphoneButton.set(active: false)
+    }
+    
     // MARK: Actions
     @objc private func buttonTapped(_ sender: UIButton) {
         if sender === layersButton {

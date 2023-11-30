@@ -94,6 +94,8 @@ extension SaliPresenter: SaliPresenterInput {
                 self?.view?.showPermissionSettingsAlert { [weak self] in
                     self?.permissionManager.requestPermissionInSettings()
                 }
+                
+                self?.view?.setMicrophoneButtonInactive()
             }
         }
     }
@@ -368,11 +370,12 @@ extension SaliPresenter {
         view?.showAlert(withError: error)
     }
     
-    private func tryToPerformWithAlert(block: () throws -> ()) {
+    private func tryToPerformWithAlert(block: () throws -> (), failure: (() -> ())? = nil) {
         do {
             try block()
         } catch {
             showAlert(withError: error)
+            failure?()
         }
     }
 }

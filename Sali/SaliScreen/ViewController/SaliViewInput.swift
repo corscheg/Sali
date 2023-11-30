@@ -24,6 +24,7 @@ protocol SaliViewInput: AnyObject {
     func enableRecordingButton()
     func disableMicrophoneButton()
     func enableMicrophoneButton()
+    func setMicrophoneButtonInactive()
     func shareRecording(with url: URL)
     func updateMetering(_ metering: [Float])
     func clearAnalyzer()

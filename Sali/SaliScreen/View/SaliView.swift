@@ -206,6 +206,10 @@ final class SaliView: UIView {
         buttonsPanelView.enableMicrophoneButton()
     }
     
+    func setMicrophoneButtonInactive() {
+        buttonsPanelView.setMicrophoneButtonInactive()
+    }
+    
     func updateMetering(_ metering: [Float]) {
         analyzerView.updateMetering(metering)
     }

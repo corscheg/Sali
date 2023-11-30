@@ -10,10 +10,11 @@ import Foundation
 
 final class SignalProcessor {
     
-    private let transformCount = 128
+    private let transformCount: Int
     private let setup: vDSP_DFT_Setup?
     
-    init() {
+    init(processingBufferLength: Int) {
+        transformCount = processingBufferLength
         let length = vDSP_Length(transformCount)
         setup = vDSP_DFT_zop_CreateSetup(nil, length, .FORWARD)
     }

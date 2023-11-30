@@ -9,9 +9,11 @@ import UIKit
 
 struct SaliAssembly {
     func assemble() -> UIViewController {
+        
+        let processingBufferLength = 256
         let sampleLoader = SampleLoader()
-        let signalProcessor = SignalProcessor()
-        let mixer = SaliMixer(signalProcessor: signalProcessor)
+        let signalProcessor = SignalProcessor(processingBufferLength: processingBufferLength)
+        let mixer = SaliMixer(signalProcessor: signalProcessor, processingBufferLength: processingBufferLength)
         let permissionManager = PermissionManager()
         let urlProvider = URLProvider()
         let audioRecorder = AudioRecorder()
