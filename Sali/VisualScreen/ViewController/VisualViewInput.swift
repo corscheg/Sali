@@ -12,6 +12,7 @@ protocol VisualViewInput: AnyObject {
     func setDuration(text: String)
     func updateVisual(frequencies: [Float], level: Float)
     func setRecording(title: String?)
+    func disableTitle()
     func disableSaveButton()
     func disablePlaybackControl()
     func setPlayInactive()

@@ -26,16 +26,17 @@ final class VisualView: UIView {
         return button
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16.0)
-        label.textColor = .buttons
-        label.textAlignment = .natural
-        label.numberOfLines = 1
-        label.text = "Recording title"
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var titleTextField: UITextField = {
+        let field = UITextField()
+        field.font = .systemFont(ofSize: 16.0)
+        field.textColor = .buttons
+        field.textAlignment = .natural
+        field.text = "Recording title"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.tintColor = .accent
+        field.addTarget(self, action: #selector(titleChanged), for: .editingDidEnd)
         
-        return label
+        return field
     }()
     
     private lazy var saveButton: IconSaliButton<CALayer, CGFloat> = {
@@ -51,6 +52,8 @@ final class VisualView: UIView {
     private lazy var unitsView: UnitsView = {
         let view = UnitsView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapRecognizer)
         
         return view
     }()
@@ -115,7 +118,11 @@ final class VisualView: UIView {
     }
     
     func setRecording(title: String?) {
-        titleLabel.text = title
+        titleTextField.text = title
+    }
+    
+    func disableTitle() {
+        titleTextField.isEnabled = false
     }
     
     func disableSaveButton() {
@@ -143,6 +150,14 @@ final class VisualView: UIView {
     @objc private func didTapSaveButton() {
         delegate?.saveButtonTapped()
     }
+    
+    @objc private func hideKeyboard() {
+        titleTextField.resignFirstResponder()
+    }
+    
+    @objc private func titleChanged() {
+        delegate?.titleChanged(to: titleTextField.text ?? "")
+    }
 }
 
 // MARK: - PlaybackControlViewDelegate
@@ -168,7 +183,7 @@ extension VisualView {
     
     private func addSubviews() {
         addSubview(backButton)
-        addSubview(titleLabel)
+        addSubview(titleTextField)
         addSubview(saveButton)
         addSubview(unitsView)
         addSubview(currentTimeLabel)
@@ -193,9 +208,9 @@ extension VisualView {
             unitsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             unitsView.bottomAnchor.constraint(equalTo: currentTimeLabel.topAnchor, constant: -constants.unitsInset),
             
-            titleLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: constants.topSectionInset),
-            titleLabel.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -constants.topSectionInset),
-            titleLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: constants.topSectionInset),
+            titleTextField.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -constants.topSectionInset),
+            titleTextField.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             
             currentTimeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: constants.bottomHorizontalInset),
             currentTimeLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -constants.bottomLabelsInset),

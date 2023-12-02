@@ -57,6 +57,10 @@ extension VisualViewController: VisualViewInput {
         visualView.setRecording(title: title)
     }
     
+    func disableTitle() {
+        visualView.disableTitle()
+    }
+    
     func disableSaveButton() {
         visualView.disableSaveButton()
     }
@@ -91,6 +95,10 @@ extension VisualViewController: VisualViewDelegate {
     
     func saveButtonTapped() {
         presenter.saveButtonTapped()
+    }
+    
+    func titleChanged(to newTitle: String) {
+        presenter.titleChanged(to: newTitle)
     }
     
     func rewindTapped() {

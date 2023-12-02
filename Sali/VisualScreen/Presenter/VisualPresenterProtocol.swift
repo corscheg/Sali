@@ -11,6 +11,7 @@ protocol VisualPresenterProtocol {
     func viewDidLoad()
     func backButtonTapped()
     func saveButtonTapped()
+    func titleChanged(to newTitle: String)
     func rewindTapped()
     func playTapped()
     func toEndTapped()

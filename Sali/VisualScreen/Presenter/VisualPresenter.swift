@@ -16,7 +16,9 @@ final class VisualPresenter {
     private let mixer: Mixer
     private var mixerStoredDelegate: MixerDelegate?
     private let mode: Mode
+    private var renamedURL: URL?
     private let audioUtility: AudioUtilityProtocol
+    private let fileManager: FileManager = .default
     private var isPlaying = false
     private var timer: Timer?
     private var trackDuration: Int?
@@ -62,6 +64,7 @@ extension VisualPresenter: VisualPresenterProtocol {
             view?.disableSaveButton()
             view?.disablePlaybackControl()
             view?.setRecording(title: nil)
+            view?.disableTitle()
             startCurrentTimer()
         case .recording(let url, _):
             audioUtility.getDuration(ofFileAt: url) { [weak self] duration in
@@ -84,7 +87,26 @@ extension VisualPresenter: VisualPresenterProtocol {
     
     func saveButtonTapped() {
         guard case .recording(let url, _) = mode else { return }
-        view?.shareRecording(with: url)
+        view?.shareRecording(with: renamedURL ?? url)
+    }
+    
+    func titleChanged(to newTitle: String) {
+        guard case .recording(let url, _) = mode else { return }
+        let oldTitle = url.deletingPathExtension().lastPathComponent
+        guard oldTitle != newTitle else { return }
+        
+        let newURL = url.deletingLastPathComponent().appendingPathComponent("\(newTitle).wav")
+        
+        if let renamedURL {
+            try? fileManager.removeItem(at: renamedURL)
+        }
+        
+        do {
+            try fileManager.copyItem(at: url, to: newURL)
+            renamedURL = newURL
+        } catch {
+            view?.setRecording(title: oldTitle)
+        }
     }
     
     func rewindTapped() {
