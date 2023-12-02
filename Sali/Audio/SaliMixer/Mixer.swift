@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol Mixer {
+protocol Mixer: AnyObject {
+    var delegate: MixerDelegate? { get set }
     func addLayer(withURL url: URL, loops: Bool, andIdentifier identifier: UUID) throws
     func removeLayer(withIdentifier identifier: UUID) throws
     func adjust(parameters: SoundParameters, forLayerAt identifier: UUID)
@@ -18,4 +19,5 @@ protocol Mixer {
     func stopItem(withIdentifier identifier: UUID) throws
     func startRecording(at url: URL) throws
     func stopRecording() throws -> URL
+    func restartLayer(withIdentifier identifier: UUID)
 }

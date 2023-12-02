@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class PlayStopButton: IconSaliButton<CAShapeLayer, CGPath?> {
+class PlayStopButton: IconSaliButton<CAShapeLayer, CGPath?> {
     
     // MARK: Visual Components
-    private lazy var playStopIconLayer: CAShapeLayer = {
+    private(set) lazy var playStopIconLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.backgroundColor = UIColor.clear.cgColor
         layer.strokeColor = UIColor.clear.cgColor

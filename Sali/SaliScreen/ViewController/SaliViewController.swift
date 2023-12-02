@@ -159,6 +159,11 @@ extension SaliViewController: SaliViewInput {
     func set(title: String) {
         saliView.set(title: title)
     }
+    
+    func openVisualizer(mode: VisualizerMode) {
+        let visualizer = VisualAssembly().assemble(mode: mode)
+        navigationController?.pushViewController(visualizer, animated: true)
+    }
 }
 
 // MARK: - SaliViewDelegate
@@ -201,5 +206,9 @@ extension SaliViewController: SaliViewDelegate {
     
     func didSelectDelete(atIndex index: Int) {
         presenter.didSelectDelete(atIndex: index)
+    }
+    
+    func didTapAnalyzer() {
+        presenter.didTapAnalyzer()
     }
 }

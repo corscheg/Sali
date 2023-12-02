@@ -214,6 +214,14 @@ extension SaliMixer: Mixer {
         self.recordingFile = nil
         return url
     }
+    
+    func restartLayer(withIdentifier identifier: UUID) {
+        guard case .some = mode else { return }
+        
+        stopPlayer(withIdentifier: identifier)
+        populatePlayer(withIdentifier: identifier)
+        playUnit(withIdentifier: identifier)
+    }
 }
 
 // MARK: - PlayingUnit

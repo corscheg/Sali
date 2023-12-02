@@ -109,7 +109,7 @@ extension SaliPresenter: SaliPresenterInput {
                 view?.enableMicrophoneButton()
                 unlockAllPlayButtons()
                 isRecording = false
-                view?.shareRecording(with: url)
+                view?.openVisualizer(mode: .recording(url: url))
             }
         } else {
             tryToPerformWithAlert {
@@ -165,6 +165,10 @@ extension SaliPresenter: SaliPresenterInput {
     
     func didSelectDelete(atIndex index: Int) {
         removeLayer(at: index)
+    }
+    
+    func didTapAnalyzer() {
+        view?.openVisualizer(mode: .preview(mixer: mixer))
     }
 }
 

@@ -34,6 +34,10 @@ class IconSaliButton<LayerType: CALayer, AnimatedProperty>: SaliButton<LayerType
     }
     
     // MARK: UIView
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: 44.0, height: 44.0)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

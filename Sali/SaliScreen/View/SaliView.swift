@@ -66,7 +66,14 @@ final class SaliView: UIView {
         return label
     }()
     
-    private lazy var analyzerView = AnalyzerView()
+    private lazy var analyzerView: AnalyzerView = {
+        let view = AnalyzerView()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(analyzerTapped))
+        view.addGestureRecognizer(tapRecognizer)
+        
+        return view
+    }()
+    
     private lazy var buttonsPanelView: ButtonsPanelView = {
         let view = ButtonsPanelView()
         view.delegate = self
@@ -228,6 +235,10 @@ final class SaliView: UIView {
     @objc private func soundControlValueDidChange() {
         let parameters = SoundParameters(volume: soundControl.output.volume, tempo: soundControl.output.tempo)
         delegate?.didChange(parameters: parameters)
+    }
+    
+    @objc private func analyzerTapped() {
+        delegate?.didTapAnalyzer()
     }
 }
 

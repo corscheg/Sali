@@ -14,6 +14,19 @@
 		96356D762AF7CBFD0011542E /* NameManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96356D752AF7CBFD0011542E /* NameManagerProtocol.swift */; };
 		96356D782AF7CC0E0011542E /* NameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96356D772AF7CC0E0011542E /* NameManager.swift */; };
 		96356D7A2AF7CC290011542E /* LayerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96356D792AF7CC290011542E /* LayerType.swift */; };
+		9645E5462B1AF13400535D81 /* VisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5452B1AF13400535D81 /* VisualViewController.swift */; };
+		9645E5482B1AF14000535D81 /* VisualViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5472B1AF14000535D81 /* VisualViewInput.swift */; };
+		9645E54A2B1AF16900535D81 /* VisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5492B1AF16900535D81 /* VisualView.swift */; };
+		9645E54C2B1AF1A700535D81 /* VisualPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E54B2B1AF1A700535D81 /* VisualPresenterProtocol.swift */; };
+		9645E54E2B1AF1B300535D81 /* VisualPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E54D2B1AF1B300535D81 /* VisualPresenter.swift */; };
+		9645E5502B1AF22900535D81 /* VisualAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E54F2B1AF22900535D81 /* VisualAssembly.swift */; };
+		9645E5522B1AF74000535D81 /* VisualViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5512B1AF73F00535D81 /* VisualViewDelegate.swift */; };
+		9645E5542B1AF97900535D81 /* VisualizerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5532B1AF97900535D81 /* VisualizerMode.swift */; };
+		9645E5562B1AFAB600535D81 /* VisualizerModeInternal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5552B1AFAB600535D81 /* VisualizerModeInternal.swift */; };
+		9645E5592B1B006300535D81 /* AudioUtilityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5582B1B006300535D81 /* AudioUtilityProtocol.swift */; };
+		9645E55B2B1B006E00535D81 /* AudioUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E55A2B1B006E00535D81 /* AudioUtility.swift */; };
+		9645E55E2B1B07D300535D81 /* PlaybackControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E55D2B1B07D300535D81 /* PlaybackControlView.swift */; };
+		9645E5622B1B098C00535D81 /* PlaybackControlViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */; };
 		9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */; };
 		966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003F2AF6898B00B86D4D /* PermissionManager.swift */; };
 		966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000422AF6925600B86D4D /* URLProviderProtocol.swift */; };
@@ -91,6 +104,19 @@
 		96356D752AF7CBFD0011542E /* NameManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameManagerProtocol.swift; sourceTree = "<group>"; };
 		96356D772AF7CC0E0011542E /* NameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameManager.swift; sourceTree = "<group>"; };
 		96356D792AF7CC290011542E /* LayerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerType.swift; sourceTree = "<group>"; };
+		9645E5452B1AF13400535D81 /* VisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualViewController.swift; sourceTree = "<group>"; };
+		9645E5472B1AF14000535D81 /* VisualViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualViewInput.swift; sourceTree = "<group>"; };
+		9645E5492B1AF16900535D81 /* VisualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualView.swift; sourceTree = "<group>"; };
+		9645E54B2B1AF1A700535D81 /* VisualPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualPresenterProtocol.swift; sourceTree = "<group>"; };
+		9645E54D2B1AF1B300535D81 /* VisualPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualPresenter.swift; sourceTree = "<group>"; };
+		9645E54F2B1AF22900535D81 /* VisualAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAssembly.swift; sourceTree = "<group>"; };
+		9645E5512B1AF73F00535D81 /* VisualViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualViewDelegate.swift; sourceTree = "<group>"; };
+		9645E5532B1AF97900535D81 /* VisualizerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerMode.swift; sourceTree = "<group>"; };
+		9645E5552B1AFAB600535D81 /* VisualizerModeInternal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerModeInternal.swift; sourceTree = "<group>"; };
+		9645E5582B1B006300535D81 /* AudioUtilityProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtilityProtocol.swift; sourceTree = "<group>"; };
+		9645E55A2B1B006E00535D81 /* AudioUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtility.swift; sourceTree = "<group>"; };
+		9645E55D2B1B07D300535D81 /* PlaybackControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlView.swift; sourceTree = "<group>"; };
+		9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlViewDelegate.swift; sourceTree = "<group>"; };
 		9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManagerProtocol.swift; sourceTree = "<group>"; };
 		9660003F2AF6898B00B86D4D /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		966000422AF6925600B86D4D /* URLProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderProtocol.swift; sourceTree = "<group>"; };
@@ -183,6 +209,64 @@
 			path = NameManager;
 			sourceTree = "<group>";
 		};
+		9645E5402B1AF10000535D81 /* VisualScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9645E5442B1AF11B00535D81 /* Presenter */,
+				9645E5432B1AF11800535D81 /* View */,
+				9645E5412B1AF10E00535D81 /* ViewController */,
+				9645E54F2B1AF22900535D81 /* VisualAssembly.swift */,
+				9645E5532B1AF97900535D81 /* VisualizerMode.swift */,
+			);
+			path = VisualScreen;
+			sourceTree = "<group>";
+		};
+		9645E5412B1AF10E00535D81 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9645E5452B1AF13400535D81 /* VisualViewController.swift */,
+				9645E5472B1AF14000535D81 /* VisualViewInput.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9645E5432B1AF11800535D81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9645E5492B1AF16900535D81 /* VisualView.swift */,
+				9645E5512B1AF73F00535D81 /* VisualViewDelegate.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9645E5442B1AF11B00535D81 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9645E54B2B1AF1A700535D81 /* VisualPresenterProtocol.swift */,
+				9645E54D2B1AF1B300535D81 /* VisualPresenter.swift */,
+				9645E5552B1AFAB600535D81 /* VisualizerModeInternal.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9645E5572B1B005600535D81 /* AudioUtility */ = {
+			isa = PBXGroup;
+			children = (
+				9645E5582B1B006300535D81 /* AudioUtilityProtocol.swift */,
+				9645E55A2B1B006E00535D81 /* AudioUtility.swift */,
+			);
+			path = AudioUtility;
+			sourceTree = "<group>";
+		};
+		9645E55C2B1B07BB00535D81 /* PlaybackControlView */ = {
+			isa = PBXGroup;
+			children = (
+				9645E55D2B1B07D300535D81 /* PlaybackControlView.swift */,
+				9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */,
+			);
+			path = PlaybackControlView;
+			sourceTree = "<group>";
+		};
 		9660003B2AF6897500B86D4D /* PermissionManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +344,7 @@
 		96709E2B2AF4347D0069E79B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9645E5572B1B005600535D81 /* AudioUtility */,
 				96356D742AF7CBE50011542E /* NameManager */,
 				9660004F2AF6D3BC00B86D4D /* SignalProcessor */,
 				966000462AF6B2DC00B86D4D /* AudioRecorder */,
@@ -340,6 +425,7 @@
 		9684777B2AF18DC200EBAA67 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9645E55C2B1B07BB00535D81 /* PlaybackControlView */,
 				96AB218C2AF2D9E6001EEADE /* TableView */,
 				968477952AF1A7F500EBAA67 /* SoundControl */,
 				968477862AF19FC400EBAA67 /* Buttons */,
@@ -434,6 +520,7 @@
 		969836332AF17A6300F8F40E /* Sali */ = {
 			isa = PBXGroup;
 			children = (
+				9645E5402B1AF10000535D81 /* VisualScreen */,
 				96709E442AF44BAE0069E79B /* Models */,
 				96709E2B2AF4347D0069E79B /* Audio */,
 				968477802AF1958100EBAA67 /* Helpers */,
@@ -566,19 +653,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9645E5462B1AF13400535D81 /* VisualViewController.swift in Sources */,
 				968477922AF1A28000EBAA67 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				968477762AF18B8A00EBAA67 /* SaliView.swift in Sources */,
 				966000452AF6926100B86D4D /* URLProvider.swift in Sources */,
 				96AB218B2AF2D317001EEADE /* IconSaliButton.swift in Sources */,
 				96709E192AF423BF0069E79B /* ButtonsPanelView.swift in Sources */,
 				9684779A2AF1AB9800EBAA67 /* VolumeScaleView.swift in Sources */,
+				9645E5562B1AFAB600535D81 /* VisualizerModeInternal.swift in Sources */,
 				96709E142AF413BC0069E79B /* MutableCollection+.swift in Sources */,
 				96709E312AF434B20069E79B /* SampleLoader.swift in Sources */,
+				9645E55E2B1B07D300535D81 /* PlaybackControlView.swift in Sources */,
+				9645E5482B1AF14000535D81 /* VisualViewInput.swift in Sources */,
 				968477822AF1958A00EBAA67 /* CGRect+.swift in Sources */,
 				96709E2E2AF434920069E79B /* SampleLoaderProtocol.swift in Sources */,
+				9645E5622B1B098C00535D81 /* PlaybackControlViewDelegate.swift in Sources */,
 				9660004C2AF6B4D900B86D4D /* AudioRecorderError.swift in Sources */,
 				9614AEB32AF1D59F0007D081 /* KeyPath+.swift in Sources */,
 				96709E502AF455D60069E79B /* SaliMixer.swift in Sources */,
+				9645E5542B1AF97900535D81 /* VisualizerMode.swift in Sources */,
 				968477792AF18D1600EBAA67 /* UIImage+.swift in Sources */,
 				967950E12AF30AA9004CD5DF /* SampleControlItemView.swift in Sources */,
 				966C46072AF593BA00EAC808 /* LayerTableViewCellViewDelegate.swift in Sources */,
@@ -588,17 +681,22 @@
 				96AB21892AF2B5A1001EEADE /* UIBezierPath+.swift in Sources */,
 				96709E4D2AF455C30069E79B /* Mixer.swift in Sources */,
 				968477942AF1A68300EBAA67 /* AnalyzerView.swift in Sources */,
+				9645E54E2B1AF1B300535D81 /* VisualPresenter.swift in Sources */,
 				96356D782AF7CC0E0011542E /* NameManager.swift in Sources */,
 				96356D7A2AF7CC290011542E /* LayerType.swift in Sources */,
 				966C45FF2AF5675100EAC808 /* MixerError.swift in Sources */,
 				96709E1C2AF426080069E79B /* ButtonsPanelViewDelegate.swift in Sources */,
+				9645E54A2B1AF16900535D81 /* VisualView.swift in Sources */,
 				96709E1E2AF429D90069E79B /* SampleViewModel.swift in Sources */,
 				969836392AF17A6300F8F40E /* SaliViewController.swift in Sources */,
 				966000532AF6D3D900B86D4D /* SignalProcessor.swift in Sources */,
 				968477972AF1A80800EBAA67 /* SoundControl.swift in Sources */,
 				96AB21942AF2DFCE001EEADE /* LayerTableViewCellView.swift in Sources */,
+				9645E55B2B1B006E00535D81 /* AudioUtility.swift in Sources */,
 				969836352AF17A6300F8F40E /* AppDelegate.swift in Sources */,
 				96709E202AF429ED0069E79B /* SampleBankViewModel.swift in Sources */,
+				9645E5502B1AF22900535D81 /* VisualAssembly.swift in Sources */,
+				9645E54C2B1AF1A700535D81 /* VisualPresenterProtocol.swift in Sources */,
 				9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */,
 				9684777D2AF18DD500EBAA67 /* SampleControl.swift in Sources */,
 				968477842AF196CE00EBAA67 /* SampleSelectView.swift in Sources */,
@@ -619,6 +717,7 @@
 				966C46012AF5683400EAC808 /* LayerModel.swift in Sources */,
 				966C46032AF57AFB00EAC808 /* SoundParameters.swift in Sources */,
 				96AB21A62AF2F1B9001EEADE /* DeleteButton.swift in Sources */,
+				9645E5522B1AF74000535D81 /* VisualViewDelegate.swift in Sources */,
 				966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */,
 				966000482AF6B2E800B86D4D /* AudioRecorderProtocol.swift in Sources */,
 				96356D762AF7CBFD0011542E /* NameManagerProtocol.swift in Sources */,
@@ -626,6 +725,7 @@
 				96AB218E2AF2D9F8001EEADE /* LayerTableViewCell.swift in Sources */,
 				9614AEAD2AF1C0290007D081 /* TempoScaleView.swift in Sources */,
 				968477902AF1A1CF00EBAA67 /* PlayStopButton.swift in Sources */,
+				9645E5592B1B006300535D81 /* AudioUtilityProtocol.swift in Sources */,
 				966000552AF6D41F00B86D4D /* MixerDelegate.swift in Sources */,
 				96709E172AF41F3F0069E79B /* SamplesSelectionPanelView.swift in Sources */,
 				9614AEAF2AF1C2D40007D081 /* SoundControlMarkerView.swift in Sources */,
@@ -706,7 +806,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -763,7 +863,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -791,7 +891,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -826,7 +926,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

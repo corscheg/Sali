@@ -12,4 +12,8 @@ extension UIImage {
     static let instrumentDrums = UIImage(named: "drums")!
     static let instrumentBrass = UIImage(named: "brass")!
     static let speakerIcon = UIImage(named: "speaker")!
+    static let backIcon = UIImage(named: "back")!
+    static let saveIcon = UIImage(named: "save")!
+    static let rewindIcon = UIImage(named: "rewind.icon")!
+    static let toEndIcon = UIImage(named: "to.end")!
 }

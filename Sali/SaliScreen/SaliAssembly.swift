@@ -32,6 +32,9 @@ struct SaliAssembly {
         audioRecorder.delegate = presenter
         mixer.delegate = presenter
         
-        return viewController
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.isNavigationBarHidden = true
+        
+        return navigationController
     }
 }

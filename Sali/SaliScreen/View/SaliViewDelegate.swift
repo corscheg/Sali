@@ -18,4 +18,5 @@ protocol SaliViewDelegate: AnyObject {
     func didSelectPlay(atIndex index: Int)
     func didSelectMute(atIndex index: Int)
     func didSelectDelete(atIndex index: Int)
+    func didTapAnalyzer()
 }

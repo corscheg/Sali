@@ -30,4 +30,5 @@ protocol SaliViewInput: AnyObject {
     func clearAnalyzer()
     func showAlert(withError error: Error?)
     func set(title: String)
+    func openVisualizer(mode: VisualizerMode)
 }
