@@ -8,6 +8,6 @@
 import Foundation
 
 protocol MixerDelegate: AnyObject {
-    func didPerformMetering(_ result: [Float])
+    func didPerformMetering(_ result: [Float], level: Float)
     func didEndPlaying() 
 }

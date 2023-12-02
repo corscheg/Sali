@@ -10,8 +10,11 @@ import Foundation
 protocol VisualViewInput: AnyObject {
     func setCurrentTime(text: String)
     func setDuration(text: String)
+    func updateVisual(frequencies: [Float], level: Float)
+    func setRecording(title: String?)
     func disableSaveButton()
     func disablePlaybackControl()
     func setPlayInactive()
+    func shareRecording(with url: URL)
     func dismiss()
 }

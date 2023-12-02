@@ -203,7 +203,7 @@ extension SaliPresenter: AudioRecorderDelegate {
 
 // MARK: - MixerDelegate
 extension SaliPresenter: MixerDelegate {
-    func didPerformMetering(_ result: [Float]) {
+    func didPerformMetering(_ result: [Float], level: Float) {
         view?.updateMetering(result)
     }
     

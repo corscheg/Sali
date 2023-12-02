@@ -48,6 +48,13 @@ final class VisualView: UIView {
         return button
     }()
     
+    private lazy var unitsView: UnitsView = {
+        let view = UnitsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     private lazy var currentTimeLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -107,6 +114,10 @@ final class VisualView: UIView {
         durationLabel.text = text
     }
     
+    func setRecording(title: String?) {
+        titleLabel.text = title
+    }
+    
     func disableSaveButton() {
         saveButton.isEnabled = false
     }
@@ -117,6 +128,11 @@ final class VisualView: UIView {
     
     func setPlayInactive() {
         playbackControlView.setPlayInactive()
+    }
+    
+    func updateVisual(frequencies: [Float], level: Float) {
+        unitsView.set(level: level)
+        unitsView.set(frequencies: frequencies)
     }
     
     // MARK: Actions
@@ -154,6 +170,7 @@ extension VisualView {
         addSubview(backButton)
         addSubview(titleLabel)
         addSubview(saveButton)
+        addSubview(unitsView)
         addSubview(currentTimeLabel)
         addSubview(durationLabel)
         addSubview(playbackControlView)
@@ -170,6 +187,11 @@ extension VisualView {
             saveButton.heightAnchor.constraint(equalToConstant: constants.buttonSize),
             saveButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -constants.topSectionInset),
             saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: constants.topSectionInset),
+            
+            unitsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            unitsView.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: constants.unitsInset),
+            unitsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            unitsView.bottomAnchor.constraint(equalTo: currentTimeLabel.topAnchor, constant: -constants.unitsInset),
             
             titleLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: constants.topSectionInset),
             titleLabel.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -constants.topSectionInset),
@@ -196,5 +218,6 @@ extension VisualView {
         let topSectionInset: CGFloat = 15.0
         let bottomHorizontalInset: CGFloat = 14.0
         let bottomLabelsInset: CGFloat = 27.0
+        let unitsInset: CGFloat = 19.0
     }
 }

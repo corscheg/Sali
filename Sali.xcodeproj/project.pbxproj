@@ -27,6 +27,7 @@
 		9645E55B2B1B006E00535D81 /* AudioUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E55A2B1B006E00535D81 /* AudioUtility.swift */; };
 		9645E55E2B1B07D300535D81 /* PlaybackControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E55D2B1B07D300535D81 /* PlaybackControlView.swift */; };
 		9645E5622B1B098C00535D81 /* PlaybackControlViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */; };
+		9645E5652B1B129500535D81 /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9645E5642B1B129500535D81 /* UnitsView.swift */; };
 		9660003D2AF6898200B86D4D /* PermissionManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */; };
 		966000402AF6898B00B86D4D /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660003F2AF6898B00B86D4D /* PermissionManager.swift */; };
 		966000432AF6925600B86D4D /* URLProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966000422AF6925600B86D4D /* URLProviderProtocol.swift */; };
@@ -117,6 +118,7 @@
 		9645E55A2B1B006E00535D81 /* AudioUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtility.swift; sourceTree = "<group>"; };
 		9645E55D2B1B07D300535D81 /* PlaybackControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlView.swift; sourceTree = "<group>"; };
 		9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlViewDelegate.swift; sourceTree = "<group>"; };
+		9645E5642B1B129500535D81 /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
 		9660003C2AF6898200B86D4D /* PermissionManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManagerProtocol.swift; sourceTree = "<group>"; };
 		9660003F2AF6898B00B86D4D /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		966000422AF6925600B86D4D /* URLProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderProtocol.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		9645E5432B1AF11800535D81 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9645E5632B1B128100535D81 /* Views */,
 				9645E5492B1AF16900535D81 /* VisualView.swift */,
 				9645E5512B1AF73F00535D81 /* VisualViewDelegate.swift */,
 			);
@@ -265,6 +268,14 @@
 				9645E5612B1B098C00535D81 /* PlaybackControlViewDelegate.swift */,
 			);
 			path = PlaybackControlView;
+			sourceTree = "<group>";
+		};
+		9645E5632B1B128100535D81 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9645E5642B1B129500535D81 /* UnitsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9660003B2AF6897500B86D4D /* PermissionManager */ = {
@@ -710,6 +721,7 @@
 				96AB21A82AF2F5DA001EEADE /* MuteButton.swift in Sources */,
 				9684777F2AF18DFF00EBAA67 /* UIColor+.swift in Sources */,
 				96709E482AF44BDF0069E79B /* SampleBankModel.swift in Sources */,
+				9645E5652B1B129500535D81 /* UnitsView.swift in Sources */,
 				96AB219C2AF2E7A0001EEADE /* SaliPresenter.swift in Sources */,
 				968477882AF1A01400EBAA67 /* SaliButton.swift in Sources */,
 				9614AEB12AF1CA730007D081 /* clamp.swift in Sources */,

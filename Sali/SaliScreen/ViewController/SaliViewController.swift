@@ -128,11 +128,6 @@ extension SaliViewController: SaliViewInput {
         saliView.setMicrophoneButtonInactive()
     }
     
-    func shareRecording(with url: URL) {
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        present(activityViewController, animated: true)
-    }
-    
     func updateMetering(_ metering: [Float]) {
         saliView.updateMetering(metering)
     }

@@ -9,4 +9,5 @@ import Foundation
 
 protocol SignalProcessorProtocol {
     func getFrequencies(data: UnsafeMutablePointer<Float>, count: UInt) -> [Float]
+    func getLevel(data: UnsafeMutablePointer<Float>, count: UInt) -> Float
 }

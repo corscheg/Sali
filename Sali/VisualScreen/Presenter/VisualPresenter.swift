@@ -24,7 +24,7 @@ final class VisualPresenter {
         didSet {
             view?.setCurrentTime(text: timeString(fromSeconds: currentSeconds))
             
-            if let trackDuration, currentSeconds >= trackDuration {
+            if let trackDuration, currentSeconds >= trackDuration, isPlaying {
                 playTapped()
                 view?.setPlayInactive()
             }
@@ -61,6 +61,7 @@ extension VisualPresenter: VisualPresenterProtocol {
             view?.setDuration(text: "-:--")
             view?.disableSaveButton()
             view?.disablePlaybackControl()
+            view?.setRecording(title: nil)
             startCurrentTimer()
         case .recording(let url, _):
             audioUtility.getDuration(ofFileAt: url) { [weak self] duration in
@@ -71,6 +72,8 @@ extension VisualPresenter: VisualPresenterProtocol {
                     view?.setDuration(text: timeString(fromSeconds: seconds))
                 }
             }
+            
+            view?.setRecording(title: url.deletingPathExtension().lastPathComponent)
         }
     }
     
@@ -80,7 +83,8 @@ extension VisualPresenter: VisualPresenterProtocol {
     }
     
     func saveButtonTapped() {
-        guard case .recording = mode else { return }
+        guard case .recording(let url, _) = mode else { return }
+        view?.shareRecording(with: url)
     }
     
     func rewindTapped() {
@@ -102,6 +106,7 @@ extension VisualPresenter: VisualPresenterProtocol {
             try? mixer.playItem(withIdentifier: layerID)
             startCurrentTimer()
             isPlaying = true
+            view?.updateVisual(frequencies: [], level: 1.0)
         }
     }
     
@@ -116,13 +121,11 @@ extension VisualPresenter: VisualPresenterProtocol {
 
 // MARK: - MixerDelegate
 extension VisualPresenter: MixerDelegate {
-    func didPerformMetering(_ result: [Float]) {
-        
+    func didPerformMetering(_ result: [Float], level: Float) {
+        view?.updateVisual(frequencies: result, level: level)
     }
     
-    func didEndPlaying() {
-        
-    }
+    func didEndPlaying() { }
 }
 
 // MARK: - Private Properties
@@ -138,6 +141,7 @@ extension VisualPresenter {
     }
     
     private func startCurrentTimer() {
+        guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             self?.currentSeconds += 1
         }
@@ -146,6 +150,7 @@ extension VisualPresenter {
     private func stopCurrentTimer() {
         timer?.invalidate()
         currentSeconds = 0
+        timer = nil
     }
 }
 

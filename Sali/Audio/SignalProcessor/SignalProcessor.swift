@@ -30,6 +30,17 @@ extension SignalProcessor: SignalProcessorProtocol {
         
         return result
     }
+    
+    func getLevel(data: UnsafeMutablePointer<Float>, count: UInt) -> Float {
+        var rms: Float = 0
+        let stride = vDSP_Stride(1)
+        let length = vDSP_Length(count)
+        vDSP_rmsqv(data, stride, &rms, length)
+        
+        let db = (log10f(rms) + 4.0) / 4.0
+        
+        return clamp(value: db, min: 0.1, max: 1.0)
+    }
 }
 
 // MARK: - Private Methods

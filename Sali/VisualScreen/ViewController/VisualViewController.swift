@@ -53,6 +53,10 @@ extension VisualViewController: VisualViewInput {
         visualView.setDuration(text: text)
     }
     
+    func setRecording(title: String?) {
+        visualView.setRecording(title: title)
+    }
+    
     func disableSaveButton() {
         visualView.disableSaveButton()
     }
@@ -63,6 +67,15 @@ extension VisualViewController: VisualViewInput {
     
     func setPlayInactive() {
         visualView.setPlayInactive()
+    }
+    
+    func updateVisual(frequencies: [Float], level: Float) {
+        visualView.updateVisual(frequencies: frequencies, level: level)
+    }
+    
+    func shareRecording(with url: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(activityViewController, animated: true)
     }
     
     func dismiss() {

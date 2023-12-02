@@ -315,9 +315,10 @@ extension SaliMixer {
         let framesCount = buffer.frameLength
         
         let frequencies = signalProcessor.getFrequencies(data: data, count: UInt(framesCount))
+        let level = signalProcessor.getLevel(data: data, count: UInt(framesCount))
         
         responseQueue.async {
-            self.delegate?.didPerformMetering(frequencies)
+            self.delegate?.didPerformMetering(frequencies, level: level)
         }
     }
 }
