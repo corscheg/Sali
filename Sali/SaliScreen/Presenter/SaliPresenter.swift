@@ -8,6 +8,7 @@
 import OSLog
 import Foundation
 
+@MainActor
 final class SaliPresenter {
     
     // MARK: Public Properties

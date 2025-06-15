@@ -8,6 +8,8 @@
 import UIKit
 
 struct SaliAssembly {
+    
+    @MainActor
     func assemble() -> UIViewController {
         
         let processingBufferLength = 256

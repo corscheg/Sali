@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol VisualViewInput: AnyObject {
     func setCurrentTime(text: String)
     func setDuration(text: String)

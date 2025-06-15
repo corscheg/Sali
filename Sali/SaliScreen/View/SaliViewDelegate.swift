@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol SaliViewDelegate: AnyObject {
     func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType)
     func didChange(parameters: SoundParameters)
