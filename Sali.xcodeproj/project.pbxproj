@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -621,7 +621,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					969836302AF17A6300F8F40E = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -629,7 +629,6 @@
 				};
 			};
 			buildConfigurationList = 9698362C2AF17A6300F8F40E /* Build configuration list for PBXProject "Sali" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -637,6 +636,7 @@
 				Base,
 			);
 			mainGroup = 969836282AF17A6300F8F40E;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 969836322AF17A6300F8F40E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -801,6 +801,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = H5R82ZFKSP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -866,6 +867,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = H5R82ZFKSP;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -896,7 +898,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5R82ZFKSP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sali/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sali;
@@ -931,7 +932,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5R82ZFKSP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sali/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sali;
