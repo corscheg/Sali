@@ -8,6 +8,6 @@
 import Foundation
 
 protocol PermissionManagerProtocol {
-    func performWithPermission(success: @escaping () -> (), failure: @escaping () -> ())
+    func checkPermission() async throws
     func requestPermissionInSettings()
 }

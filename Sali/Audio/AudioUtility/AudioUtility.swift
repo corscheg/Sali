@@ -8,27 +8,22 @@
 import AVFoundation
 
 final class AudioUtility {
-    private let responseQueue: DispatchQueue = .main
 }
 
 // MARK: - AudioUtilityProtocol
 extension AudioUtility: AudioUtilityProtocol {
-    func getDuration(ofFileAt url: URL, completion: @escaping (Double?) -> ()) {
+    func getDuration(ofFileAt url: URL) async -> Double? {
         let asset = AVAsset(url: url)
-        asset.loadTracks(withMediaType: .audio) { [weak self] tracks, error in
-            guard let self else { return }
-            guard error == nil, let track = tracks?.first else {
-                responseQueue.async {
-                    completion(nil)
-                }
-                return
+        
+        do {
+            let tracks = try await asset.loadTracks(withMediaType: .audio)
+            guard let track = tracks.first else {
+                throw NSError()
             }
             
-            let duration = track.asset?.duration.seconds
-            
-            responseQueue.async {
-                completion(duration)
-            }
+            return try await track.asset?.load(.duration).seconds
+        } catch {
+            return nil
         }
     }
 }

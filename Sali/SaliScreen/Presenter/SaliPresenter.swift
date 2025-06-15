@@ -89,14 +89,17 @@ extension SaliPresenter: SaliPresenterInput {
         if isRecordInProgress {
             stopMicRecording()
         } else {
-            permissionManager.performWithPermission { [weak self] in
-                self?.startMicRecording()
-            } failure: { [weak self] in
-                self?.view?.showPermissionSettingsAlert { [weak self] in
-                    self?.permissionManager.requestPermissionInSettings()
+            Task { [permissionManager] in
+                do {
+                    try await permissionManager.checkPermission()
+                    startMicRecording()
+                } catch {
+                    view?.showPermissionSettingsAlert {
+                        permissionManager.requestPermissionInSettings()
+                    }
+                    
+                    view?.setMicrophoneButtonInactive()
                 }
-                
-                self?.view?.setMicrophoneButtonInactive()
             }
         }
     }
@@ -175,41 +178,49 @@ extension SaliPresenter: SaliPresenterInput {
 
 // MARK: - AudioRecorderDelegate
 extension SaliPresenter: AudioRecorderDelegate {
-    func didFinishRecording(with url: URL) {
-        let uuid = UUID()
-        let name = nameManager.getName(forType: .microphone)
-        var layerModel = LayerModel(identifier: uuid, name: name, isPlaying: false, isMuted: false, isMicrophone: true)
-        layerModel.parameters.volume = 1.0
-        
-        tryToPerformWithAlert {
-            try mixer.addLayer(withURL: url, loops: false, andIdentifier: uuid)
-            layers.append(layerModel)
-            updateLayersTable()
-            setSelectedIndex(to: layers.endIndex - 1)
-            mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
-            updateParametersControl()
+    nonisolated func didFinishRecording(with url: URL) {
+        Task { @MainActor in
+            let uuid = UUID()
+            let name = nameManager.getName(forType: .microphone)
+            var layerModel = LayerModel(identifier: uuid, name: name, isPlaying: false, isMuted: false, isMicrophone: true)
+            layerModel.parameters.volume = 1.0
+            
+            tryToPerformWithAlert {
+                try mixer.addLayer(withURL: url, loops: false, andIdentifier: uuid)
+                layers.append(layerModel)
+                updateLayersTable()
+                setSelectedIndex(to: layers.endIndex - 1)
+                mixer.adjust(parameters: layerModel.parameters, forLayerAt: uuid)
+                updateParametersControl()
+                unlockAllPlayButtons()
+                view?.enableRecordingButton()
+                isRecordInProgress = false
+            }
+        }
+    }
+    
+    nonisolated func didEndWithError() {
+        Task { @MainActor in
+            view?.showAlert(withError: nil)
             unlockAllPlayButtons()
             view?.enableRecordingButton()
             isRecordInProgress = false
         }
     }
-    
-    func didEndWithError() {
-        view?.showAlert(withError: nil)
-        unlockAllPlayButtons()
-        view?.enableRecordingButton()
-        isRecordInProgress = false
-    }
 }
 
 // MARK: - MixerDelegate
 extension SaliPresenter: MixerDelegate {
-    func didPerformMetering(_ result: [Float], level: Float) {
-        view?.updateMetering(result)
+    nonisolated func didPerformMetering(_ result: [Float], level: Float) {
+        Task { @MainActor in
+            view?.updateMetering(result)
+        }
     }
     
-    func didEndPlaying() {
-        view?.clearAnalyzer()
+    nonisolated func didEndPlaying() {
+        Task { @MainActor in
+            view?.clearAnalyzer()
+        }
     }
 }
 
