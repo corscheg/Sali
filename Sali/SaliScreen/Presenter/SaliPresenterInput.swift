@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol SaliPresenterInput {
     func viewDidLoad()
     func didSelectSample(withIdentifier identifier: SampleIdentifier, type: LayerType)

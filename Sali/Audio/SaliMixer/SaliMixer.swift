@@ -22,7 +22,6 @@ final class SaliMixer {
     private var units: [UUID: PlayingUnit] = [:]
     private var mode: Mode = .still
     private var recordingFile: AVAudioFile?
-    private let responseQueue: DispatchQueue = .main
     private let processingBufferLength: Int
     
     // MARK: Initializer
@@ -317,8 +316,6 @@ extension SaliMixer {
         let frequencies = signalProcessor.getFrequencies(data: data, count: UInt(framesCount))
         let level = signalProcessor.getLevel(data: data, count: UInt(framesCount))
         
-        responseQueue.async {
-            self.delegate?.didPerformMetering(frequencies, level: level)
-        }
+        self.delegate?.didPerformMetering(frequencies, level: level)
     }
 }

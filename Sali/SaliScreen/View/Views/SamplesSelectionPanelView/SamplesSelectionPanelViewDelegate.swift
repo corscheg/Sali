@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol SamplesSelectionPanelViewDelegate: AnyObject {
     func didSelect(viewModel: SampleViewModel, type: LayerType)
 }

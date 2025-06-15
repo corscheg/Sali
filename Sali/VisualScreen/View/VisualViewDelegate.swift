@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol VisualViewDelegate: AnyObject {
     func backButtonTapped()
     func saveButtonTapped()

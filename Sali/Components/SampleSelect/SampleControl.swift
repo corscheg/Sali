@@ -199,10 +199,15 @@ final class SampleControl: UIControl {
 
 // MARK: - CAAnimationDelegate
 extension SampleControl: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if !longTapInProgress, flag, let name = anim.value(forKey: "name") as? String, name == heightExpandingKey {
-            layer.masksToBounds = true
-            foldingInProgress = false
+    nonisolated func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        let name = anim.value(forKey: "name") as? String
+        Task {
+            await MainActor.run {
+                if !longTapInProgress, flag, let name, name == heightExpandingKey {
+                    layer.masksToBounds = true
+                    foldingInProgress = false
+                }
+            }
         }
     }
 }

@@ -10,6 +10,10 @@ import UIKit
 
 final class PermissionManager {
     
+    enum Error: Swift.Error {
+        case permissionNotGranted
+    }
+    
     // MARK: Private Properties
     private let audioSession: AVAudioSession = .sharedInstance()
     private let respondQueue: DispatchQueue = .main
@@ -17,20 +21,26 @@ final class PermissionManager {
 
 // MARK: - PermissionManagerProtocol
 extension PermissionManager: PermissionManagerProtocol {
-    func performWithPermission(success: @escaping () -> (), failure: @escaping () -> ()) {
-        audioSession.requestRecordPermission { [weak self] granted in
-            self?.respondQueue.async {
-                if granted {
-                    success()
-                } else {
-                    failure()
-                }
+    func checkPermission() async throws {
+        if await requestPersmission() {
+            return
+        } else {
+            throw Error.permissionNotGranted
+        }
+    }
+    
+    private func requestPersmission() async -> Bool {
+        await withCheckedContinuation { continuation in
+            audioSession.requestRecordPermission { granted in
+                continuation.resume(returning: granted)
             }
         }
     }
     
     func requestPermissionInSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-        UIApplication.shared.open(url)
+        Task { @MainActor in
+            UIApplication.shared.open(url)
+        }
     }
 }

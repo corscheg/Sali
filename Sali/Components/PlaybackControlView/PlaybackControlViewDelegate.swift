@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol PlaybackControlViewDelegate: AnyObject {
     func didTapRewind()
     func didTapPlayPause()

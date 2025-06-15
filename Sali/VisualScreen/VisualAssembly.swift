@@ -8,6 +8,8 @@
 import UIKit
 
 struct VisualAssembly {
+    
+    @MainActor
     func assemble(mode: VisualizerMode) -> UIViewController {
         let audioUtility = AudioUtility()
         let presenter = switch mode {

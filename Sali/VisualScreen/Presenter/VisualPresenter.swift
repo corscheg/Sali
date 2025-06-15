@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class VisualPresenter {
     
     // MARK: Public Properties
@@ -67,13 +68,11 @@ extension VisualPresenter: VisualPresenterProtocol {
             view?.disableTitle()
             startCurrentTimer()
         case .recording(let url, _):
-            audioUtility.getDuration(ofFileAt: url) { [weak self] duration in
-                guard let self else { return }
-                if let duration {
-                    let seconds = Int(duration)
-                    trackDuration = seconds
-                    view?.setDuration(text: timeString(fromSeconds: seconds))
-                }
+            Task { @MainActor [audioUtility] in
+                guard let duration = await audioUtility.getDuration(ofFileAt: url) else { return }
+                let seconds = Int(duration)
+                trackDuration = seconds
+                view?.setDuration(text: timeString(fromSeconds: seconds))
             }
             
             view?.setRecording(title: url.deletingPathExtension().lastPathComponent)
@@ -143,11 +142,13 @@ extension VisualPresenter: VisualPresenterProtocol {
 
 // MARK: - MixerDelegate
 extension VisualPresenter: MixerDelegate {
-    func didPerformMetering(_ result: [Float], level: Float) {
-        view?.updateVisual(frequencies: result, level: level)
+    nonisolated func didPerformMetering(_ result: [Float], level: Float) {
+        Task { @MainActor in
+            view?.updateVisual(frequencies: result, level: level)
+        }
     }
     
-    func didEndPlaying() { }
+    nonisolated func didEndPlaying() { }
 }
 
 // MARK: - Private Properties
@@ -165,7 +166,9 @@ extension VisualPresenter {
     private func startCurrentTimer() {
         guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            self?.currentSeconds += 1
+            Task { @MainActor in
+                self?.currentSeconds += 1
+            }
         }
     }
     

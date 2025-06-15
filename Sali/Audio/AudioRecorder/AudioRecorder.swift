@@ -11,12 +11,11 @@ import Foundation
 final class AudioRecorder: NSObject {
     
     // MARK: Public Properties
-    weak var delegate: AudioRecorderDelegate?
+    nonisolated(unsafe) weak var delegate: AudioRecorderDelegate?
     
     // MARK: Private Properties
     private let audioSession: AVAudioSession = .sharedInstance()
-    private let resonseQueue: DispatchQueue = .main
-    private var audioRecorder: AVAudioRecorder?
+    nonisolated(unsafe) private var audioRecorder: AVAudioRecorder?
 }
 
 // MARK: - AudioRecorderProtocol
@@ -53,12 +52,10 @@ extension AudioRecorder: AudioRecorderProtocol {
 // MARK: - AVAudioRecorderDelegate
 extension AudioRecorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        resonseQueue.async { [weak self] in
-            if flag {
-                self?.delegate?.didFinishRecording(with: recorder.url)
-            } else {
-                self?.delegate?.didEndWithError()
-            }
+        if flag {
+            delegate?.didFinishRecording(with: recorder.url)
+        } else {
+            delegate?.didEndWithError()
         }
     }
 }

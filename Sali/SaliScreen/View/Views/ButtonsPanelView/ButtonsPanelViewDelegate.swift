@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol ButtonsPanelViewDelegate: AnyObject {
     func didTapLayersButton()
     func didTapMicrophoneButton()

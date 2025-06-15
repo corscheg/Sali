@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol VisualViewInput: AnyObject {
+@MainActor
+protocol VisualViewInput: AnyObject, Sendable {
     func setCurrentTime(text: String)
     func setDuration(text: String)
     func updateVisual(frequencies: [Float], level: Float)

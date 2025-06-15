@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AudioRecorderDelegate: AnyObject {
+protocol AudioRecorderDelegate: AnyObject, Sendable {
     func didFinishRecording(with url: URL)
     func didEndWithError()
 }

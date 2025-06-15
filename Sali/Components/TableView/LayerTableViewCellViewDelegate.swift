@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol LayerTableViewCellViewDelegate: AnyObject {
     func didTapMute()
     func didTapDelete()

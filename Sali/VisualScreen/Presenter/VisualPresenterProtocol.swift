@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol VisualPresenterProtocol {
     func viewDidLoad()
     func backButtonTapped()

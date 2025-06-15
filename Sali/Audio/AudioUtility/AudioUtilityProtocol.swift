@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AudioUtilityProtocol {
-    func getDuration(ofFileAt url: URL, completion: @escaping (Double?) -> ())
+    func getDuration(ofFileAt url: URL) async -> Double?
 }

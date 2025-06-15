@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol SaliViewInput: AnyObject {
     func populateSamples(with viewModel: SampleBankViewModel)
     func set(soundParameters: SoundParameters)
